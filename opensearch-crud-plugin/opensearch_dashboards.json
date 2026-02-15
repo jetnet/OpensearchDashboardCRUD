@@ -1,0 +1,17 @@
+{
+  "id": "opensearchCrudPlugin",
+  "version": "1.0.0",
+  "opensearchDashboardsVersion": "3.5.0",
+  "server": true,
+  "ui": true,
+  "requiredPlugins": [
+    "navigation",
+    "data"
+  ],
+  "optionalPlugins": [
+    "securityDashboards"
+  ],
+  "requiredBundles": [
+    "opensearchDashboardsReact"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "opensearch-crud-plugin",
+  "version": "1.0.0",
+  "description": "A feature-rich CRUD plugin for OpenSearch Dashboards with pagination, filtering, sorting, and bulk operations",
+  "license": "Apache-2.0",
+  "main": "target/server/index.js",
+  "browser": "target/public/index.js",
+  "opensearchDashboards": {
+    "version": "3.5.0",
+    "templateVersion": "1.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "build:server": "tsc -p tsconfig.build.json --outDir ./target/server --include server/**/*.ts common/**/*.ts",
+    "build:public": "tsc -p tsconfig.build.json --outDir ./target/public --include public/**/*.ts public/**/*.tsx common/**/*.ts",
+    "build-zip": "yarn build && zip -r opensearch-crud-plugin-$npm_package_version.zip build",
+    "package": "yarn build && yarn pack",
+    "release": "yarn build-zip",
+    "test": "jest --config test/jest.config.js",
+    "test:coverage": "jest --config test/jest.config.js --coverage",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.2",
+    "@testing-library/jest-dom": "^5.16.0",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.0",
+    "typescript": "^4.1.3",
+    "eslint": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
+    "jest": "^27.0.0",
+    "ts-jest": "^27.0.0"
+  },
+  "peerDependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "yarn": "^1.21.1"
+  },
+  "keywords": [
+    "opensearch",
+    "opensearch-dashboards",
+    "plugin",
+    "crud",
+    "data-management"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opensearch-project/opensearch-crud-plugin.git"
+  }
+}

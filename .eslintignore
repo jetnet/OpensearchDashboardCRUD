@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Build output
+target/
+build/
+dist/
+
+# Coverage reports
+coverage/
+
+# Generated files
+*.generated.ts
+*.generated.tsx
+
+# Configuration files
+*.config.js
+!.eslintrc.js
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test fixtures
+__fixtures__/
+__mocks__/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
