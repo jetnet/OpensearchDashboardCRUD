@@ -233,7 +233,12 @@ jobs:
 
       - name: Install Plugin
         run: |
-          # Install plugin into running OSD container
+          # The podman-compose mounts the local plugin directory, which conflicts
+          # with the zip installation. Remove the mounted plugin first.
+          echo "Removing conflicting mounted plugin..."
+          podman exec osim-dashboards rm -rf /usr/share/opensearch-dashboards/plugins/opensearch_index_manager
+          
+          # Install plugin from zip
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
           echo "Installing plugin from: $PLUGIN_ZIP"
           podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
@@ -243,21 +248,19 @@ jobs:
           echo "Restarting OSD container..."
           podman restart osim-dashboards
           
-          # Wait for OSD to be ready again with debugging
+          # Wait for OSD to be ready (max 3 attempts, fail fast)
           echo "Waiting for OSD to be ready..."
-          timeout 180 bash -c '
-            attempt=0
-            until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do
-              attempt=$((attempt + 1))
-              echo "Attempt $attempt: OSD not ready yet..."
-              # Show container status
-              podman ps -a --filter name=osim-dashboards --format "table {{.Names}}\t{{.Status}}\t{{.State}}" || true
-              # Show last 20 lines of logs
-              podman logs --tail 20 osim-dashboards 2>&1 || true
-              sleep 10
-            done
-            echo "OSD is ready!"
-          '
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt..."
+            if curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; then
+              echo "OSD is ready!"
+              exit 0
+            fi
+            podman logs --tail 10 osim-dashboards 2>&1 || true
+            sleep 10
+          done
+          echo "OSD failed to start after 3 attempts"
+          exit 1
 
       - name: Run API Tests
         run: |
@@ -355,7 +358,12 @@ jobs:
 
       - name: Install Plugin
         run: |
-          # Install plugin into running OSD container
+          # The podman-compose mounts the local plugin directory, which conflicts
+          # with the zip installation. Remove the mounted plugin first.
+          echo "Removing conflicting mounted plugin..."
+          podman exec osim-dashboards rm -rf /usr/share/opensearch-dashboards/plugins/opensearch_index_manager
+          
+          # Install plugin from zip
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
           echo "Installing plugin from: $PLUGIN_ZIP"
           podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
@@ -365,21 +373,19 @@ jobs:
           echo "Restarting OSD container..."
           podman restart osim-dashboards
           
-          # Wait for OSD to be ready again with debugging
+          # Wait for OSD to be ready (max 3 attempts, fail fast)
           echo "Waiting for OSD to be ready..."
-          timeout 180 bash -c '
-            attempt=0
-            until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do
-              attempt=$((attempt + 1))
-              echo "Attempt $attempt: OSD not ready yet..."
-              # Show container status
-              podman ps -a --filter name=osim-dashboards --format "table {{.Names}}\t{{.Status}}\t{{.State}}" || true
-              # Show last 20 lines of logs
-              podman logs --tail 20 osim-dashboards 2>&1 || true
-              sleep 10
-            done
-            echo "OSD is ready!"
-          '
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt..."
+            if curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; then
+              echo "OSD is ready!"
+              exit 0
+            fi
+            podman logs --tail 10 osim-dashboards 2>&1 || true
+            sleep 10
+          done
+          echo "OSD failed to start after 3 attempts"
+          exit 1
 
       - name: Install Functional Test Dependencies
         working-directory: ./functional-tests
