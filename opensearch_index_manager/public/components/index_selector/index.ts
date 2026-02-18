@@ -1,1 +1,1 @@
-export { IndexSelector } from './index_selector';
+export { IndexSelector } from "./index_selector";

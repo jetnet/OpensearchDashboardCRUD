@@ -1,4 +1,4 @@
-import { IRouter, IScopedClusterClient } from 'opensearch-dashboards/server';
+import { IRouter, IScopedClusterClient } from "opensearch-dashboards/server";
 
 // Server-side plugin context
 export interface ServerPluginContext {
@@ -19,6 +19,6 @@ export type IndexListResponse = Array<{
   index: string;
   health: string;
   status: string;
-  'docs.count': string;
-  'store.size': string;
+  "docs.count": string;
+  "store.size": string;
 }>;

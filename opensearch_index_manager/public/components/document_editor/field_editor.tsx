@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   EuiFieldText,
   EuiFieldNumber,
@@ -7,8 +7,8 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiText,
-} from '@elastic/eui';
-import { JsonValue, FlattenedField, FieldType } from '../../../common/types';
+} from "@elastic/eui";
+import { JsonValue, FlattenedField, FieldType } from "../../../common/types";
 
 interface FieldEditorProps {
   field: FlattenedField;
@@ -32,7 +32,7 @@ export const FieldEditor: React.FC<FieldEditorProps> = ({
       case FieldType.STRING:
         return (
           <EuiFieldText
-            value={String(field.value || '')}
+            value={String(field.value || "")}
             onChange={(e) => handleValueChange(e.target.value)}
             fullWidth
           />
@@ -78,7 +78,7 @@ export const FieldEditor: React.FC<FieldEditorProps> = ({
       default:
         return (
           <EuiFieldText
-            value={String(field.value || '')}
+            value={String(field.value || "")}
             onChange={(e) => handleValueChange(e.target.value)}
             fullWidth
           />
@@ -92,12 +92,12 @@ export const FieldEditor: React.FC<FieldEditorProps> = ({
     <EuiFlexGroup
       gutterSize="s"
       alignItems="center"
-      style={{ marginLeft: `${indentation}px`, marginBottom: '8px' }}
+      style={{ marginLeft: `${indentation}px`, marginBottom: "8px" }}
     >
-      <EuiFlexItem grow={false} style={{ minWidth: '150px' }}>
+      <EuiFlexItem grow={false} style={{ minWidth: "150px" }}>
         <EuiText size="s">
           <code>{field.key}</code>
-          <span style={{ marginLeft: '8px', color: '#666' }}>
+          <span style={{ marginLeft: "8px", color: "#666" }}>
             ({field.type})
           </span>
         </EuiText>

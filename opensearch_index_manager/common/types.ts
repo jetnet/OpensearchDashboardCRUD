@@ -19,10 +19,10 @@ export interface ApiError {
 
 export interface IndexInfo {
   index: string;
-  health: 'green' | 'yellow' | 'red';
-  status: 'open' | 'close';
-  'docs.count': string;
-  'store.size': string;
+  health: "green" | "yellow" | "red";
+  status: "open" | "close";
+  "docs.count": string;
+  "store.size": string;
   [key: string]: string;
 }
 
@@ -63,7 +63,7 @@ export interface MappingProperty {
 export interface IndexMapping {
   [indexName: string]: {
     mappings: {
-      dynamic?: boolean | 'strict';
+      dynamic?: boolean | "strict";
       _source?: {
         enabled?: boolean;
       };
@@ -76,12 +76,12 @@ export interface IndexMapping {
 // Document Types
 // ============================================================
 
-export type JsonValue = 
-  | string 
-  | number 
-  | boolean 
-  | null 
-  | JsonValue[] 
+export type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
   | { [key: string]: JsonValue };
 
 export interface Document {
@@ -122,7 +122,7 @@ export interface SearchRequest {
   query: Record<string, any>;
   from?: number;
   size?: number;
-  sort?: Array<Record<string, 'asc' | 'desc' | object>>;
+  sort?: Array<Record<string, "asc" | "desc" | object>>;
   _source?: string[] | boolean;
   aggs?: Record<string, any>;
 }
@@ -150,22 +150,22 @@ export interface SimpleQueryRequest {
 // ============================================================
 
 export enum FieldType {
-  STRING = 'string',
-  NUMBER = 'number',
-  BOOLEAN = 'boolean',
-  NULL = 'null',
-  ARRAY = 'array',
-  OBJECT = 'object',
-  DATE = 'date',
-  GEO_POINT = 'geo_point',
-  IP = 'ip',
-  KEYWORD = 'keyword',
-  TEXT = 'text',
-  INTEGER = 'integer',
-  LONG = 'long',
-  FLOAT = 'float',
-  DOUBLE = 'double',
-  NESTED = 'nested',
+  STRING = "string",
+  NUMBER = "number",
+  BOOLEAN = "boolean",
+  NULL = "null",
+  ARRAY = "array",
+  OBJECT = "object",
+  DATE = "date",
+  GEO_POINT = "geo_point",
+  IP = "ip",
+  KEYWORD = "keyword",
+  TEXT = "text",
+  INTEGER = "integer",
+  LONG = "long",
+  FLOAT = "float",
+  DOUBLE = "double",
+  NESTED = "nested",
 }
 
 export interface FlattenedField {
@@ -202,7 +202,7 @@ export interface AppState {
   currentPage: number;
   pageSize: number;
   sortField: string | null;
-  sortDirection: 'asc' | 'desc';
+  sortDirection: "asc" | "desc";
   searchQuery: Record<string, any> | null;
   selectedDocument: Document | null;
   isEditing: boolean;

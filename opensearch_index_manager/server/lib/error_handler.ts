@@ -1,4 +1,4 @@
-import { OpenSearchDashboardsResponseFactory } from 'opensearch-dashboards/server';
+import { OpenSearchDashboardsResponseFactory } from "opensearch-dashboards/server";
 
 interface OpenSearchError {
   meta?: {
@@ -18,8 +18,11 @@ export function errorHandler(
   error: OpenSearchError
 ) {
   const statusCode = error.meta?.statusCode || 500;
-  const errorType = error.meta?.body?.error?.type || 'unknown_error';
-  const errorReason = error.meta?.body?.error?.reason || error.message || 'An unknown error occurred';
+  const errorType = error.meta?.body?.error?.type || "unknown_error";
+  const errorReason =
+    error.meta?.body?.error?.reason ||
+    error.message ||
+    "An unknown error occurred";
 
   const errorResponse = {
     statusCode,

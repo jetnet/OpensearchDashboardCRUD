@@ -1,9 +1,6 @@
-import React from 'react';
-import {
-  EuiSelect,
-  EuiFormRow,
-} from '@elastic/eui';
-import { IndexInfo } from '../../../common/types';
+import React from "react";
+import { EuiSelect, EuiFormRow } from "@elastic/eui";
+import { IndexInfo } from "../../../common/types";
 
 interface IndexSelectorProps {
   indices: IndexInfo[];
@@ -17,10 +14,10 @@ export const IndexSelector: React.FC<IndexSelectorProps> = ({
   onChange,
 }) => {
   const options = [
-    { value: '', text: 'Select an index' },
+    { value: "", text: "Select an index" },
     ...indices.map((index) => ({
       value: index.index,
-      text: `${index.index} (${index['docs.count']} docs)`,
+      text: `${index.index} (${index["docs.count"]} docs)`,
     })),
   ];
 

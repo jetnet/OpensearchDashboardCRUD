@@ -1,6 +1,6 @@
-import { IRouter } from 'opensearch-dashboards/server';
-import { schema } from '@osd/config-schema';
-import { errorHandler } from '../lib/error_handler';
+import { IRouter } from "opensearch-dashboards/server";
+import { schema } from "@osd/config-schema";
+import { errorHandler } from "../lib/error_handler";
 
 // Schema for any JSON value - using any() for flexibility
 const jsonValueSchema = schema.any();
@@ -9,7 +9,7 @@ export function registerDocumentRoutes(router: IRouter) {
   // GET /api/opensearch_index_manager/indices/{index}/documents
   router.get(
     {
-      path: '/api/opensearch_index_manager/indices/{index}/documents',
+      path: "/api/opensearch_index_manager/indices/{index}/documents",
       validate: {
         params: schema.object({
           index: schema.string(),
@@ -26,7 +26,7 @@ export function registerDocumentRoutes(router: IRouter) {
         const client = context.core.opensearch.client.asCurrentUser;
         const { index } = request.params;
         const { from, size, sort } = request.query;
-        
+
         const result = await client.search({
           index,
           body: {
@@ -36,7 +36,7 @@ export function registerDocumentRoutes(router: IRouter) {
             query: { match_all: {} },
           },
         });
-        
+
         return response.ok({
           body: {
             total: result.body.hits.total,
@@ -57,7 +57,7 @@ export function registerDocumentRoutes(router: IRouter) {
   // GET /api/opensearch_index_manager/indices/{index}/documents/{id}
   router.get(
     {
-      path: '/api/opensearch_index_manager/indices/{index}/documents/{id}',
+      path: "/api/opensearch_index_manager/indices/{index}/documents/{id}",
       validate: {
         params: schema.object({
           index: schema.string(),
@@ -69,9 +69,9 @@ export function registerDocumentRoutes(router: IRouter) {
       try {
         const client = context.core.opensearch.client.asCurrentUser;
         const { index, id } = request.params;
-        
+
         const result = await client.get({ index, id });
-        
+
         return response.ok({
           body: {
             _id: result.body._id,
@@ -90,7 +90,7 @@ export function registerDocumentRoutes(router: IRouter) {
   // POST /api/opensearch_index_manager/indices/{index}/documents
   router.post(
     {
-      path: '/api/opensearch_index_manager/indices/{index}/documents',
+      path: "/api/opensearch_index_manager/indices/{index}/documents",
       validate: {
         params: schema.object({
           index: schema.string(),
@@ -106,14 +106,14 @@ export function registerDocumentRoutes(router: IRouter) {
         const client = context.core.opensearch.client.asCurrentUser;
         const { index } = request.params;
         const { id, document } = request.body;
-        
+
         const result = await client.index({
           index,
           id,
           body: document,
-          refresh: 'wait_for',
+          refresh: "wait_for",
         });
-        
+
         return response.ok({
           body: {
             _id: result.body._id,
@@ -131,7 +131,7 @@ export function registerDocumentRoutes(router: IRouter) {
   // PUT /api/opensearch_index_manager/indices/{index}/documents/{id}
   router.put(
     {
-      path: '/api/opensearch_index_manager/indices/{index}/documents/{id}',
+      path: "/api/opensearch_index_manager/indices/{index}/documents/{id}",
       validate: {
         params: schema.object({
           index: schema.string(),
@@ -147,14 +147,14 @@ export function registerDocumentRoutes(router: IRouter) {
         const client = context.core.opensearch.client.asCurrentUser;
         const { index, id } = request.params;
         const { document } = request.body;
-        
+
         const result = await client.index({
           index,
           id,
           body: document,
-          refresh: 'wait_for',
+          refresh: "wait_for",
         });
-        
+
         return response.ok({
           body: {
             _id: result.body._id,
@@ -172,7 +172,7 @@ export function registerDocumentRoutes(router: IRouter) {
   // DELETE /api/opensearch_index_manager/indices/{index}/documents/{id}
   router.delete(
     {
-      path: '/api/opensearch_index_manager/indices/{index}/documents/{id}',
+      path: "/api/opensearch_index_manager/indices/{index}/documents/{id}",
       validate: {
         params: schema.object({
           index: schema.string(),
@@ -184,13 +184,13 @@ export function registerDocumentRoutes(router: IRouter) {
       try {
         const client = context.core.opensearch.client.asCurrentUser;
         const { index, id } = request.params;
-        
+
         const result = await client.delete({
           index,
           id,
-          refresh: 'wait_for',
+          refresh: "wait_for",
         });
-        
+
         return response.ok({
           body: {
             _id: result.body._id,

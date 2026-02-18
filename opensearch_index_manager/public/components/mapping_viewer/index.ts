@@ -1,1 +1,1 @@
-export { MappingViewer } from './mapping_viewer';
+export { MappingViewer } from "./mapping_viewer";

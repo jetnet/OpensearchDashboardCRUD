@@ -1,4 +1,4 @@
-import { OpenSearchIndexManagerPlugin } from './plugin';
+import { OpenSearchIndexManagerPlugin } from "./plugin";
 
 export function plugin() {
   return new OpenSearchIndexManagerPlugin();

@@ -1,6 +1,6 @@
-import { IRouter } from 'opensearch-dashboards/server';
-import { schema } from '@osd/config-schema';
-import { errorHandler } from '../lib/error_handler';
+import { IRouter } from "opensearch-dashboards/server";
+import { schema } from "@osd/config-schema";
+import { errorHandler } from "../lib/error_handler";
 
 // Schema for any JSON value - using any() for flexibility
 const jsonValueSchema = schema.any();
@@ -9,7 +9,7 @@ export function registerSearchRoutes(router: IRouter) {
   // POST /api/opensearch_index_manager/indices/{index}/search
   router.post(
     {
-      path: '/api/opensearch_index_manager/indices/{index}/search',
+      path: "/api/opensearch_index_manager/indices/{index}/search",
       validate: {
         params: schema.object({
           index: schema.string(),
@@ -18,8 +18,12 @@ export function registerSearchRoutes(router: IRouter) {
           query: schema.recordOf(schema.string(), jsonValueSchema),
           from: schema.maybe(schema.number({ min: 0 })),
           size: schema.maybe(schema.number({ min: 1, max: 1000 })),
-          sort: schema.maybe(schema.arrayOf(schema.recordOf(schema.string(), schema.any()))),
-          _source: schema.maybe(schema.oneOf([schema.boolean(), schema.arrayOf(schema.string())])),
+          sort: schema.maybe(
+            schema.arrayOf(schema.recordOf(schema.string(), schema.any()))
+          ),
+          _source: schema.maybe(
+            schema.oneOf([schema.boolean(), schema.arrayOf(schema.string())])
+          ),
           aggs: schema.maybe(schema.recordOf(schema.string(), jsonValueSchema)),
         }),
       },
@@ -29,7 +33,7 @@ export function registerSearchRoutes(router: IRouter) {
         const client = context.core.opensearch.client.asCurrentUser;
         const { index } = request.params;
         const { query, from, size, sort, _source, aggs } = request.body;
-        
+
         const result = await client.search({
           index,
           body: {
@@ -41,7 +45,7 @@ export function registerSearchRoutes(router: IRouter) {
             aggs,
           },
         });
-        
+
         return response.ok({
           body: {
             took: result.body.took,
@@ -68,7 +72,7 @@ export function registerSearchRoutes(router: IRouter) {
   // POST /api/opensearch_index_manager/indices/{index}/query
   router.post(
     {
-      path: '/api/opensearch_index_manager/indices/{index}/query',
+      path: "/api/opensearch_index_manager/indices/{index}/query",
       validate: {
         params: schema.object({
           index: schema.string(),
@@ -86,21 +90,21 @@ export function registerSearchRoutes(router: IRouter) {
         const client = context.core.opensearch.client.asCurrentUser;
         const { index } = request.params;
         const { q, fields, from, size } = request.body;
-        
+
         const result = await client.search({
           index,
           body: {
             query: {
               query_string: {
                 query: q,
-                fields: fields || ['*'],
+                fields: fields || ["*"],
               },
             },
             from,
             size,
           },
         });
-        
+
         return response.ok({
           body: {
             took: result.body.took,

@@ -1,5 +1,5 @@
-import { NavigationPublicPluginStart } from '../../../src/plugins/navigation/public';
-import { DataPublicPluginStart } from '../../../src/plugins/data/public';
+import { NavigationPublicPluginStart } from "../../../src/plugins/navigation/public";
+import { DataPublicPluginStart } from "../../../src/plugins/data/public";
 
 // Plugin setup dependencies (from requiredPlugins)
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -1,8 +1,14 @@
-export const PLUGIN_ID = 'opensearch_index_manager';
-export const PLUGIN_NAME = 'Index Manager';
+export const PLUGIN_ID = "opensearch_index_manager";
+export const PLUGIN_NAME = "Index Manager";
 
-export const OSD_VERSIONS = ['2.19.0', '2.19.1', '2.19.2', '2.19.3', '2.19.4'] as const;
-export type OsdVersion = typeof OSD_VERSIONS[number];
+export const OSD_VERSIONS = [
+  "2.19.0",
+  "2.19.1",
+  "2.19.2",
+  "2.19.3",
+  "2.19.4",
+] as const;
+export type OsdVersion = (typeof OSD_VERSIONS)[number];
 
 export function parseOsdVersion(version: string): OsdVersion {
   const match = version.match(/^(\d+\.\d+\.\d+)/);

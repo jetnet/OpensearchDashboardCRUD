@@ -1,4 +1,4 @@
-import { JsonValue, FlattenedField, FieldType } from './types';
+import { JsonValue, FlattenedField, FieldType } from "./types";
 
 /**
  * Get the type of a JSON value
@@ -8,11 +8,16 @@ export function getValueType(value: JsonValue): FieldType {
   if (Array.isArray(value)) return FieldType.ARRAY;
   const typeofValue = typeof value;
   switch (typeofValue) {
-    case 'string': return FieldType.STRING;
-    case 'number': return FieldType.NUMBER;
-    case 'boolean': return FieldType.BOOLEAN;
-    case 'object': return FieldType.OBJECT;
-    default: return FieldType.STRING;
+    case "string":
+      return FieldType.STRING;
+    case "number":
+      return FieldType.NUMBER;
+    case "boolean":
+      return FieldType.BOOLEAN;
+    case "object":
+      return FieldType.OBJECT;
+    default:
+      return FieldType.STRING;
   }
 }
 
@@ -21,7 +26,7 @@ export function getValueType(value: JsonValue): FieldType {
  */
 export function flattenObject(
   obj: Record<string, JsonValue>,
-  parentPath = '',
+  parentPath = "",
   depth = 0
 ): FlattenedField[] {
   const fields: FlattenedField[] = [];
@@ -43,12 +48,18 @@ export function flattenObject(
 
     // Recursively flatten objects and arrays
     if (type === FieldType.OBJECT && value !== null) {
-      fields.push(...flattenObject(value as Record<string, JsonValue>, currentPath, depth + 1));
+      fields.push(
+        ...flattenObject(
+          value as Record<string, JsonValue>,
+          currentPath,
+          depth + 1
+        )
+      );
     } else if (type === FieldType.ARRAY) {
       (value as JsonValue[]).forEach((item, index) => {
         const arrayPath = `${currentPath}[${index}]`;
         const itemType = getValueType(item);
-        
+
         fields.push({
           path: arrayPath,
           key: `[${index}]`,
@@ -61,7 +72,13 @@ export function flattenObject(
         });
 
         if (itemType === FieldType.OBJECT && item !== null) {
-          fields.push(...flattenObject(item as Record<string, JsonValue>, arrayPath, depth + 2));
+          fields.push(
+            ...flattenObject(
+              item as Record<string, JsonValue>,
+              arrayPath,
+              depth + 2
+            )
+          );
         }
       });
     }
@@ -73,7 +90,9 @@ export function flattenObject(
 /**
  * Unflatten fields back into a nested object
  */
-export function unflattenObject(fields: FlattenedField[]): Record<string, JsonValue> {
+export function unflattenObject(
+  fields: FlattenedField[]
+): Record<string, JsonValue> {
   const result: Record<string, JsonValue> = {};
 
   // Sort by depth to build from leaves up
@@ -95,29 +114,33 @@ export function unflattenObject(fields: FlattenedField[]): Record<string, JsonVa
 /**
  * Set a value at a nested path
  */
-function setNestedValue(obj: Record<string, JsonValue>, path: string, value: JsonValue): void {
-  const parts = path.split('.');
+function setNestedValue(
+  obj: Record<string, JsonValue>,
+  path: string,
+  value: JsonValue
+): void {
+  const parts = path.split(".");
   let current: any = obj;
 
   for (let i = 0; i < parts.length - 1; i++) {
     const part = parts[i];
-    
+
     // Handle array notation like "items[0]"
     const arrayMatch = part.match(/^(.+)\[(\d+)\]$/);
-    
+
     if (arrayMatch) {
       const arrayKey = arrayMatch[1];
       const indexStr = arrayMatch[2];
       const index = parseInt(indexStr, 10);
-      
+
       if (!current[arrayKey]) {
         current[arrayKey] = [];
       }
-      
+
       if (!current[arrayKey][index]) {
         current[arrayKey][index] = {};
       }
-      
+
       current = current[arrayKey][index];
     } else {
       if (!current[part]) {
@@ -129,16 +152,16 @@ function setNestedValue(obj: Record<string, JsonValue>, path: string, value: Jso
 
   const lastPart = parts[parts.length - 1];
   const arrayMatch = lastPart.match(/^(.+)\[(\d+)\]$/);
-  
+
   if (arrayMatch) {
     const arrayKey = arrayMatch[1];
     const indexStr = arrayMatch[2];
     const index = parseInt(indexStr, 10);
-    
+
     if (!current[arrayKey]) {
       current[arrayKey] = [];
     }
-    
+
     current[arrayKey][index] = value;
   } else {
     current[lastPart] = value;

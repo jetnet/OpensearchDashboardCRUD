@@ -1,12 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 import {
   EuiPanel,
   EuiSpacer,
   EuiCodeBlock,
   EuiTextArea,
   EuiTextColor,
-} from '@elastic/eui';
-import { JsonValue } from '../../../common/types';
+} from "@elastic/eui";
+import { JsonValue } from "../../../common/types";
 
 interface JsonEditorProps {
   value: Record<string, JsonValue>;
@@ -19,7 +19,7 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({
   onChange,
   readOnly = false,
 }) => {
-  const [jsonText, setJsonText] = useState<string>(() => 
+  const [jsonText, setJsonText] = useState<string>(() =>
     JSON.stringify(value, null, 2)
   );
   const [parseError, setParseError] = useState<string | null>(null);
@@ -32,13 +32,13 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
     setJsonText(newText);
-    
+
     try {
       const parsed = JSON.parse(newText);
       setParseError(null);
       onChange(parsed);
     } catch (err) {
-      setParseError('Invalid JSON');
+      setParseError("Invalid JSON");
     }
   };
 
@@ -50,7 +50,7 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({
           <EuiSpacer size="s" />
         </>
       )}
-      
+
       {readOnly ? (
         <EuiCodeBlock language="json" isCopyable>
           {jsonText}

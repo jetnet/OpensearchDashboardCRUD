@@ -1,6 +1,12 @@
-import { PluginInitializerContext, CoreSetup, CoreStart, Plugin, Logger } from 'opensearch-dashboards/server';
-import { ConfigType } from '../config';
-import { registerRoutes } from './routes';
+import {
+  PluginInitializerContext,
+  CoreSetup,
+  CoreStart,
+  Plugin,
+  Logger,
+} from "opensearch-dashboards/server";
+import { ConfigType } from "../config";
+import { registerRoutes } from "./routes";
 
 export class OpenSearchIndexManagerServerPlugin implements Plugin<void, void> {
   private readonly logger: Logger;
@@ -10,10 +16,10 @@ export class OpenSearchIndexManagerServerPlugin implements Plugin<void, void> {
   }
 
   public setup(core: CoreSetup) {
-    this.logger.debug('OpenSearchIndexManagerServerPlugin: Setup');
+    this.logger.debug("OpenSearchIndexManagerServerPlugin: Setup");
 
     const router = core.http.createRouter();
-    
+
     // Register all API routes
     registerRoutes(router);
 
@@ -21,11 +27,11 @@ export class OpenSearchIndexManagerServerPlugin implements Plugin<void, void> {
   }
 
   public start(_core: CoreStart) {
-    this.logger.debug('OpenSearchIndexManagerServerPlugin: Start');
+    this.logger.debug("OpenSearchIndexManagerServerPlugin: Start");
     return {};
   }
 
   public stop() {
-    this.logger.debug('OpenSearchIndexManagerServerPlugin: Stop');
+    this.logger.debug("OpenSearchIndexManagerServerPlugin: Stop");
   }
 }

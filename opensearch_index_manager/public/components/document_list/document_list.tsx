@@ -1,9 +1,6 @@
-import React from 'react';
-import {
-  EuiBasicTable,
-  EuiText,
-} from '@elastic/eui';
-import { Document } from '../../../common/types';
+import React from "react";
+import { EuiBasicTable, EuiText } from "@elastic/eui";
+import { Document } from "../../../common/types";
 
 interface DocumentListProps {
   documents: Document[];
@@ -30,44 +27,44 @@ export const DocumentList: React.FC<DocumentListProps> = ({
 }) => {
   const columns = [
     {
-      field: '_id',
-      name: 'ID',
+      field: "_id",
+      name: "ID",
       sortable: true,
       truncateText: true,
-      width: '200px',
+      width: "200px",
     },
     {
-      field: '_source',
-      name: 'Content',
+      field: "_source",
+      name: "Content",
       render: (source: any) => {
-        const preview = JSON.stringify(source).slice(0, 100) + '...';
+        const preview = JSON.stringify(source).slice(0, 100) + "...";
         return <EuiText size="s">{preview}</EuiText>;
       },
     },
     {
-      field: '_score',
-      name: 'Score',
+      field: "_score",
+      name: "Score",
       sortable: true,
-      width: '100px',
-      render: (score: number | null) => score?.toFixed(2) || '-',
+      width: "100px",
+      render: (score: number | null) => score?.toFixed(2) || "-",
     },
     {
-      name: 'Actions',
-      width: '120px',
+      name: "Actions",
+      width: "120px",
       actions: [
         {
-          name: 'Edit',
-          description: 'Edit document',
-          icon: 'pencil',
-          type: 'icon',
+          name: "Edit",
+          description: "Edit document",
+          icon: "pencil",
+          type: "icon",
           onClick: (doc: Document) => onEdit(doc),
         },
         {
-          name: 'Delete',
-          description: 'Delete document',
-          icon: 'trash',
-          type: 'icon',
-          color: 'danger',
+          name: "Delete",
+          description: "Delete document",
+          icon: "trash",
+          type: "icon",
+          color: "danger",
           onClick: (doc: Document) => onDelete(doc),
         },
       ],
@@ -83,8 +80,8 @@ export const DocumentList: React.FC<DocumentListProps> = ({
 
   const sorting = {
     sort: {
-      field: '_id' as const,
-      direction: 'asc' as const,
+      field: "_id" as const,
+      direction: "asc" as const,
     },
   };
 
