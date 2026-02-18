@@ -10,9 +10,9 @@ export class OpenSearchIndexManagerPlugin implements Plugin<void, void> {
       order: 4000,
       euiIconType: "managementApp",
       category: {
-        id: "opensearch",
-        label: "OpenSearch Plugins",
-        order: 2000,
+        id: "management",
+        label: "Management",
+        order: 1000,
       },
       async mount(params: any) {
         // Dynamically import for code splitting
@@ -21,15 +21,6 @@ export class OpenSearchIndexManagerPlugin implements Plugin<void, void> {
         return renderApp(coreStart, {}, params);
       },
     });
-
-    // Register navigation link
-    core.chrome.navGroup.addNavLinksToGroup("management", [
-      {
-        id: PLUGIN_ID,
-        title: PLUGIN_NAME,
-        order: 4000,
-      },
-    ]);
   }
 
   public start(_core: CoreStart) {

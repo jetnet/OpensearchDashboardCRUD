@@ -6,9 +6,10 @@
 export const Selectors = {
   // Navigation and Plugin
   plugin: {
-    navLink: '[data-test-subj="navItem opensearch_index_manager"], a[href*="opensearch_index_manager"]',
-    appContainer: '[data-test-subj="opensearch_index_manager-app"]',
-    pageTitle: 'h1, [data-test-subj="pageTitle"]',
+    navLink: '[data-test-subj="navItem opensearchIndexManager"], a[href*="opensearchIndexManager"]',
+    appContainer: '[data-test-subj="opensearchIndexManager-app"]',
+    pageTitle: '[data-test-subj="pageTitle"]',
+    heading: 'h1',
     loadingIndicator: '[data-test-subj="loadingSpinner"], .euiLoadingSpinner',
     errorMessage: '[data-test-subj="errorMessage"], .euiCallOut--danger',
   },

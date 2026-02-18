@@ -6,8 +6,10 @@ import {
   EuiTabs,
   EuiTab,
   EuiSpacer,
-  EuiTreeView,
   EuiText,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiIcon,
 } from "@elastic/eui";
 import { IndexMapping, MappingProperty } from "../../../common/types";
 
@@ -23,34 +25,51 @@ export const MappingViewer: React.FC<MappingViewerProps> = ({ mapping }) => {
 
   const renderPropertyTree = (
     properties: Record<string, MappingProperty>,
-    path = ""
-  ): any[] => {
+    depth = 0
+  ): React.ReactNode => {
     return Object.entries(properties).map(([key, prop]) => {
-      const currentPath = path ? `${path}.${key}` : key;
       const hasChildren =
         prop.properties && Object.keys(prop.properties).length > 0;
+      const paddingLeft = depth * 20;
 
-      return {
-        label: (
-          <EuiText size="s">
-            <strong>{key}</strong>
-            <span style={{ marginLeft: "8px", color: "#666" }}>
-              {prop.type || "object"}
-            </span>
-          </EuiText>
-        ),
-        id: currentPath,
-        children:
-          hasChildren && prop.properties
-            ? renderPropertyTree(prop.properties, currentPath)
-            : undefined,
-      };
+      return (
+        <div key={key} style={{ marginBottom: "4px" }}>
+          <EuiFlexGroup
+            gutterSize="s"
+            alignItems="center"
+            style={{ paddingLeft: `${paddingLeft}px` }}
+          >
+            <EuiFlexItem grow={false}>
+              {hasChildren ? (
+                <EuiIcon type="folderClosed" size="s" />
+              ) : (
+                <EuiIcon type="document" size="s" />
+              )}
+            </EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiText size="s">
+                <strong>{key}</strong>
+              </EuiText>
+            </EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiText size="s" color="subdued">
+                {prop.type || "object"}
+              </EuiText>
+            </EuiFlexItem>
+          </EuiFlexGroup>
+          {hasChildren && prop.properties && (
+            <div style={{ marginTop: "4px" }}>
+              {renderPropertyTree(prop.properties, depth + 1)}
+            </div>
+          )}
+        </div>
+      );
     });
   };
 
-  const treeItems = mappingData?.properties
+  const treeContent = mappingData?.properties
     ? renderPropertyTree(mappingData.properties)
-    : [];
+    : null;
 
   return (
     <EuiPanel>
@@ -78,8 +97,8 @@ export const MappingViewer: React.FC<MappingViewerProps> = ({ mapping }) => {
       <EuiSpacer size="m" />
 
       {activeTab === "tree" &&
-        (treeItems.length > 0 ? (
-          <EuiTreeView items={treeItems} aria-label="Mapping tree" />
+        (treeContent ? (
+          <div>{treeContent}</div>
         ) : (
           <EuiText color="subdued">No properties found</EuiText>
         ))}

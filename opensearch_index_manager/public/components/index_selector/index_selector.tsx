@@ -22,12 +22,13 @@ export const IndexSelector: React.FC<IndexSelectorProps> = ({
   ];
 
   return (
-    <EuiFormRow label="Index">
+    <EuiFormRow label="Index" data-test-subj="indexSelector">
       <EuiSelect
         options={options}
         value={selectedIndex}
         onChange={(e) => onChange(e.target.value)}
         aria-label="Select index"
+        data-test-subj="indexSelectorSelect"
       />
     </EuiFormRow>
   );
