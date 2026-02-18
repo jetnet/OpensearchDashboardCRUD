@@ -235,11 +235,11 @@ jobs:
         run: |
           # Install plugin into running OSD container
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
-          podman cp "$PLUGIN_ZIP" opensearch-dashboards:/tmp/
-          podman exec opensearch-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
+          podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
+          podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
           
           # Restart OSD to load plugin
-          podman restart opensearch-dashboards
+          podman restart osim-dashboards
           
           # Wait for OSD to be ready again
           timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
@@ -268,7 +268,7 @@ jobs:
           echo "Test execution completed" > test-results/integration-test-summary.txt
           date >> test-results/integration-test-summary.txt
           podman logs opensearch > test-results/opensearch.log 2>&1 || true
-          podman logs opensearch-dashboards > test-results/opensearch-dashboards.log 2>&1 || true
+          podman logs osim-dashboards > test-results/osim-dashboards.log 2>&1 || true
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -342,11 +342,11 @@ jobs:
         run: |
           # Install plugin into running OSD container
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
-          podman cp "$PLUGIN_ZIP" opensearch-dashboards:/tmp/
-          podman exec opensearch-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
+          podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
+          podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
           
           # Restart OSD to load plugin
-          podman restart opensearch-dashboards
+          podman restart osim-dashboards
           
           # Wait for OSD to be ready again
           timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
