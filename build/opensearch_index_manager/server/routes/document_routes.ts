@@ -7,7 +7,7 @@ const jsonValueSchema: any = schema.oneOf([
   schema.string(),
   schema.number(),
   schema.boolean(),
-  schema.null,
+  schema.null(),
   schema.arrayOf(schema.lazy(() => jsonValueSchema)),
   schema.recordOf(schema.string(), schema.lazy(() => jsonValueSchema)),
 ]);
