@@ -47,10 +47,10 @@ concurrency:
 
 jobs:
   # ============================================================================
-  # Job 1: Lint and Type Check
+  # Job 1: Lint Check
   # ============================================================================
   lint-and-type-check:
-    name: Lint & Type Check
+    name: Lint Check
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -72,28 +72,12 @@ jobs:
       - name: Run ESLint
         working-directory: ./${{ env.PLUGIN_NAME }}
         run: yarn lint
-        continue-on-error: true
-
-      - name: Run TypeScript Type Check
-        working-directory: ./${{ env.PLUGIN_NAME }}
-        run: yarn tsc --noEmit
-        continue-on-error: true
 
       - name: Run Prettier Format Check
         working-directory: ./${{ env.PLUGIN_NAME }}
         run: yarn prettier --check "**/*.{ts,tsx,js,json,md}"
-        continue-on-error: true
 
-      - name: Upload Lint Results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: lint-results
-          path: |
-            ${{ env.PLUGIN_NAME }}/eslint-report.json
-            ${{ env.PLUGIN_NAME }}/typescript-check.log
-          retention-days: 30
-          if-no-files-found: ignore
+      # Note: Type checking is done in the Build job where OSD types are available
 
   # ============================================================================
   # Job 2: Build (Matrix Strategy)
