@@ -111,6 +111,7 @@ jobs:
 
     outputs:
       build_status: ${{ steps.build.outputs.status }}
+      plugin_version: ${{ steps.plugin_version.outputs.version }}
 
     steps:
       - name: Checkout OSD Source
@@ -211,7 +212,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.PLUGIN_NAME }}-latest-osd-${{ env.OSD_VERSION }}
+          name: ${{ env.PLUGIN_NAME }}-${{ needs.build.outputs.plugin_version }}-osd-${{ env.OSD_VERSION }}
           path: ./build
 
       - name: Start OpenSearch & OSD with Podman
@@ -318,7 +319,7 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.PLUGIN_NAME }}-latest-osd-${{ env.OSD_VERSION }}
+          name: ${{ env.PLUGIN_NAME }}-${{ needs.build.outputs.plugin_version }}-osd-${{ env.OSD_VERSION }}
           path: ./build
 
       - name: Start OpenSearch & OSD with Podman
