@@ -5,10 +5,7 @@
   "server": true,
   "ui": true,
   "requiredPlugins": [],
-  "optionalPlugins": [
-    "securityDashboards",
-    "dataSource"
-  ],
+  "optionalPlugins": ["securityDashboards", "dataSource"],
   "requiredBundles": [],
   "configPath": ["opensearchIndexManager"]
 }

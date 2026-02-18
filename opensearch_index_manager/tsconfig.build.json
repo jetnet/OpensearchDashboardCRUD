@@ -14,14 +14,6 @@
     "resolveJsonModule": true,
     "noEmitOnError": false
   },
-  "include": [
-    "common/**/*",
-    "server/**/*",
-    "config.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "target",
-    "**/*.d.ts"
-  ]
+  "include": ["common/**/*", "server/**/*", "config.ts"],
+  "exclude": ["node_modules", "target", "**/*.d.ts"]
 }

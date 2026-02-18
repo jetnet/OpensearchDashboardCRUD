@@ -14,11 +14,13 @@ A comprehensive OpenSearch Dashboards plugin that provides a CRUD interface for 
 ## Installation
 
 1. Clone or copy this plugin to the `plugins` directory of your OpenSearch Dashboards installation:
+
    ```bash
    cp -r opensearch_index_manager /path/to/opensearch-dashboards/plugins/
    ```
 
 2. Install dependencies and build:
+
    ```bash
    cd /path/to/opensearch-dashboards/plugins/opensearch_index_manager
    yarn install
@@ -44,11 +46,13 @@ opensearch_index_manager:
 ## API Endpoints
 
 ### Index Operations
+
 - `GET /api/opensearch_index_manager/indices` - List all indices
 - `GET /api/opensearch_index_manager/indices/{index}/mapping` - Get index mapping
 - `GET /api/opensearch_index_manager/indices/{index}/settings` - Get index settings
 
 ### Document Operations
+
 - `GET /api/opensearch_index_manager/indices/{index}/documents` - List documents
 - `GET /api/opensearch_index_manager/indices/{index}/documents/{id}` - Get document by ID
 - `POST /api/opensearch_index_manager/indices/{index}/documents` - Create document
@@ -56,6 +60,7 @@ opensearch_index_manager:
 - `DELETE /api/opensearch_index_manager/indices/{index}/documents/{id}` - Delete document
 
 ### Search Operations
+
 - `POST /api/opensearch_index_manager/indices/{index}/search` - Search with DSL
 - `POST /api/opensearch_index_manager/indices/{index}/query` - Simple query string search
 
@@ -71,6 +76,7 @@ opensearch_index_manager:
 ## Development
 
 ### Project Structure
+
 ```
 opensearch_index_manager/
 ├── common/           # Shared types and utilities
@@ -104,23 +110,25 @@ This plugin includes a complete Podman-based local testing infrastructure for de
 ### Prerequisites
 
 - **Podman** and **podman-compose**: Container runtime and orchestration
+
   ```bash
   # Fedora/RHEL
   sudo dnf install podman podman-compose
-  
+
   # Ubuntu/Debian
   sudo apt-get install podman podman-compose
-  
+
   # macOS
   brew install podman podman-compose
   ```
 
 - **Node.js** 18.x and **Yarn** 1.22.x: For building the plugin
+
   ```bash
   # Using nvm
   nvm install 18
   nvm use 18
-  
+
   # Install Yarn
   npm install -g yarn@1.22
   ```
@@ -130,28 +138,32 @@ This plugin includes a complete Podman-based local testing infrastructure for de
 ### Quick Start
 
 1. **Clone the repository** (if not already done):
+
    ```bash
    cd /path/to/opensearch_index_manager
    ```
 
 2. **Start the local environment**:
+
    ```bash
    ./scripts/start-local.sh [version]
-   
+
    # Examples:
    ./scripts/start-local.sh              # Start with OSD 2.19.0 (default)
    ./scripts/start-local.sh 2.19.2       # Start with OSD 2.19.2
    ```
 
    This will:
+
    - Start OpenSearch on port 9200
    - Start OpenSearch Dashboards on port 5601
    - Mount the plugin directory for live development
 
 3. **Create test data**:
+
    ```bash
    ./scripts/setup-test-data.sh
-   
+
    # Or with specific indices:
    ./scripts/setup-test-data.sh --nested --arrays
    ```
@@ -163,13 +175,13 @@ This plugin includes a complete Podman-based local testing infrastructure for de
 
 ### Development Scripts
 
-| Script | Description |
-|--------|-------------|
-| `./scripts/start-local.sh [version]` | Start OpenSearch and OSD containers |
-| `./scripts/stop-local.sh [-v]` | Stop containers (`-v` to remove volumes) |
-| `./scripts/build-plugin.sh [version\|--all]` | Build plugin for specific or all versions |
+| Script                                            | Description                               |
+| ------------------------------------------------- | ----------------------------------------- |
+| `./scripts/start-local.sh [version]`              | Start OpenSearch and OSD containers       |
+| `./scripts/stop-local.sh [-v]`                    | Stop containers (`-v` to remove volumes)  |
+| `./scripts/build-plugin.sh [version\|--all]`      | Build plugin for specific or all versions |
 | `./scripts/install-plugin.sh [-b] [-r] [version]` | Install plugin into running OSD container |
-| `./scripts/setup-test-data.sh [options]` | Create test indices with sample data |
+| `./scripts/setup-test-data.sh [options]`          | Create test indices with sample data      |
 
 ### Testing Against Fresh OpenSearch Cluster
 
@@ -238,6 +250,7 @@ The `setup-test-data.sh` script creates indices with various document types:
 ```
 
 **Created Indices:**
+
 - `osim-simple` - Flat documents with basic fields (text, keyword, date, boolean)
 - `osim-nested` - Deeply nested objects (profile > address > country, employment > manager)
 - `osim-arrays` - Arrays of objects (variants, reviews, suppliers)
@@ -260,6 +273,7 @@ podman logs osim-dashboards
 #### OpenSearch Fails to Start
 
 Usually due to memory or permissions:
+
 ```bash
 # Check system memory
 free -h
@@ -301,6 +315,7 @@ curl -X POST "localhost:9200/_bulk" \
 ### OSD Source Development
 
 For advanced development with hot-reloading and debugging, see [OSD_SOURCE_INTEGRATION.md](../OSD_SOURCE_INTEGRATION.md) for instructions on:
+
 - Cloning and setting up OSD source code
 - Linking the plugin for development
 - Running OSD in development mode
@@ -313,6 +328,7 @@ Apache 2.0
 ## Contributing
 
 Contributions are welcome! Please:
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes

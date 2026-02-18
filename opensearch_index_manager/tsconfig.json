@@ -30,15 +30,6 @@
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": [
-    "common/**/*",
-    "public/**/*",
-    "server/**/*",
-    "utils/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "target",
-    "build"
-  ]
+  "include": ["common/**/*", "public/**/*", "server/**/*", "utils/**/*"],
+  "exclude": ["node_modules", "target", "build"]
 }
