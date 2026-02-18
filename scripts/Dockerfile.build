@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Install yarn
-RUN npm install -g yarn@1.22.21
+# Install yarn (if not already present)
+RUN npm install -g yarn@1.22.21 --force || true
 
 # Build arguments
 ARG OSD_VERSION=2.19.0
