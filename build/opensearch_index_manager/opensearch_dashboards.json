@@ -4,17 +4,11 @@
   "opensearchDashboardsVersion": "2.19.0",
   "server": true,
   "ui": true,
-  "requiredPlugins": [
-    "navigation",
-    "data"
-  ],
+  "requiredPlugins": [],
   "optionalPlugins": [
     "securityDashboards",
     "dataSource"
   ],
-  "requiredBundles": [
-    "opensearchDashboardsUtils",
-    "opensearchDashboardsReact"
-  ],
+  "requiredBundles": [],
   "configPath": ["opensearch_index_manager"]
 }

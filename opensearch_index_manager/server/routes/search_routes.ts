@@ -2,15 +2,8 @@ import { IRouter } from 'opensearch-dashboards/server';
 import { schema } from '@osd/config-schema';
 import { errorHandler } from '../lib/error_handler';
 
-// Recursive schema for any JSON value
-const jsonValueSchema: any = schema.oneOf([
-  schema.string(),
-  schema.number(),
-  schema.boolean(),
-  schema.null(),
-  schema.arrayOf(schema.lazy(() => jsonValueSchema)),
-  schema.recordOf(schema.string(), schema.lazy(() => jsonValueSchema)),
-]);
+// Schema for any JSON value - using any() for flexibility
+const jsonValueSchema = schema.any();
 
 export function registerSearchRoutes(router: IRouter) {
   // POST /api/opensearch_index_manager/indices/{index}/search

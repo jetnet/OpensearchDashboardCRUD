@@ -14,7 +14,7 @@
 #   ./scripts/install-plugin.sh -r 2.19.0    # Install and restart OSD
 #   ./scripts/install-plugin.sh -b -r        # Build, install, and restart
 
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
@@ -32,7 +32,7 @@ NC='\033[0m'
 
 log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
-log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
+log_error() { echo -e "${RED}[ERROR]${NC} $1" >&2; }
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -69,13 +69,19 @@ while [[ $# -gt 0 ]]; do
 done
 
 VERSION="${VERSION:-2.19.0}"
-PLUGIN_ZIP="$PROJECT_ROOT/opensearch_index_manager-$VERSION.zip"
+PLUGIN_ZIP="$PROJECT_ROOT/dist/opensearch_index_manager-${VERSION}.zip"
 BUILD_DIR="$PROJECT_ROOT/build-$VERSION"
+
+# Check if podman is available
+if ! command -v podman &> /dev/null; then
+    log_error "podman is not installed"
+    exit 1
+fi
 
 # Check if container is running
 check_container() {
     if ! podman ps --format "{{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
-        log_error "Container '$CONTAINER_NAME' is not running"
+        log_error "Container '${CONTAINER_NAME}' is not running"
         log_info "Start it with: ./scripts/start-local.sh"
         exit 1
     fi
@@ -117,10 +123,15 @@ if [ -d "$BUILD_DIR" ]; then
     
     # Copy new plugin
     log_info "Copying plugin files to container..."
-    podman cp "$BUILD_DIR" "$CONTAINER_NAME:/usr/share/opensearch-dashboards/plugins/opensearch_index_manager"
+    podman cp "$BUILD_DIR" "$CONTAINER_NAME:/usr/share/opensearch-dashboards/plugins/opensearch_index_manager" || {
+        log_error "Failed to copy plugin files"
+        exit 1
+    }
     
     # Set proper permissions
-    podman exec "$CONTAINER_NAME" chown -R opensearch-dashboards:opensearch-dashboards /usr/share/opensearch-dashboards/plugins/opensearch_index_manager
+    podman exec "$CONTAINER_NAME" chown -R opensearch-dashboards:opensearch-dashboards /usr/share/opensearch-dashboards/plugins/opensearch_index_manager || {
+        log_warn "Failed to set permissions"
+    }
     
     log_info "Plugin files installed successfully"
 fi
@@ -130,7 +141,10 @@ if [ -f "$PLUGIN_ZIP" ] && [ ! -d "$BUILD_DIR" ]; then
     log_info "Installing from zip file..."
     
     # Copy zip to container
-    podman cp "$PLUGIN_ZIP" "$CONTAINER_NAME:/tmp/opensearch_index_manager.zip"
+    podman cp "$PLUGIN_ZIP" "$CONTAINER_NAME:/tmp/opensearch_index_manager.zip" || {
+        log_error "Failed to copy plugin zip"
+        exit 1
+    }
     
     # Install using OSD plugin CLI
     podman exec "$CONTAINER_NAME" sh -c '
@@ -139,9 +153,12 @@ if [ -f "$PLUGIN_ZIP" ] && [ ! -d "$BUILD_DIR" ]; then
         unzip -q /tmp/opensearch_index_manager.zip -d /tmp/ && \
         mv /tmp/build-* plugins/opensearch_index_manager && \
         chown -R opensearch-dashboards:opensearch-dashboards plugins/opensearch_index_manager
-    '
+    ' || {
+        log_error "Failed to install plugin from zip"
+        exit 1
+    }
     
-    podman exec "$CONTAINER_NAME" rm -f /tmp/opensearch_index_manager.zip
+    podman exec "$CONTAINER_NAME" rm -f /tmp/opensearch_index_manager.zip || true
 fi
 
 # Optimize/bundle if needed (OSD 2.x may need this)
@@ -154,7 +171,10 @@ podman exec "$CONTAINER_NAME" sh -c '
 # Restart if requested
 if [ "$RESTART" = true ]; then
     log_info "Restarting OpenSearch Dashboards..."
-    podman restart "$CONTAINER_NAME"
+    podman restart "$CONTAINER_NAME" || {
+        log_error "Failed to restart container"
+        exit 1
+    }
     
     # Wait for OSD to be ready
     log_info "Waiting for OSD to be ready..."

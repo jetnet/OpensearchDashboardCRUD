@@ -1,6 +1,6 @@
 import { PluginInitializerContext } from 'opensearch-dashboards/server';
 import { OpenSearchIndexManagerServerPlugin } from './plugin';
-import { configSchema, ConfigType } from '../config';
+import { configSchema, ConfigType } from './config';
 
 export const config = {
   schema: configSchema,

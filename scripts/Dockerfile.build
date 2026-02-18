@@ -18,8 +18,11 @@ RUN apt-get update && apt-get install -y \
     g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Install yarn (if not already present)
-RUN npm install -g yarn@1.22.21 --force || true
+# Enable corepack for yarn (recommended approach for Node 18+)
+RUN corepack enable && corepack prepare yarn@1.22.21 --activate
+
+# Create a non-root user for building
+RUN groupadd -r builder && useradd -r -g builder -m -d /home/builder builder
 
 # Build arguments
 ARG OSD_VERSION=2.19.0
@@ -39,6 +42,12 @@ RUN echo "Cloning OpenSearch Dashboards ${OSD_VERSION}..." && \
     https://github.com/opensearch-project/OpenSearch-Dashboards.git \
     osd-source
 
+# Set ownership of the build directory
+RUN chown -R builder:builder /build
+
+# Switch to non-root user
+USER builder
+
 # Set up OSD
 WORKDIR /build/osd-source
 
@@ -52,8 +61,8 @@ RUN echo "Bootstrapping OSD (this may take a while)..." && \
 # Create plugin directory
 RUN mkdir -p plugins/${PLUGIN_NAME}
 
-# Copy plugin files will be done at build time
-# The plugin source should be mounted or copied before running the build
+# Switch back to root for the entrypoint setup
+USER root
 
 # Create build script
 RUN cat > /build/build-plugin.sh << 'EOF'
@@ -76,28 +85,48 @@ if [ ! -d "/plugin-source" ]; then
     exit 1
 fi
 
-# Copy plugin source to OSD plugins directory
-echo "Copying plugin source..."
-cp -r /plugin-source/* /build/osd-source/plugins/${PLUGIN_NAME}/
-
-# Navigate to plugin directory
-cd /build/osd-source/plugins/${PLUGIN_NAME}
-
-# Install plugin dependencies (skip frozen-lockfile for container builds)
-if [ -f "yarn.lock" ]; then
-    echo "Installing plugin dependencies..."
-    rm -f yarn.lock
-    yarn install || true
+# Check if output directory exists
+if [ ! -d "/output" ]; then
+    echo "ERROR: Output directory not found at /output"
+    echo "Please mount output directory to /output"
+    exit 1
 fi
 
-# Build the plugin
-echo "Building plugin..."
-cd /build/osd-source/plugins/${PLUGIN_NAME}
-node ../../scripts/plugin_helpers build
+# Set ownership to builder user
+chown -R builder:builder /build/osd-source/plugins/${PLUGIN_NAME}
 
-# Rename the output
+# Copy plugin source to OSD plugins directory as builder user
+echo "Copying plugin source..."
+su - builder -c "cp -r /plugin-source/* /build/osd-source/plugins/${PLUGIN_NAME}/"
+
+# Navigate to plugin directory and install dependencies as builder
+echo "Installing plugin dependencies..."
+su - builder -c "cd /build/osd-source/plugins/${PLUGIN_NAME} && rm -f yarn.lock && yarn install --no-lockfile || true"
+
+# Build the plugin as builder
+echo "Building plugin..."
+su - builder -c "cd /build/osd-source/plugins/${PLUGIN_NAME} && node ../../scripts/plugin_helpers build" || {
+    echo "ERROR: Plugin build failed"
+    exit 1
+}
+
+# Check if build directory was created
+if [ ! -d "/build/osd-source/plugins/${PLUGIN_NAME}/build" ]; then
+    echo "ERROR: Build directory not found"
+    exit 1
+fi
+
+# Navigate to build directory and rename the output
 cd /build/osd-source/plugins/${PLUGIN_NAME}/build
-BUILT_ZIP=$(ls *.zip | head -1)
+
+# Find the built zip file
+BUILT_ZIP=$(ls *.zip 2>/dev/null | head -1)
+if [ -z "$BUILT_ZIP" ]; then
+    echo "ERROR: No zip file found in build directory"
+    ls -la
+    exit 1
+fi
+
 OUTPUT_NAME="${PLUGIN_NAME}-${PLUGIN_VERSION}-osd-${OSD_VERSION}.zip"
 mv "$BUILT_ZIP" "$OUTPUT_NAME"
 
@@ -105,10 +134,17 @@ mv "$BUILT_ZIP" "$OUTPUT_NAME"
 echo "Copying built plugin to /output..."
 cp "$OUTPUT_NAME" /output/
 
-echo "=============================================="
-echo "Build complete!"
-echo "Output: /output/${OUTPUT_NAME}"
-echo "=============================================="
+# Verify output
+if [ -f "/output/${OUTPUT_NAME}" ]; then
+    echo "=============================================="
+    echo "Build complete!"
+    echo "Output: /output/${OUTPUT_NAME}"
+    echo "Size: $(ls -lh /output/${OUTPUT_NAME} | awk '{print \$5}')"
+    echo "=============================================="
+else
+    echo "ERROR: Failed to copy output file"
+    exit 1
+fi
 EOF
 
 RUN chmod +x /build/build-plugin.sh

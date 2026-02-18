@@ -9,11 +9,25 @@
 #   ./scripts/start-local.sh              # Start with default version 2.19.0
 #   ./scripts/start-local.sh 2.19.2       # Start with version 2.19.2
 
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 OSD_VERSION="${1:-2.19.0}"
+
+# Fully qualified image references
+OPENSEARCH_IMAGE="docker.io/opensearchproject/opensearch:${OSD_VERSION}"
+DASHBOARDS_IMAGE="docker.io/opensearchproject/opensearch-dashboards:${OSD_VERSION}"
+
+# Colors
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
+log_error() { echo -e "${RED}[ERROR]${NC} $1" >&2; }
+log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 
 # Validate version
 VALID_VERSIONS=("2.19.0" "2.19.1" "2.19.2" "2.19.3" "2.19.4")
@@ -26,8 +40,8 @@ for v in "${VALID_VERSIONS[@]}"; do
 done
 
 if [ "$VERSION_VALID" = false ]; then
-    echo "Error: Invalid version '$OSD_VERSION'"
-    echo "Valid versions: ${VALID_VERSIONS[*]}"
+    log_error "Invalid version '$OSD_VERSION'"
+    log_error "Valid versions: ${VALID_VERSIONS[*]}"
     exit 1
 fi
 
@@ -35,18 +49,40 @@ echo "=============================================="
 echo "OpenSearch Index Manager - Local Development"
 echo "=============================================="
 echo "OSD Version: $OSD_VERSION"
+echo "OpenSearch Image: $OPENSEARCH_IMAGE"
+echo "Dashboards Image: $DASHBOARDS_IMAGE"
 echo ""
 
 # Check if podman-compose is available
 if ! command -v podman-compose &> /dev/null; then
-    echo "Error: podman-compose is not installed"
-    echo "Please install it: pip3 install podman-compose"
+    log_error "podman-compose is not installed"
+    log_error "Please install it: pip3 install podman-compose"
     exit 1
 fi
 
+# Check if podman is available and running
+if ! command -v podman &> /dev/null; then
+    log_error "podman is not installed"
+    exit 1
+fi
+
+if ! podman info &> /dev/null; then
+    log_error "Cannot connect to podman daemon. Is podman running?"
+    exit 1
+fi
+
+# Pre-pull images to avoid short-name resolution issues
+log_info "Pulling required images..."
+podman pull "$OPENSEARCH_IMAGE" || {
+    log_warn "Failed to pull OpenSearch image, will try to use cached version"
+}
+podman pull "$DASHBOARDS_IMAGE" || {
+    log_warn "Failed to pull Dashboards image, will try to use cached version"
+}
+
 # Create temporary compose file with correct version
 COMPOSE_FILE="$PROJECT_ROOT/.podman-compose.temp.yml"
-sed "s/opensearch-dashboards:2.19.0/opensearch-dashboards:$OSD_VERSION/g; s/opensearch:2.19.0/opensearch:$OSD_VERSION/g" "$PROJECT_ROOT/podman-compose.yml" > "$COMPOSE_FILE"
+sed "s|image: docker.io/opensearchproject/opensearch:2.19.0|image: ${OPENSEARCH_IMAGE}|g; s|image: docker.io/opensearchproject/opensearch-dashboards:2.19.0|image: ${DASHBOARDS_IMAGE}|g" "$PROJECT_ROOT/podman-compose.yml" > "$COMPOSE_FILE"
 
 cleanup() {
     rm -f "$COMPOSE_FILE"
@@ -55,13 +91,24 @@ trap cleanup EXIT
 
 cd "$PROJECT_ROOT"
 
-echo "Starting OpenSearch container..."
-podman-compose -f "$COMPOSE_FILE" up -d opensearch
+# Check if containers are already running
+if podman ps --format "{{.Names}}" | grep -qE "^osim-opensearch$|^osim-dashboards$"; then
+    log_warn "Some OSIM containers are already running"
+    log_info "Stop them first with: ./scripts/stop-local.sh"
+    exit 1
+fi
 
-echo "Waiting for OpenSearch to be healthy..."
+log_info "Starting OpenSearch container..."
+podman-compose -f "$COMPOSE_FILE" up -d opensearch || {
+    log_error "Failed to start OpenSearch container"
+    exit 1
+}
+
+log_info "Waiting for OpenSearch to be healthy..."
 for i in {1..30}; do
     if curl -s http://localhost:9200/_cluster/health > /dev/null 2>&1; then
-        echo "OpenSearch is ready!"
+        echo ""
+        log_info "OpenSearch is ready!"
         break
     fi
     echo -n "."
@@ -71,26 +118,38 @@ done
 # Check if OpenSearch is actually ready
 if ! curl -s http://localhost:9200/_cluster/health > /dev/null 2>&1; then
     echo ""
-    echo "Error: OpenSearch failed to start"
-    echo "Check logs with: podman logs osim-opensearch"
+    log_error "OpenSearch failed to start"
+    log_error "Check logs with: podman logs osim-opensearch"
     exit 1
 fi
 
 echo ""
-echo "Starting OpenSearch Dashboards..."
-podman-compose -f "$COMPOSE_FILE" up -d opensearch-dashboards
+log_info "Starting OpenSearch Dashboards..."
+podman-compose -f "$COMPOSE_FILE" up -d opensearch-dashboards || {
+    log_error "Failed to start OpenSearch Dashboards container"
+    exit 1
+}
 
 echo ""
-echo "Waiting for OpenSearch Dashboards to be ready..."
+log_info "Waiting for OpenSearch Dashboards to be ready..."
 for i in {1..60}; do
     if curl -s http://localhost:5601/api/status 2>/dev/null | grep -q '"state":"green\|"state":"yellow"'; then
         echo ""
-        echo "OpenSearch Dashboards is ready!"
+        log_info "OpenSearch Dashboards is ready!"
         break
     fi
     echo -n "."
     sleep 3
 done
+
+# Final check
+echo ""
+if curl -s http://localhost:5601/api/status 2>/dev/null | grep -q '"state":"green\|"state":"yellow"'; then
+    log_info "All services are running!"
+else
+    log_warn "OpenSearch Dashboards may still be starting..."
+    log_info "Check status with: curl http://localhost:5601/api/status"
+fi
 
 echo ""
 echo "=============================================="
