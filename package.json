@@ -5,11 +5,11 @@
   "scripts": {
     "build": "yarn plugin_helpers build",
     "lint": "yarn plugin_helpers lint",
-    "test": "yarn test:server && yarn test:browser",
+    "test": "jest",
     "plugin_helpers": "node ../../scripts/plugin_helpers",
     "kbn": "node ../../scripts/kbn",
     "start": "yarn plugin_helpers start",
-    "test:server": "yarn plugin_helpers test:server",
+    "test:server": "jest",
     "test:browser": "yarn plugin_helpers test:browser",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
@@ -18,8 +18,16 @@
     "uuid": "3.3.2"
   },
   "devDependencies": {
-    "@osd/plugin-helpers": "1.0.0",
-    "cypress": "12.17.4"
+    "@elastic/eui": "^113.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "cypress": "12.17.4",
+    "jest": "^30.2.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "opensearchDashboards": "2.11.0"
