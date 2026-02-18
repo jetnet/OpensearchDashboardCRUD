@@ -223,9 +223,13 @@ jobs:
           echo "Stopping containers to remove conflicting plugin mount..."
           podman-compose -f podman-compose.yml down
           
+          # Create Podman network for container communication
+          echo "Creating Podman network..."
+          podman network create osim-net
+          
           # Start only OpenSearch (without OSD plugin mount)
           echo "Starting OpenSearch..."
-          podman run -d --name osim-opensearch \
+          podman run -d --network osim-net --name osim-opensearch \
             -p 9200:9200 \
             -e cluster.name=osim-cluster \
             -e node.name=osim-node \
@@ -240,10 +244,10 @@ jobs:
           
           # Start OSD without plugin mount
           echo "Starting OSD without plugin mount..."
-          podman run -d --name osim-dashboards \
+          podman run -d --network osim-net \
+            --name osim-dashboards \
             -p 5601:5601 \
-            --link osim-opensearch:opensearch \
-            -e OPENSEARCH_HOSTS=["http://opensearch:9200"] \
+            -e "OPENSEARCH_HOSTS=[\"http://osim-opensearch:9200\"]" \
             -e DISABLE_SECURITY_DASHBOARDS_PLUGIN=true \
             opensearchproject/opensearch-dashboards:${{ env.OSD_VERSION }}
           
@@ -312,6 +316,8 @@ jobs:
         if: always()
         run: |
           podman-compose -f podman-compose.yml down -v || true
+          podman rm -f osim-dashboards osim-opensearch || true
+          podman network rm osim-net || true
           podman system prune -f || true
 
   # ============================================================================
@@ -376,9 +382,13 @@ jobs:
           echo "Stopping containers to remove conflicting plugin mount..."
           podman-compose -f podman-compose.yml down
           
+          # Create Podman network for container communication
+          echo "Creating Podman network..."
+          podman network create osim-net
+          
           # Start only OpenSearch (without OSD plugin mount)
           echo "Starting OpenSearch..."
-          podman run -d --name osim-opensearch \
+          podman run -d --network osim-net --name osim-opensearch \
             -p 9200:9200 \
             -e cluster.name=osim-cluster \
             -e node.name=osim-node \
@@ -393,10 +403,10 @@ jobs:
           
           # Start OSD without plugin mount
           echo "Starting OSD without plugin mount..."
-          podman run -d --name osim-dashboards \
+          podman run -d --network osim-net \
+            --name osim-dashboards \
             -p 5601:5601 \
-            --link osim-opensearch:opensearch \
-            -e OPENSEARCH_HOSTS=["http://opensearch:9200"] \
+            -e "OPENSEARCH_HOSTS=[\"http://osim-opensearch:9200\"]" \
             -e DISABLE_SECURITY_DASHBOARDS_PLUGIN=true \
             opensearchproject/opensearch-dashboards:${{ env.OSD_VERSION }}
           
@@ -476,6 +486,8 @@ jobs:
         if: always()
         run: |
           podman-compose -f podman-compose.yml down -v || true
+          podman rm -f osim-dashboards osim-opensearch || true
+          podman network rm osim-net || true
           podman system prune -f || true
 
   # ============================================================================
