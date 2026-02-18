@@ -145,13 +145,6 @@ jobs:
           mkdir -p osd-source/plugins/${{ env.PLUGIN_NAME }}
           cp -r plugin-source/${{ env.PLUGIN_NAME }}/* osd-source/plugins/${{ env.PLUGIN_NAME }}/
 
-      - name: Install Plugin Dependencies
-        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
-        run: |
-          # Remove yarn.lock to avoid conflicts with OSD linked packages
-          rm -f yarn.lock
-          yarn install
-
       - name: Build Plugin
         id: build
         working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
