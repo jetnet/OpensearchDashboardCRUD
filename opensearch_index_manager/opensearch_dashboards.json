@@ -10,5 +10,5 @@
     "dataSource"
   ],
   "requiredBundles": [],
-  "configPath": ["opensearch_index_manager"]
+  "configPath": ["opensearchIndexManager"]
 }
