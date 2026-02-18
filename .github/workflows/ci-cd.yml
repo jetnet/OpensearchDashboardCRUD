@@ -233,10 +233,38 @@ jobs:
 
       - name: Install Plugin
         run: |
-          # The podman-compose mounts the local plugin directory, which conflicts
-          # with the zip installation. Remove the mounted plugin first.
-          echo "Removing conflicting mounted plugin..."
-          podman exec osim-dashboards rm -rf /usr/share/opensearch-dashboards/plugins/opensearch_index_manager
+          # The podman-compose mounts the local plugin directory as read-only,
+          # which conflicts with the zip installation. Stop containers and 
+          # restart without the plugin mount.
+          echo "Stopping containers to remove conflicting plugin mount..."
+          podman-compose -f podman-compose.yml down
+          
+          # Start only OpenSearch (without OSD plugin mount)
+          echo "Starting OpenSearch..."
+          podman run -d --name osim-opensearch \
+            -p 9200:9200 \
+            -e cluster.name=osim-cluster \
+            -e node.name=osim-node \
+            -e discovery.type=single-node \
+            -e bootstrap.memory_lock=true \
+            -e OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m" \
+            -e DISABLE_SECURITY_PLUGIN=true \
+            opensearchproject/opensearch:${{ env.OPENSEARCH_VERSION }}
+          
+          # Wait for OpenSearch
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          # Start OSD without plugin mount
+          echo "Starting OSD without plugin mount..."
+          podman run -d --name osim-dashboards \
+            -p 5601:5601 \
+            --link osim-opensearch:opensearch \
+            -e OPENSEARCH_HOSTS=["http://opensearch:9200"] \
+            -e DISABLE_SECURITY_DASHBOARDS_PLUGIN=true \
+            opensearchproject/opensearch-dashboards:${{ env.OSD_VERSION }}
+          
+          # Wait for OSD to be ready
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
           
           # Install plugin from zip
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
@@ -245,7 +273,7 @@ jobs:
           podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
           
           # Restart OSD to load plugin
-          echo "Restarting OSD container..."
+          echo "Restarting OSD to load plugin..."
           podman restart osim-dashboards
           
           # Wait for OSD to be ready (max 3 attempts, fail fast)
@@ -358,10 +386,38 @@ jobs:
 
       - name: Install Plugin
         run: |
-          # The podman-compose mounts the local plugin directory, which conflicts
-          # with the zip installation. Remove the mounted plugin first.
-          echo "Removing conflicting mounted plugin..."
-          podman exec osim-dashboards rm -rf /usr/share/opensearch-dashboards/plugins/opensearch_index_manager
+          # The podman-compose mounts the local plugin directory as read-only,
+          # which conflicts with the zip installation. Stop containers and 
+          # restart without the plugin mount.
+          echo "Stopping containers to remove conflicting plugin mount..."
+          podman-compose -f podman-compose.yml down
+          
+          # Start only OpenSearch (without OSD plugin mount)
+          echo "Starting OpenSearch..."
+          podman run -d --name osim-opensearch \
+            -p 9200:9200 \
+            -e cluster.name=osim-cluster \
+            -e node.name=osim-node \
+            -e discovery.type=single-node \
+            -e bootstrap.memory_lock=true \
+            -e OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m" \
+            -e DISABLE_SECURITY_PLUGIN=true \
+            opensearchproject/opensearch:${{ env.OPENSEARCH_VERSION }}
+          
+          # Wait for OpenSearch
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          # Start OSD without plugin mount
+          echo "Starting OSD without plugin mount..."
+          podman run -d --name osim-dashboards \
+            -p 5601:5601 \
+            --link osim-opensearch:opensearch \
+            -e OPENSEARCH_HOSTS=["http://opensearch:9200"] \
+            -e DISABLE_SECURITY_DASHBOARDS_PLUGIN=true \
+            opensearchproject/opensearch-dashboards:${{ env.OSD_VERSION }}
+          
+          # Wait for OSD to be ready
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
           
           # Install plugin from zip
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
@@ -370,7 +426,7 @@ jobs:
           podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
           
           # Restart OSD to load plugin
-          echo "Restarting OSD container..."
+          echo "Restarting OSD to load plugin..."
           podman restart osim-dashboards
           
           # Wait for OSD to be ready (max 3 attempts, fail fast)
