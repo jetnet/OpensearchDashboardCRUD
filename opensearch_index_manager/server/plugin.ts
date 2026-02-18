@@ -20,7 +20,7 @@ export class OpenSearchIndexManagerServerPlugin implements Plugin<void, void> {
     return {};
   }
 
-  public start(core: CoreStart) {
+  public start(_core: CoreStart) {
     this.logger.debug('OpenSearchIndexManagerServerPlugin: Start');
     return {};
   }

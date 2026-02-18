@@ -32,9 +32,11 @@ export class OpenSearchIndexManagerPlugin implements Plugin<void, void> {
     ]);
   }
 
-  public start(core: CoreStart) {
+  public start(_core: CoreStart) {
     return {};
   }
 
-  public stop() {}
+  public stop() {
+    // Cleanup is handled automatically
+  }
 }

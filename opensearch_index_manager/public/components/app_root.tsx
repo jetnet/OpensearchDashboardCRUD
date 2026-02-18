@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CoreStart } from 'opensearch-dashboards/public';
 import {
   EuiPageTemplate,
@@ -22,7 +22,7 @@ interface AppRootProps {
   history: any;
 }
 
-export const AppRoot: React.FC<AppRootProps> = ({ core, deps, history }) => {
+export const AppRoot: React.FC<AppRootProps> = ({ core, deps: _deps, history: _history }) => {
   const httpService = new HttpService(core.http);
   const indexService = new IndexService(httpService);
   const documentService = new DocumentService(httpService);

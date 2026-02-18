@@ -1,11 +1,7 @@
 import React from 'react';
 import {
   EuiBasicTable,
-  EuiButtonIcon,
-  EuiBadge,
   EuiText,
-  EuiFlexGroup,
-  EuiFlexItem,
 } from '@elastic/eui';
 import { Document } from '../../../common/types';
 
@@ -99,7 +95,7 @@ export const DocumentList: React.FC<DocumentListProps> = ({
       loading={isLoading}
       pagination={pagination}
       sorting={sorting}
-      onChange={({ page, sort }: any) => {
+      onChange={({ page }: any) => {
         if (page) {
           onPageChange(page.index);
           onPageSizeChange(page.size);

@@ -13,7 +13,7 @@ export function flattenObject(obj: any, prefix = ''): Record<string, any> {
   const result: Record<string, any> = {};
 
   for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       const newKey = prefix ? `${prefix}.${key}` : key;
       const value = obj[key];
 
@@ -48,7 +48,7 @@ export function unflattenObject(obj: Record<string, any>): any {
   const result: any = {};
 
   for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       const value = obj[key];
       const keys = key.split('.');
       let current = result;

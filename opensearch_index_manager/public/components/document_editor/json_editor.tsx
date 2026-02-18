@@ -2,9 +2,6 @@ import React, { useState, useMemo } from 'react';
 import {
   EuiPanel,
   EuiSpacer,
-  EuiButton,
-  EuiFlexGroup,
-  EuiFlexItem,
   EuiCodeBlock,
   EuiTextArea,
   EuiTextColor,

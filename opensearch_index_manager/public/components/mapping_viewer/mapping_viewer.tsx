@@ -36,7 +36,7 @@ export const MappingViewer: React.FC<MappingViewerProps> = ({ mapping }) => {
           </EuiText>
         ),
         id: currentPath,
-        children: hasChildren ? renderPropertyTree(prop.properties!, currentPath) : undefined,
+        children: hasChildren && prop.properties ? renderPropertyTree(prop.properties, currentPath) : undefined,
       };
     });
   };
