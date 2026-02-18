@@ -12,9 +12,6 @@
     "securityDashboards",
     "dataSource"
   ],
-  "requiredBundles": [
-    "opensearchDashboardsUtils",
-    "opensearchDashboardsReact"
-  ],
+  "requiredBundles": [],
   "configPath": ["opensearch_index_manager"]
 }
