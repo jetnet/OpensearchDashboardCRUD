@@ -19,7 +19,7 @@ import { Document, IndexInfo } from "../../common/types";
 interface AppRootProps {
   core: CoreStart;
   deps: AppPluginStartDependencies;
-  history: any;
+  history?: any;
 }
 
 export const AppRoot: React.FC<AppRootProps> = ({

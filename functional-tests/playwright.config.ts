@@ -70,9 +70,22 @@ export default defineConfig({
   
   /* Configure projects for major browsers */
   projects: [
+    /* Smoke test project - runs first to verify plugin loads */
+    {
+      name: 'smoke',
+      testMatch: /plugin-installation\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--disable-web-security', '--disable-features=IsolateOrigins,site-per-process']
+        }
+      },
+    },
+    
     {
       name: 'chromium',
-      use: { 
+      dependencies: ['smoke'],
+      use: {
         ...devices['Desktop Chrome'],
         launchOptions: {
           args: ['--disable-web-security', '--disable-features=IsolateOrigins,site-per-process']
@@ -82,7 +95,8 @@ export default defineConfig({
     
     {
       name: 'firefox',
-      use: { 
+      dependencies: ['smoke'],
+      use: {
         ...devices['Desktop Firefox'],
         launchOptions: {
           firefoxUserPrefs: {
@@ -94,7 +108,8 @@ export default defineConfig({
     
     {
       name: 'webkit',
-      use: { 
+      dependencies: ['smoke'],
+      use: {
         ...devices['Desktop Safari'],
       },
     },
@@ -102,17 +117,20 @@ export default defineConfig({
     /* Test against mobile viewports */
     {
       name: 'Mobile Chrome',
+      dependencies: ['smoke'],
       use: { ...devices['Pixel 5'] },
     },
     
     /* Test against branded browsers */
     {
       name: 'Microsoft Edge',
+      dependencies: ['smoke'],
       use: { ...devices['Desktop Edge'], channel: 'msedge' },
     },
     
     {
       name: 'Google Chrome',
+      dependencies: ['smoke'],
       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     },
   ],

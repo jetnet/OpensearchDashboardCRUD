@@ -347,10 +347,13 @@ install_plugin() {
             fi \
         done && \
         ls -la \"\${PLUGIN_DIR}/\" && \
-        # Check for nested directory (double folder issue like opensearch_index_manager/opensearch_index_manager/)
+        # Check for nested directory (handle both snake_case and camelCase)
         if [ -d \"\${PLUGIN_DIR}/opensearch_index_manager\" ]; then \
             echo 'Found nested opensearch_index_manager directory, flattening...' && \
             mv \"\${PLUGIN_DIR}/opensearch_index_manager\"/* plugins/${PLUGIN_NAME}/; \
+        elif [ -d \"\${PLUGIN_DIR}/opensearchIndexManager\" ]; then \
+            echo 'Found nested opensearchIndexManager directory, flattening...' && \
+            mv \"\${PLUGIN_DIR}/opensearchIndexManager\"/* plugins/${PLUGIN_NAME}/; \
         elif [ -f \"\${PLUGIN_DIR}/opensearch_dashboards.json\" ]; then \
             # This is the plugin root directory, move all contents
             echo 'Found plugin root with opensearch_dashboards.json' && \
