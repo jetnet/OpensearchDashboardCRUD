@@ -41,22 +41,27 @@ The OpenSearch Dashboards CRUD Plugin provides a complete solution for managing 
 
 ### From Release (Recommended)
 
-1. Download the latest release zip from the [Releases page](https://github.com/jetnet/OpensearchDashboardCRUD/releases)
-
-2. Install the plugin using the OpenSearch Dashboards CLI:
+1. Install the plugin directly from GitHub releases:
 
 ```bash
 # Navigate to your OpenSearch Dashboards installation directory
 cd /path/to/opensearch-dashboards
 
-# Install the plugin
-./bin/opensearch-dashboards-plugin install file:///path/to/crudPlugin-1.0.0-osd-2.11.0.zip
+# Install the plugin from GitHub release
+./bin/opensearch-dashboards-plugin install https://github.com/jetnet/OpensearchDashboardCRUD/releases/download/v1.0.0/opensearch-crud-plugin-1.0.0.zip
 ```
 
-3. Restart OpenSearch Dashboards:
+2. Restart OpenSearch Dashboards:
 
 ```bash
 ./bin/opensearch-dashboards
+```
+
+Alternatively, download the release zip and install locally:
+
+```bash
+# Download from https://github.com/jetnet/OpensearchDashboardCRUD/releases
+./bin/opensearch-dashboards-plugin install file:///path/to/opensearch-crud-plugin-1.0.0.zip
 ```
 
 ### From Source (Requires OSD Source Tree)

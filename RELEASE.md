@@ -97,7 +97,7 @@ When a tag is pushed, the GitHub Actions workflow (`.github/workflows/release.ym
 
 ### 3. Verify Release
 
-1. Go to the [Releases](https://github.com/opensearch-project/opensearch-crud-plugin/releases) page
+1. Go to the [Releases](https://github.com/jetnet/OpensearchDashboardCRUD/releases) page
 2. Verify the release was created with the correct version
 3. Download and test the zip artifact
 
@@ -122,7 +122,7 @@ yarn release
 
 #### 4.2 Create GitHub Release
 
-1. Go to [Releases](https://github.com/opensearch-project/opensearch-crud-plugin/releases/new)
+1. Go to [Releases](https://github.com/jetnet/OpensearchDashboardCRUD/releases/new)
 2. Click "Draft a new release"
 3. Select the tag (or create one)
 4. Fill in the release title and notes

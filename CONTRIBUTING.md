@@ -45,14 +45,14 @@ Before you begin, ensure you have the following installed:
 2. Clone your fork locally:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/opensearch-crud-plugin.git
-cd opensearch-crud-plugin
+git clone https://github.com/jetnet/OpensearchDashboardCRUD.git
+cd OpensearchDashboardCRUD
 ```
 
 3. Add the upstream repository:
 
 ```bash
-git remote add upstream https://github.com/opensearch-project/opensearch-crud-plugin.git
+git remote add upstream https://github.com/jetnet/OpensearchDashboardCRUD.git
 ```
 
 4. Install dependencies:

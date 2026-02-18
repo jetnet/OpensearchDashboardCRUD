@@ -212,5 +212,5 @@ Thanks to all contributors who made this release possible!
 
 ---
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-crud-plugin/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/opensearch-project/opensearch-crud-plugin/releases/tag/v1.0.0
+[Unreleased]: https://github.com/jetnet/OpensearchDashboardCRUD/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/jetnet/OpensearchDashboardCRUD/releases/tag/v1.0.0
