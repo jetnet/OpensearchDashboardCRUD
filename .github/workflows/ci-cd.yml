@@ -147,7 +147,10 @@ jobs:
 
       - name: Install Plugin Dependencies
         working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
-        run: yarn install --frozen-lockfile
+        run: |
+          # Remove yarn.lock to avoid conflicts with OSD linked packages
+          rm -f yarn.lock
+          yarn install
 
       - name: Build Plugin
         id: build
