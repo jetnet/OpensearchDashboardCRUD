@@ -235,14 +235,29 @@ jobs:
         run: |
           # Install plugin into running OSD container
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
+          echo "Installing plugin from: $PLUGIN_ZIP"
           podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
           podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
           
           # Restart OSD to load plugin
+          echo "Restarting OSD container..."
           podman restart osim-dashboards
           
-          # Wait for OSD to be ready again
-          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          # Wait for OSD to be ready again with debugging
+          echo "Waiting for OSD to be ready..."
+          timeout 180 bash -c '
+            attempt=0
+            until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do
+              attempt=$((attempt + 1))
+              echo "Attempt $attempt: OSD not ready yet..."
+              # Show container status
+              podman ps -a --filter name=osim-dashboards --format "table {{.Names}}\t{{.Status}}\t{{.State}}" || true
+              # Show last 20 lines of logs
+              podman logs --tail 20 osim-dashboards 2>&1 || true
+              sleep 10
+            done
+            echo "OSD is ready!"
+          '
 
       - name: Run API Tests
         run: |
@@ -342,14 +357,29 @@ jobs:
         run: |
           # Install plugin into running OSD container
           PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
+          echo "Installing plugin from: $PLUGIN_ZIP"
           podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
           podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
           
           # Restart OSD to load plugin
+          echo "Restarting OSD container..."
           podman restart osim-dashboards
           
-          # Wait for OSD to be ready again
-          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          # Wait for OSD to be ready again with debugging
+          echo "Waiting for OSD to be ready..."
+          timeout 180 bash -c '
+            attempt=0
+            until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do
+              attempt=$((attempt + 1))
+              echo "Attempt $attempt: OSD not ready yet..."
+              # Show container status
+              podman ps -a --filter name=osim-dashboards --format "table {{.Names}}\t{{.Status}}\t{{.State}}" || true
+              # Show last 20 lines of logs
+              podman logs --tail 20 osim-dashboards 2>&1 || true
+              sleep 10
+            done
+            echo "OSD is ready!"
+          '
 
       - name: Install Functional Test Dependencies
         working-directory: ./functional-tests
