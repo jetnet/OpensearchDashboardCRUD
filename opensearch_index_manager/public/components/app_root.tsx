@@ -85,7 +85,7 @@ export const AppRoot: React.FC<AppRootProps> = ({
       });
       setDocuments(result.hits);
       setTotalDocuments(
-        typeof result.total === "number" ? result.total : result.total.value,
+        typeof result.total === "number" ? result.total : result.total.value
       );
     } catch (error) {
       showToast("Error loading documents", "danger");
@@ -127,7 +127,7 @@ export const AppRoot: React.FC<AppRootProps> = ({
 
     if (
       window.confirm(
-        `Are you sure you want to delete document ${document._id}?`,
+        `Are you sure you want to delete document ${document._id}?`
       )
     ) {
       try {
@@ -151,7 +151,7 @@ export const AppRoot: React.FC<AppRootProps> = ({
         await documentService.updateDocument(
           selectedIndex,
           editingDocument._id,
-          documentData,
+          documentData
         );
         showToast("Document updated successfully", "success");
       }
