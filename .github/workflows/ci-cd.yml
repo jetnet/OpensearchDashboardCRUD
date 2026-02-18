@@ -342,8 +342,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: functional-tests/package-lock.json
 
       - name: Install Podman
         run: |
