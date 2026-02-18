@@ -1,0 +1,27 @@
+{
+  "name": "opensearch-dashboards-crud",
+  "version": "1.0.0",
+  "description": "A Generic Entity Management plugin allowing CRUD operations on entities stored in an OpenSearch index.",
+  "scripts": {
+    "build": "yarn plugin_helpers build",
+    "lint": "yarn plugin_helpers lint",
+    "test": "yarn test:server && yarn test:browser",
+    "plugin_helpers": "node ../../scripts/plugin_helpers",
+    "kbn": "node ../../scripts/kbn",
+    "start": "yarn plugin_helpers start",
+    "test:server": "yarn plugin_helpers test:server",
+    "test:browser": "yarn plugin_helpers test:browser",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "dependencies": {
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {
+    "@osd/plugin-helpers": "1.0.0",
+    "cypress": "12.17.4"
+  },
+  "engines": {
+    "opensearchDashboards": "2.11.0"
+  }
+}

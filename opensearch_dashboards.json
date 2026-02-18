@@ -1,0 +1,16 @@
+{
+  "id": "osdCrud",
+  "version": "1.0.0",
+  "opensearchDashboardsVersion": "2.11.0",
+  "server": true,
+  "ui": true,
+  "requiredPlugins": ["navigation"],
+  "uiExports": {
+    "app": {
+      "title": "Entity Management",
+      "description": "Manage generic entities",
+      "main": "plugins/osdCrud/app",
+      "category": "management"
+    }
+  }
+}
