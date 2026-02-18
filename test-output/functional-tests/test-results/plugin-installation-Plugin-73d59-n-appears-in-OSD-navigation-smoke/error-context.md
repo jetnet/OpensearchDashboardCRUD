@@ -1,0 +1,7 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - img "OpenSearch Dashboards logo" [ref=e5]
+  - generic [ref=e6]: Loading OpenSearch Dashboards
+```

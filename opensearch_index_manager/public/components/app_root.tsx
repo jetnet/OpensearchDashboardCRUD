@@ -167,8 +167,8 @@ export const AppRoot: React.FC<AppRootProps> = ({
   };
 
   return (
-    <EuiPageTemplate restrictWidth={false}>
-      <EuiPageTemplate.Header>
+    <EuiPageTemplate restrictWidth={false} data-test-subj="opensearch_index_manager-app">
+      <EuiPageTemplate.Header data-test-subj="opensearch_index_manager-header">
         <EuiFlexGroup alignItems="center">
           <EuiFlexItem>
             <h1>Index Manager</h1>
@@ -183,7 +183,7 @@ export const AppRoot: React.FC<AppRootProps> = ({
         </EuiFlexGroup>
       </EuiPageTemplate.Header>
 
-      <EuiPageTemplate.Section>
+      <EuiPageTemplate.Section data-test-subj="mainContent">
         <EuiFlexGroup justifyContent="flexEnd">
           <EuiFlexItem grow={false}>
             <EuiButton

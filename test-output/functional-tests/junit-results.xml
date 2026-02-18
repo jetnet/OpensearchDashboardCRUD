@@ -1,0 +1,2026 @@
+<testsuites id="" name="" tests="428" failures="4" skipped="424" errors="0" time="68.066255">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="smoke" tests="8" failures="4" skipped="4" time="197.78" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="43.906">
+<failure message="plugin-installation.spec.ts:16:7 plugin appears in OSD navigation" type="FAILURE">
+<![CDATA[  [smoke] › plugin-installation.spec.ts:16:7 › Plugin Installation › plugin appears in OSD navigation 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('[data-test-subj="navItem opensearch_index_manager"], a[href*="opensearch_index_manager"]')
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for locator('[data-test-subj="navItem opensearch_index_manager"], a[href*="opensearch_index_manager"]')
+
+
+      19 |     
+      20 |     // The link should be visible in the navigation
+    > 21 |     await expect(navLink).toBeVisible();
+         |                           ^
+      22 |     
+      23 |     // Verify the link text contains our plugin name
+      24 |     const linkText = await navLink.textContent();
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27
+
+    Error Context: ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('[data-test-subj="navItem opensearch_index_manager"], a[href*="opensearch_index_manager"]')
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 10000ms
+      - waiting for locator('[data-test-subj="navItem opensearch_index_manager"], a[href*="opensearch_index_manager"]')
+
+
+      19 |     
+      20 |     // The link should be visible in the navigation
+    > 21 |     await expect(navLink).toBeVisible();
+         |                           ^
+      22 |     
+      23 |     // Verify the link text contains our plugin name
+      24 |     const linkText = await navLink.textContent();
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke/error-context.md]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/video.webm]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/error-context.md]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="47.396">
+<failure message="plugin-installation.spec.ts:28:7 plugin navigation works" type="FAILURE">
+<![CDATA[  [smoke] › plugin-installation.spec.ts:28:7 › Plugin Installation › plugin navigation works ───────
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for locator('[data-test-subj="navItem opensearch_index_manager"], a[href*="opensearch_index_manager"]')
+
+
+      29 |     // Click on the plugin navigation link
+      30 |     const navLink = page.locator(Selectors.plugin.navLink);
+    > 31 |     await navLink.click();
+         |                   ^
+      32 |
+      33 |     // Wait for navigation to complete
+      34 |     await page.waitForLoadState('networkidle');
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:31:19
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test was interrupted.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke/error-context.md]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/video.webm]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="53.248">
+<failure message="plugin-installation.spec.ts:40:7 plugin loads without errors" type="FAILURE">
+<![CDATA[  [smoke] › plugin-installation.spec.ts:40:7 › Plugin Installation › plugin loads without errors ───
+
+    TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-test-subj="opensearch_index_manager-app"]') to be visible
+
+
+       at ../utils/test-helpers.ts:59
+
+      57 | export async function waitForPluginToLoad(page: Page, timeout: number = 30000): Promise<void> {
+      58 |   // Wait for the app container
+    > 59 |   await page.waitForSelector(Selectors.plugin.appContainer, { 
+         |              ^
+      60 |     state: 'visible', 
+      61 |     timeout 
+      62 |   });
+        at waitForPluginToLoad (/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts:59:14)
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:45:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test was interrupted.
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke/error-context.md]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/video.webm]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="53.23">
+<failure message="plugin-installation.spec.ts:55:7 plugin page has correct title" type="FAILURE">
+<![CDATA[  [smoke] › plugin-installation.spec.ts:55:7 › Plugin Installation › plugin page has correct title ─
+
+    TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-test-subj="opensearch_index_manager-app"]') to be visible
+
+
+       at ../utils/test-helpers.ts:59
+
+      57 | export async function waitForPluginToLoad(page: Page, timeout: number = 30000): Promise<void> {
+      58 |   // Wait for the app container
+    > 59 |   await page.waitForSelector(Selectors.plugin.appContainer, { 
+         |              ^
+      60 |     state: 'visible', 
+      61 |     timeout 
+      62 |   });
+        at waitForPluginToLoad (/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts:59:14)
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:58:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test was interrupted.
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke/error-context.md]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/video.webm]]
+
+[[ATTACHMENT|test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Plugin Installation › no console errors on plugin load" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin components are rendered" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin responds to browser back button" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin is accessible via direct URL" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="chromium" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document with auto-generated ID" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document using JSON editor" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › cancel create does not save document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Read Document › view document displays correct fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › update document fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › cancel update does not save changes" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › delete document with confirmation" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › cancel delete keeps document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-list.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="chromium" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document count is displayed" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination works - next and previous" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › page size change works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › sorting by field works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › search functionality works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › empty results handling" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list shows correct columns" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document actions are available" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination shows correct page numbers" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › showing X of Y documents text is correct" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list updates after refresh" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting an index loads its mapping" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › document count updates when selecting index" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting different indices updates the view" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index refresh functionality works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › empty state when no indices exist" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › search within index dropdown works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › clearing index selection works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index dropdown shows correct index names" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting index persists on page refresh" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping tree view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field names are displayed correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type indicators are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › expand and collapse mapping fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping JSON view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › nested mapping displays nested structure" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping updates when changing indices" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type badges are color-coded" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › object and nested types are distinguished" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping shows correct field count" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field paths are displayed for nested fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › numeric type variations are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping viewer is responsive to window size" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="chromium" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › expand and collapse nested objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › edit nested field values" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › add new nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › display array fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › edit array elements" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › add array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › remove array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › nested array objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › display deeply nested structure" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › edit deeply nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › switch to JSON editor mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › edit document in JSON mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › no data loss when switching between modes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › number fields accept numeric input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › boolean fields render as checkboxes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › date fields accept date input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › no console errors on plugin load" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin components are rendered" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin responds to browser back button" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin is accessible via direct URL" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="firefox" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document with auto-generated ID" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document using JSON editor" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › cancel create does not save document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Read Document › view document displays correct fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › update document fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › cancel update does not save changes" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › delete document with confirmation" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › cancel delete keeps document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-list.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="firefox" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document count is displayed" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination works - next and previous" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › page size change works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › sorting by field works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › search functionality works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › empty results handling" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list shows correct columns" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document actions are available" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination shows correct page numbers" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › showing X of Y documents text is correct" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list updates after refresh" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="firefox" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting an index loads its mapping" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › document count updates when selecting index" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting different indices updates the view" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index refresh functionality works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › empty state when no indices exist" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › search within index dropdown works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › clearing index selection works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index dropdown shows correct index names" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting index persists on page refresh" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="firefox" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping tree view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field names are displayed correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type indicators are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › expand and collapse mapping fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping JSON view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › nested mapping displays nested structure" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping updates when changing indices" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type badges are color-coded" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › object and nested types are distinguished" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping shows correct field count" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field paths are displayed for nested fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › numeric type variations are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping viewer is responsive to window size" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="firefox" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › expand and collapse nested objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › edit nested field values" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › add new nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › display array fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › edit array elements" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › add array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › remove array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › nested array objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › display deeply nested structure" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › edit deeply nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › switch to JSON editor mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › edit document in JSON mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › no data loss when switching between modes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › number fields accept numeric input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › boolean fields render as checkboxes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › date fields accept date input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="firefox" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › no console errors on plugin load" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin components are rendered" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin responds to browser back button" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin is accessible via direct URL" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="webkit" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document with auto-generated ID" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document using JSON editor" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › cancel create does not save document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Read Document › view document displays correct fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › update document fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › cancel update does not save changes" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › delete document with confirmation" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › cancel delete keeps document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-list.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="webkit" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document count is displayed" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination works - next and previous" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › page size change works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › sorting by field works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › search functionality works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › empty results handling" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list shows correct columns" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document actions are available" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination shows correct page numbers" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › showing X of Y documents text is correct" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list updates after refresh" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="webkit" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting an index loads its mapping" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › document count updates when selecting index" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting different indices updates the view" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index refresh functionality works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › empty state when no indices exist" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › search within index dropdown works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › clearing index selection works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index dropdown shows correct index names" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting index persists on page refresh" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="webkit" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping tree view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field names are displayed correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type indicators are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › expand and collapse mapping fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping JSON view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › nested mapping displays nested structure" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping updates when changing indices" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type badges are color-coded" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › object and nested types are distinguished" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping shows correct field count" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field paths are displayed for nested fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › numeric type variations are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping viewer is responsive to window size" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="webkit" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › expand and collapse nested objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › edit nested field values" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › add new nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › display array fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › edit array elements" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › add array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › remove array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › nested array objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › display deeply nested structure" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › edit deeply nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › switch to JSON editor mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › edit document in JSON mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › no data loss when switching between modes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › number fields accept numeric input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › boolean fields render as checkboxes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › date fields accept date input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="webkit" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › no console errors on plugin load" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin components are rendered" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin responds to browser back button" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin is accessible via direct URL" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Mobile Chrome" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document with auto-generated ID" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document using JSON editor" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › cancel create does not save document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Read Document › view document displays correct fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › update document fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › cancel update does not save changes" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › delete document with confirmation" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › cancel delete keeps document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-list.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Mobile Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document count is displayed" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination works - next and previous" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › page size change works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › sorting by field works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › search functionality works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › empty results handling" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list shows correct columns" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document actions are available" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination shows correct page numbers" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › showing X of Y documents text is correct" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list updates after refresh" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Mobile Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting an index loads its mapping" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › document count updates when selecting index" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting different indices updates the view" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index refresh functionality works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › empty state when no indices exist" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › search within index dropdown works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › clearing index selection works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index dropdown shows correct index names" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting index persists on page refresh" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping tree view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field names are displayed correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type indicators are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › expand and collapse mapping fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping JSON view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › nested mapping displays nested structure" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping updates when changing indices" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type badges are color-coded" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › object and nested types are distinguished" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping shows correct field count" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field paths are displayed for nested fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › numeric type variations are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping viewer is responsive to window size" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Mobile Chrome" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › expand and collapse nested objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › edit nested field values" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › add new nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › display array fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › edit array elements" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › add array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › remove array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › nested array objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › display deeply nested structure" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › edit deeply nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › switch to JSON editor mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › edit document in JSON mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › no data loss when switching between modes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › number fields accept numeric input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › boolean fields render as checkboxes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › date fields accept date input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Mobile Chrome" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › no console errors on plugin load" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin components are rendered" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin responds to browser back button" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin is accessible via direct URL" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Microsoft Edge" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document with auto-generated ID" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document using JSON editor" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › cancel create does not save document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Read Document › view document displays correct fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › update document fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › cancel update does not save changes" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › delete document with confirmation" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › cancel delete keeps document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-list.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Microsoft Edge" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document count is displayed" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination works - next and previous" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › page size change works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › sorting by field works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › search functionality works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › empty results handling" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list shows correct columns" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document actions are available" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination shows correct page numbers" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › showing X of Y documents text is correct" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list updates after refresh" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Microsoft Edge" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting an index loads its mapping" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › document count updates when selecting index" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting different indices updates the view" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index refresh functionality works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › empty state when no indices exist" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › search within index dropdown works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › clearing index selection works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index dropdown shows correct index names" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting index persists on page refresh" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Microsoft Edge" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping tree view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field names are displayed correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type indicators are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › expand and collapse mapping fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping JSON view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › nested mapping displays nested structure" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping updates when changing indices" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type badges are color-coded" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › object and nested types are distinguished" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping shows correct field count" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field paths are displayed for nested fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › numeric type variations are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping viewer is responsive to window size" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Microsoft Edge" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › expand and collapse nested objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › edit nested field values" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › add new nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › display array fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › edit array elements" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › add array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › remove array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › nested array objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › display deeply nested structure" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › edit deeply nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › switch to JSON editor mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › edit document in JSON mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › no data loss when switching between modes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › number fields accept numeric input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › boolean fields render as checkboxes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › date fields accept date input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Microsoft Edge" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › no console errors on plugin load" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin components are rendered" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin responds to browser back button" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin is accessible via direct URL" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Google Chrome" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document with auto-generated ID" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › create document using JSON editor" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Create Document › cancel create does not save document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Read Document › view document displays correct fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › update document fields" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Update Document › cancel update does not save changes" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › delete document with confirmation" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document CRUD › Delete Document › cancel delete keeps document" classname="document-crud.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="document-list.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Google Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document count is displayed" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination works - next and previous" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › page size change works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › sorting by field works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › search functionality works" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › empty results handling" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list shows correct columns" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document actions are available" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › pagination shows correct page numbers" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › showing X of Y documents text is correct" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Document List › document list updates after refresh" classname="document-list.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Google Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting an index loads its mapping" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › document count updates when selecting index" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting different indices updates the view" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index refresh functionality works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › empty state when no indices exist" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › search within index dropdown works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › clearing index selection works" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › index dropdown shows correct index names" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Index Selection › selecting index persists on page refresh" classname="index-selection.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Google Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping tree view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field names are displayed correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type indicators are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › expand and collapse mapping fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping JSON view displays correctly" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › nested mapping displays nested structure" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping updates when changing indices" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field type badges are color-coded" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › object and nested types are distinguished" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping shows correct field count" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › field paths are displayed for nested fields" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › numeric type variations are shown" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Mapping Viewer › mapping viewer is responsive to window size" classname="mapping-viewer.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Google Chrome" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › expand and collapse nested objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › edit nested field values" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Nested Object Editing › add new nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › display array fields" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › edit array elements" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › add array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › remove array element" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Array Editing › nested array objects" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › display deeply nested structure" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Deep Nesting (3+ levels) › edit deeply nested field" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › switch to JSON editor mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › edit document in JSON mode" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › JSON Editor Mode › no data loss when switching between modes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › number fields accept numeric input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › boolean fields render as checkboxes" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Nested Fields › Type Conversion › date fields accept date input" classname="nested-fields.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-18T22:25:16.988Z" hostname="Google Chrome" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › no console errors on plugin load" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin components are rendered" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin responds to browser back button" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Plugin Installation › plugin is accessible via direct URL" classname="plugin-installation.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>
