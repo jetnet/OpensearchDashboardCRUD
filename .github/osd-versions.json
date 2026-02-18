@@ -1,0 +1,23 @@
+{
+  "versions": ["2.19.0", "2.19.1", "2.19.2", "2.19.3", "2.19.4"],
+  "nodeVersion": "18.19.0",
+  "opensearchVersion": "2.19.0",
+  "supportedPlatforms": ["linux-x64", "darwin-x64", "darwin-arm64"],
+  "metadata": {
+    "description": "OpenSearch Index Manager Plugin",
+    "repository": "https://github.com/opensearch-project/opensearch-dashboards",
+    "license": "Apache-2.0",
+    "minimumNodeVersion": "18.19.0",
+    "maximumNodeVersion": "18.19.0"
+  },
+  "buildConfig": {
+    "bootstrapTimeout": 600000,
+    "buildTimeout": 300000,
+    "testTimeout": 600000
+  },
+  "release": {
+    "draft": false,
+    "prerelease": false,
+    "generateReleaseNotes": true
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "opensearch_index_manager",
+  "version": "1.0.0",
+  "opensearchDashboardsVersion": "2.19.0",
+  "server": true,
+  "ui": true,
+  "requiredPlugins": [
+    "navigation",
+    "data"
+  ],
+  "optionalPlugins": [
+    "securityDashboards",
+    "dataSource"
+  ],
+  "requiredBundles": [
+    "opensearchDashboardsUtils",
+    "opensearchDashboardsReact"
+  ],
+  "configPath": ["opensearch_index_manager"]
+}

@@ -1,0 +1,86 @@
+# Podman Compose configuration for OpenSearch Index Manager Plugin Development
+# This setup provides a local testing environment with OpenSearch and OpenSearch Dashboards
+#
+# Usage:
+#   podman-compose up -d          # Start all services
+#   podman-compose down           # Stop all services
+#   podman-compose down -v        # Stop and remove volumes (clean slate)
+#
+# Services:
+#   - opensearch: Single-node OpenSearch cluster (port 9200)
+#   - opensearch-dashboards: OpenSearch Dashboards with plugin (port 5601)
+
+version: '3.8'
+
+services:
+  opensearch:
+    image: docker.io/opensearchproject/opensearch:2.19.0
+    container_name: osim-opensearch
+    environment:
+      - cluster.name=osim-cluster
+      - node.name=osim-node
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+      - DISABLE_SECURITY_PLUGIN=true
+      - action.auto_create_index=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    networks:
+      - osim-network
+
+  opensearch-dashboards:
+    image: docker.io/opensearchproject/opensearch-dashboards:2.19.0
+    container_name: osim-dashboards
+    environment:
+      - OPENSEARCH_HOSTS=["http://opensearch:9200"]
+      - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=5601
+      # Development settings
+      - OSD_OPTIMIZE_MEMORY=true
+      - NODE_OPTIONS=--max-old-space-size=4096
+    ports:
+      - "5601:5601"
+    volumes:
+      # Mount plugin directory for development (read-only)
+      - ./opensearch_index_manager:/usr/share/opensearch-dashboards/plugins/opensearch_index_manager:ro,z
+      # Persist OSD data
+      - dashboards-data:/usr/share/opensearch-dashboards/data
+    depends_on:
+      opensearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5601/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    networks:
+      - osim-network
+
+volumes:
+  opensearch-data:
+    driver: local
+  dashboards-data:
+    driver: local
+
+networks:
+  osim-network:
+    driver: bridge

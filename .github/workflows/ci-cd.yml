@@ -1,0 +1,521 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/**'
+    tags:
+      - 'v*'
+      - '[0-9]+.[0-9]+.[0-9]+*'
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+    inputs:
+      osd_version:
+        description: 'OSD Version to build (leave empty for all)'
+        required: false
+        default: ''
+        type: string
+      skip_tests:
+        description: 'Skip integration tests'
+        required: false
+        default: false
+        type: boolean
+      skip_functional_tests:
+        description: 'Skip functional tests'
+        required: false
+        default: false
+        type: boolean
+      release_draft:
+        description: 'Create as draft release'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  PLUGIN_NAME: opensearch_index_manager
+  NODE_VERSION: 18.19.0
+  OPENSEARCH_VERSION: 2.19.0
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ============================================================================
+  # Job 1: Lint and Type Check
+  # ============================================================================
+  lint-and-type-check:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Plugin Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+          cache-dependency-path: ${{ env.PLUGIN_NAME }}/yarn.lock
+
+      - name: Install Dependencies
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: yarn install --frozen-lockfile
+
+      - name: Run ESLint
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: yarn lint
+        continue-on-error: true
+
+      - name: Run TypeScript Type Check
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: yarn tsc --noEmit
+
+      - name: Run Prettier Format Check
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: yarn prettier --check "**/*.{ts,tsx,js,json,md}"
+        continue-on-error: true
+
+      - name: Upload Lint Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lint-results
+          path: |
+            ${{ env.PLUGIN_NAME }}/eslint-report.json
+            ${{ env.PLUGIN_NAME }}/typescript-check.log
+          retention-days: 30
+          if-no-files-found: ignore
+
+  # ============================================================================
+  # Job 2: Build (Matrix Strategy)
+  # ============================================================================
+  build:
+    name: Build OSD ${{ matrix.osd_version }}
+    runs-on: ubuntu-latest
+    needs: lint-and-type-check
+    timeout-minutes: 45
+
+    strategy:
+      fail-fast: false
+      matrix:
+        osd_version: ["2.19.0", "2.19.1", "2.19.2", "2.19.3", "2.19.4"]
+
+    outputs:
+      build_status: ${{ steps.build.outputs.status }}
+
+    steps:
+      - name: Checkout OSD Source
+        uses: actions/checkout@v4
+        with:
+          repository: opensearch-project/OpenSearch-Dashboards
+          ref: ${{ matrix.osd_version }}
+          path: osd-source
+
+      - name: Checkout Plugin Code
+        uses: actions/checkout@v4
+        with:
+          path: plugin-source
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Configure Yarn
+        run: |
+          npm install -g yarn@1.22.21
+          yarn config set network-timeout 600000
+
+      - name: Bootstrap OSD
+        working-directory: ./osd-source
+        run: yarn osd bootstrap --single-version=loose
+        timeout-minutes: 20
+
+      - name: Copy Plugin to OSD
+        run: |
+          mkdir -p osd-source/plugins/${{ env.PLUGIN_NAME }}
+          cp -r plugin-source/${{ env.PLUGIN_NAME }}/* osd-source/plugins/${{ env.PLUGIN_NAME }}/
+
+      - name: Install Plugin Dependencies
+        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
+        run: yarn install --frozen-lockfile
+
+      - name: Build Plugin
+        id: build
+        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
+        run: |
+          yarn plugin-helpers build
+          echo "status=success" >> $GITHUB_OUTPUT
+        timeout-minutes: 15
+
+      - name: Get Plugin Version
+        id: plugin_version
+        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
+        run: |
+          VERSION=$(cat package.json | grep '"version"' | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Rename Build Artifact
+        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}/build
+        run: |
+          mv ${{ env.PLUGIN_NAME }}-${{ steps.plugin_version.outputs.version }}.zip \
+             ${{ env.PLUGIN_NAME }}-${{ steps.plugin_version.outputs.version }}-osd-${{ matrix.osd_version }}.zip
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_NAME }}-${{ steps.plugin_version.outputs.version }}-osd-${{ matrix.osd_version }}
+          path: osd-source/plugins/${{ env.PLUGIN_NAME }}/build/${{ env.PLUGIN_NAME }}-${{ steps.plugin_version.outputs.version }}-osd-${{ matrix.osd_version }}.zip
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload Build Logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: build-logs-osd-${{ matrix.osd_version }}
+          path: osd-source/plugins/${{ env.PLUGIN_NAME }}/build/*.log
+          retention-days: 7
+          if-no-files-found: ignore
+
+  # ============================================================================
+  # Job 3: Integration Tests
+  # ============================================================================
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ !inputs.skip_tests && success() }}
+    timeout-minutes: 30
+
+    env:
+      OSD_VERSION: "2.19.0"
+
+    steps:
+      - name: Checkout Plugin Code
+        uses: actions/checkout@v4
+
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman podman-compose
+          podman --version
+          podman-compose --version
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_NAME }}-latest-osd-${{ env.OSD_VERSION }}
+          path: ./build
+
+      - name: Start OpenSearch & OSD with Podman
+        run: |
+          export OPENSEARCH_VERSION=${{ env.OPENSEARCH_VERSION }}
+          export OSD_VERSION=${{ env.OSD_VERSION }}
+          export PLUGIN_PATH=$(pwd)/build/${{ env.PLUGIN_NAME }}-*.zip
+          podman-compose -f podman-compose.yml up -d
+          
+          # Wait for services to be ready
+          echo "Waiting for OpenSearch..."
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          echo "Waiting for OpenSearch Dashboards..."
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          
+          echo "Services are ready!"
+
+      - name: Install Plugin
+        run: |
+          # Install plugin into running OSD container
+          PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
+          podman cp "$PLUGIN_ZIP" opensearch-dashboards:/tmp/
+          podman exec opensearch-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
+          
+          # Restart OSD to load plugin
+          podman restart opensearch-dashboards
+          
+          # Wait for OSD to be ready again
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+
+      - name: Run API Tests
+        run: |
+          # Test plugin health endpoint
+          curl -s http://localhost:5601/api/${{ env.PLUGIN_NAME }}/health || true
+          
+          # Test indices API
+          curl -s -u admin:admin http://localhost:5601/api/${{ env.PLUGIN_NAME }}/indices || true
+          
+          # Verify plugin is registered
+          curl -s http://localhost:5601/api/status | jq '.status.plugins.${{ env.PLUGIN_NAME }}' || true
+
+      - name: Run Test Data Setup
+        run: |
+          chmod +x scripts/setup-test-data.sh
+          ./scripts/setup-test-data.sh
+        continue-on-error: true
+
+      - name: Capture Test Results
+        if: always()
+        run: |
+          mkdir -p test-results
+          echo "Test execution completed" > test-results/integration-test-summary.txt
+          date >> test-results/integration-test-summary.txt
+          podman logs opensearch > test-results/opensearch.log 2>&1 || true
+          podman logs opensearch-dashboards > test-results/opensearch-dashboards.log 2>&1 || true
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-results
+          path: test-results/
+          retention-days: 14
+
+      - name: Stop Podman Containers
+        if: always()
+        run: |
+          podman-compose -f podman-compose.yml down -v || true
+          podman system prune -f || true
+
+  # ============================================================================
+  # Job 4: Functional Tests (Playwright)
+  # ============================================================================
+  functional-tests:
+    name: Functional Tests (Playwright)
+    runs-on: ubuntu-latest
+    needs: [build, integration-tests]
+    if: ${{ !inputs.skip_functional_tests && success() }}
+    timeout-minutes: 45
+
+    env:
+      OSD_VERSION: "2.19.0"
+      CI: true
+
+    steps:
+      - name: Checkout Plugin Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: functional-tests/package-lock.json
+
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman podman-compose
+          podman --version
+          podman-compose --version
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_NAME }}-latest-osd-${{ env.OSD_VERSION }}
+          path: ./build
+
+      - name: Start OpenSearch & OSD with Podman
+        run: |
+          export OPENSEARCH_VERSION=${{ env.OPENSEARCH_VERSION }}
+          export OSD_VERSION=${{ env.OSD_VERSION }}
+          export PLUGIN_PATH=$(pwd)/build/${{ env.PLUGIN_NAME }}-*.zip
+          podman-compose -f podman-compose.yml up -d
+          
+          # Wait for services to be ready
+          echo "Waiting for OpenSearch..."
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          echo "Waiting for OpenSearch Dashboards..."
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          
+          echo "Services are ready!"
+
+      - name: Install Plugin
+        run: |
+          # Install plugin into running OSD container
+          PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
+          podman cp "$PLUGIN_ZIP" opensearch-dashboards:/tmp/
+          podman exec opensearch-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
+          
+          # Restart OSD to load plugin
+          podman restart opensearch-dashboards
+          
+          # Wait for OSD to be ready again
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+
+      - name: Install Functional Test Dependencies
+        working-directory: ./functional-tests
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run Playwright Tests
+        working-directory: ./functional-tests
+        run: |
+          npm test
+        env:
+          OSD_BASE_URL: http://localhost:5601
+          OS_HOST: localhost
+          OS_PORT: 9200
+          START_CONTAINERS: false
+          STOP_CONTAINERS: false
+          CLEANUP_DATA: true
+
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: |
+            test-output/functional-tests/html-report/
+            test-output/functional-tests/results.json
+          retention-days: 30
+
+      - name: Upload Test Artifacts (Screenshots/Videos)
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-test-artifacts
+          path: test-output/functional-tests/test-results/
+          retention-days: 14
+
+      - name: Publish Test Results to GitHub
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Functional Test Results
+          path: test-output/functional-tests/junit-results.xml
+          reporter: jest-junit
+          fail-on-error: false
+
+      - name: Stop Podman Containers
+        if: always()
+        run: |
+          podman-compose -f podman-compose.yml down -v || true
+          podman system prune -f || true
+
+  # ============================================================================
+  # Job 5: Release (on tags only)
+  # ============================================================================
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [lint-and-type-check, build, integration-tests, functional-tests]
+    if: startsWith(github.ref, 'refs/tags/')
+    timeout-minutes: 20
+
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download All Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+          pattern: ${{ env.PLUGIN_NAME }}-*-osd-*
+
+      - name: Get Plugin Version
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION=${VERSION#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          cat > RELEASE_NOTES.md << 'EOF'
+          # OpenSearch Index Manager ${{ steps.version.outputs.version }}
+
+          ## Supported OpenSearch Dashboards Versions
+          $(cat .github/osd-versions.json | jq -r '.versions[]' | sed 's/^/- /')
+
+          ## Installation
+
+          Download the appropriate plugin zip file for your OpenSearch Dashboards version:
+
+          ```bash
+          ./bin/opensearch-dashboards-plugin install \
+            https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/${{ env.PLUGIN_NAME }}-${{ steps.version.outputs.version }}-osd-<VERSION>.zip
+          ```
+
+          Replace `<VERSION>` with your OSD version (e.g., `2.19.0`).
+
+          ## Compatibility Matrix
+
+          | OSD Version | Plugin Version | Status |
+          |-------------|----------------|--------|
+          $(cat .github/osd-versions.json | jq -r '.versions[]' | sed "s|^| |; s|$| | ${{ steps.version.outputs.version }} | Supported |")
+
+          ## Checksums
+
+          See the attached checksums file for SHA256 hashes of all artifacts.
+
+          ## Changes
+
+          $(git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD~1)..HEAD 2>/dev/null || echo "See CHANGELOG.md for details")
+          EOF
+
+      - name: Generate Checksums
+        run: |
+          cd artifacts
+          find . -name "*.zip" -exec sha256sum {} \; > ../CHECKSUMS.txt
+          cd ..
+          cat CHECKSUMS.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.version.outputs.tag }}
+          body_path: RELEASE_NOTES.md
+          draft: ${{ inputs.release_draft || false }}
+          prerelease: ${{ contains(steps.version.outputs.version, '-') }}
+          files: |
+            artifacts/**/*.zip
+            CHECKSUMS.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Package Registry
+        run: |
+          # Create a package metadata file for GitHub Packages
+          cat > package-metadata.json << EOF
+          {
+            "name": "${{ env.PLUGIN_NAME }}",
+            "version": "${{ steps.version.outputs.version }}",
+            "description": "OpenSearch Index Manager Plugin",
+            "repository": "${{ github.repository }}",
+            "osd_versions": $(cat .github/osd-versions.json | jq -c '.versions')
+          }
+          EOF
+          
+          echo "Package metadata prepared for GitHub Package Registry"
+          cat package-metadata.json
+
+      - name: Upload Release Assets Summary
+        run: |
+          echo "## Release Assets" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Asset | OSD Version |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------------|" >> $GITHUB_STEP_SUMMARY
+          for file in artifacts/**/*.zip; do
+            filename=$(basename "$file")
+            osd_version=$(echo "$filename" | grep -oE 'osd-[0-9]+\.[0-9]+\.[0-9]+' | sed 's/osd-//')
+            echo "| $filename | $osd_version |" >> $GITHUB_STEP_SUMMARY
+          done

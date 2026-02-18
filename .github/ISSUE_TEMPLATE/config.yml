@@ -1,0 +1,118 @@
+## Description
+
+Brief description of the changes made in this PR.
+
+Fixes #(issue number)
+
+## Type of Change
+
+Please check the type of change your PR introduces:
+
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
+- [ ] Code refactoring
+- [ ] Performance improvement
+- [ ] Test updates
+- [ ] CI/CD changes
+- [ ] Other (please describe):
+
+## Testing Performed
+
+Please describe the tests that you ran to verify your changes:
+
+### Unit Tests
+- [ ] All existing unit tests pass
+- [ ] New unit tests added for new functionality
+- [ ] Unit test coverage meets requirements
+
+### Integration Tests
+- [ ] Integration tests pass locally
+- [ ] API endpoints tested
+- [ ] Error scenarios tested
+
+### Functional Tests
+- [ ] Functional tests pass (`npm test` in `functional-tests/`)
+- [ ] Manual testing performed
+- [ ] Cross-browser testing (if UI changes)
+
+### Test Commands Run
+
+```bash
+# Provide the commands you ran to test
+yarn test
+./scripts/ci/run-integration-tests.sh
+cd functional-tests && npm test
+```
+
+## Screenshots (if UI changes)
+
+If your PR includes UI changes, please add before/after screenshots:
+
+### Before
+[Add screenshot here]
+
+### After
+[Add screenshot here]
+
+## Documentation
+
+- [ ] Documentation updated (if applicable)
+- [ ] README.md updated (if applicable)
+- [ ] CHANGELOG.md updated
+- [ ] Code comments added for complex logic
+- [ ] API documentation updated (if applicable)
+
+## Compatibility
+
+Please confirm compatibility:
+
+- [ ] Works with OSD 2.19.0
+- [ ] Works with OSD 2.19.1
+- [ ] Works with OSD 2.19.2
+- [ ] Works with OSD 2.19.3
+- [ ] Works with OSD 2.19.4
+- [ ] Backward compatible with existing data
+
+## Security
+
+- [ ] Security impact assessed
+- [ ] No sensitive data exposed in logs
+- [ ] Input validation implemented
+- [ ] No new security vulnerabilities introduced
+
+## Performance
+
+- [ ] Performance impact assessed
+- [ ] No significant degradation observed
+- [ ] Large dataset handling tested (if applicable)
+
+## Checklist
+
+- [ ] My code follows the project's style guidelines
+- [ ] I have performed a self-review of my code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] My changes generate no new warnings
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] New and existing unit tests pass locally with my changes
+- [ ] Any dependent changes have been merged and published
+
+## Deployment Notes
+
+Are there any special considerations for deploying this change?
+- [ ] Database migrations required
+- [ ] Configuration changes required
+- [ ] Breaking changes for existing users
+
+## Additional Notes
+
+Add any other notes or comments about the PR here.
+
+## Reviewer Notes
+
+Any specific areas you'd like reviewers to focus on?
+
+---
+
+**By submitting this PR, I confirm that my contribution is made under the terms of the Apache 2.0 license.**
