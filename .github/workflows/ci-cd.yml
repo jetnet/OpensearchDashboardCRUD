@@ -163,8 +163,9 @@ jobs:
       - name: Rename Build Artifact
         working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}/build
         run: |
-          mv ${{ env.PLUGIN_NAME }}-${{ steps.plugin_version.outputs.version }}.zip \
-             ${{ env.PLUGIN_NAME }}-${{ steps.plugin_version.outputs.version }}-osd-${{ matrix.osd_version }}.zip
+          # Find the built zip file and rename it
+          BUILT_ZIP=$(ls *.zip | head -1)
+          mv "$BUILT_ZIP" "${{ env.PLUGIN_NAME }}-${{ steps.plugin_version.outputs.version }}-osd-${{ matrix.osd_version }}.zip"
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
