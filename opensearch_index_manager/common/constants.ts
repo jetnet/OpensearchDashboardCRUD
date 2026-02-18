@@ -1,4 +1,4 @@
-export const PLUGIN_ID = "opensearch_index_manager";
+export const PLUGIN_ID = "opensearchIndexManager";
 export const PLUGIN_NAME = "Index Manager";
 
 export const OSD_VERSIONS = [

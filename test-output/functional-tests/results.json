@@ -196,10 +196,10 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 22324,
+                      "duration": 20517,
                       "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27",
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27",
                         "location": {
                           "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts",
                           "column": 27,
@@ -214,13 +214,13 @@
                             "column": 27,
                             "line": 21
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n\n\n  19 |     \n  20 |     // The link should be visible in the navigation\n> 21 |     await expect(navLink).toBeVisible();\n     |                           ^\n  22 |     \n  23 |     // Verify the link text contains our plugin name\n  24 |     const linkText = await navLink.textContent();\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n\n\n  19 |     \n  20 |     // The link should be visible in the navigation\n> 21 |     await expect(navLink).toBeVisible();\n     |                           ^\n  22 |     \n  23 |     // Verify the link text contains our plugin name\n  24 |     const linkText = await navLink.textContent();\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-02-18T22:25:20.880Z",
+                      "startTime": "2026-02-18T23:11:55.677Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -239,10 +239,10 @@
                       "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "failed",
-                      "duration": 21582,
+                      "duration": 36300,
                       "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27",
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27",
                         "location": {
                           "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts",
                           "column": 27,
@@ -257,13 +257,13 @@
                             "column": 27,
                             "line": 21
                           },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n\n\n  19 |     \n  20 |     // The link should be visible in the navigation\n> 21 |     await expect(navLink).toBeVisible();\n     |                           ^\n  22 |     \n  23 |     // Verify the link text contains our plugin name\n  24 |     const linkText = await navLink.textContent();\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n\n\n  19 |     \n  20 |     // The link should be visible in the navigation\n> 21 |     await expect(navLink).toBeVisible();\n     |                           ^\n  22 |     \n  23 |     // Verify the link text contains our plugin name\n  24 |     const linkText = await navLink.textContent();\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:21:27"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 1,
-                      "startTime": "2026-02-18T22:25:51.313Z",
+                      "startTime": "2026-02-18T23:12:25.976Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -318,10 +318,10 @@
                       "workerIndex": 1,
                       "parallelIndex": 1,
                       "status": "failed",
-                      "duration": 23384,
+                      "duration": 20514,
                       "error": {
-                        "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n",
-                        "stack": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:31:19",
+                        "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:31:19",
                         "location": {
                           "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts",
                           "column": 19,
@@ -336,13 +336,13 @@
                             "column": 19,
                             "line": 31
                           },
-                          "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearch_index_manager\"], a[href*=\"opensearch_index_manager\"]')\u001b[22m\n\n\n  29 |     // Click on the plugin navigation link\n  30 |     const navLink = page.locator(Selectors.plugin.navLink);\n> 31 |     await navLink.click();\n     |                   ^\n  32 |\n  33 |     // Wait for navigation to complete\n  34 |     await page.waitForLoadState('networkidle');\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:31:19"
+                          "message": "TimeoutError: locator.click: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"navItem opensearchIndexManager\"], a[href*=\"opensearchIndexManager\"]')\u001b[22m\n\n\n  29 |     // Click on the plugin navigation link\n  30 |     const navLink = page.locator(Selectors.plugin.navLink);\n> 31 |     await navLink.click();\n     |                   ^\n  32 |\n  33 |     // Wait for navigation to complete\n  34 |     await page.waitForLoadState('networkidle');\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:31:19"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-02-18T22:25:20.935Z",
+                      "startTime": "2026-02-18T23:11:55.506Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -366,12 +366,12 @@
                       "workerIndex": 5,
                       "parallelIndex": 1,
                       "status": "interrupted",
-                      "duration": 24012,
+                      "duration": 39424,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 1,
-                      "startTime": "2026-02-18T22:25:51.377Z",
+                      "startTime": "2026-02-18T23:12:25.994Z",
                       "annotations": [],
                       "attachments": [
                         {
@@ -402,7 +402,7 @@
             },
             {
               "title": "plugin loads without errors",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -415,77 +415,18 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 2,
-                      "status": "failed",
-                      "duration": 36414,
-                      "error": {
-                        "message": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"opensearch_index_manager-app\"]') to be visible\u001b[22m\n",
-                        "stack": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"opensearch_index_manager-app\"]') to be visible\u001b[22m\n\n    at waitForPluginToLoad (/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts:59:14)\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:45:30",
-                        "location": {
-                          "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts",
-                          "column": 14,
-                          "line": 59
-                        },
-                        "snippet": "   at ../utils/test-helpers.ts:59\n\n  57 | export async function waitForPluginToLoad(page: Page, timeout: number = 30000): Promise<void> {\n  58 |   // Wait for the app container\n> 59 |   await page.waitForSelector(Selectors.plugin.appContainer, { \n     |              ^\n  60 |     state: 'visible', \n  61 |     timeout \n  62 |   });"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts",
-                            "column": 14,
-                            "line": 59
-                          },
-                          "message": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"opensearch_index_manager-app\"]') to be visible\u001b[22m\n\n\n   at ../utils/test-helpers.ts:59\n\n  57 | export async function waitForPluginToLoad(page: Page, timeout: number = 30000): Promise<void> {\n  58 |   // Wait for the app container\n> 59 |   await page.waitForSelector(Selectors.plugin.appContainer, { \n     |              ^\n  60 |     state: 'visible', \n  61 |     timeout \n  62 |   });\n    at waitForPluginToLoad (/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts:59:14)\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:45:30"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-02-18T22:25:21.229Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts",
-                        "column": 14,
-                        "line": 59
-                      }
-                    },
-                    {
-                      "workerIndex": 6,
-                      "parallelIndex": 2,
-                      "status": "interrupted",
-                      "duration": 16834,
+                      "status": "passed",
+                      "duration": 21787,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-02-18T22:26:03.541Z",
+                      "retry": 0,
+                      "startTime": "2026-02-18T23:11:55.168Z",
                       "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/video.webm"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/trace.zip"
-                        }
-                      ]
+                      "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "8585332b02c2e980378f-b58a0eda360784670591",
@@ -495,6 +436,40 @@
             },
             {
               "title": "plugin page has correct title",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "smoke",
+                  "projectName": "smoke",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 21604,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-02-18T23:11:55.264Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "8585332b02c2e980378f-556660e89438dc7e2a51",
+              "file": "plugin-installation.spec.ts",
+              "line": 55,
+              "column": 7
+            },
+            {
+              "title": "no console errors on plugin load",
               "ok": false,
               "tags": [],
               "tests": [
@@ -509,96 +484,76 @@
                       "workerIndex": 3,
                       "parallelIndex": 3,
                       "status": "failed",
-                      "duration": 44756,
+                      "duration": 26452,
                       "error": {
-                        "message": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"opensearch_index_manager-app\"]') to be visible\u001b[22m\n",
-                        "stack": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"opensearch_index_manager-app\"]') to be visible\u001b[22m\n\n    at waitForPluginToLoad (/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts:59:14)\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:58:30",
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m0\u001b[39m\nReceived length: \u001b[31m1\u001b[39m\nReceived array:  \u001b[31m[\"Executing inline script violates the following Content Security Policy directive 'script-src 'unsafe-eval' 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-75XtnrpDA0UHDMcl7S8lvswryIOd0RqgacRh0AMOgdk='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.\"]\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m0\u001b[39m\nReceived length: \u001b[31m1\u001b[39m\nReceived array:  \u001b[31m[\"Executing inline script violates the following Content Security Policy directive 'script-src 'unsafe-eval' 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-75XtnrpDA0UHDMcl7S8lvswryIOd0RqgacRh0AMOgdk='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.\"]\u001b[39m\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:98:28",
                         "location": {
-                          "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts",
-                          "column": 14,
-                          "line": 59
+                          "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts",
+                          "column": 28,
+                          "line": 98
                         },
-                        "snippet": "   at ../utils/test-helpers.ts:59\n\n  57 | export async function waitForPluginToLoad(page: Page, timeout: number = 30000): Promise<void> {\n  58 |   // Wait for the app container\n> 59 |   await page.waitForSelector(Selectors.plugin.appContainer, { \n     |              ^\n  60 |     state: 'visible', \n  61 |     timeout \n  62 |   });"
+                        "snippet": "   96 |     );\n   97 |     \n>  98 |     expect(filteredErrors).toHaveLength(0);\n      |                            ^\n   99 |     expect(pageErrors).toHaveLength(0);\n  100 |   });\n  101 |"
                       },
                       "errors": [
                         {
                           "location": {
-                            "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts",
-                            "column": 14,
-                            "line": 59
+                            "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts",
+                            "column": 28,
+                            "line": 98
                           },
-                          "message": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-test-subj=\"opensearch_index_manager-app\"]') to be visible\u001b[22m\n\n\n   at ../utils/test-helpers.ts:59\n\n  57 | export async function waitForPluginToLoad(page: Page, timeout: number = 30000): Promise<void> {\n  58 |   // Wait for the app container\n> 59 |   await page.waitForSelector(Selectors.plugin.appContainer, { \n     |              ^\n  60 |     state: 'visible', \n  61 |     timeout \n  62 |   });\n    at waitForPluginToLoad (/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts:59:14)\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:58:30"
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoHaveLength\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected length: \u001b[32m0\u001b[39m\nReceived length: \u001b[31m1\u001b[39m\nReceived array:  \u001b[31m[\"Executing inline script violates the following Content Security Policy directive 'script-src 'unsafe-eval' 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-75XtnrpDA0UHDMcl7S8lvswryIOd0RqgacRh0AMOgdk='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.\"]\u001b[39m\n\n   96 |     );\n   97 |     \n>  98 |     expect(filteredErrors).toHaveLength(0);\n      |                            ^\n   99 |     expect(pageErrors).toHaveLength(0);\n  100 |   });\n  101 |\n    at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:98:28"
                         }
                       ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-02-18T22:25:21.005Z",
+                      "startTime": "2026-02-18T23:12:17.516Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "screenshot",
                           "contentType": "image/png",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke/test-failed-1.png"
+                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-69ef2-nsole-errors-on-plugin-load-smoke/test-failed-1.png"
                         },
                         {
                           "name": "error-context",
                           "contentType": "text/markdown",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke/error-context.md"
+                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-69ef2-nsole-errors-on-plugin-load-smoke/error-context.md"
                         }
                       ],
                       "errorLocation": {
-                        "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/utils/test-helpers.ts",
-                        "column": 14,
-                        "line": 59
+                        "file": "/home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts",
+                        "column": 28,
+                        "line": 98
                       }
                     },
                     {
-                      "workerIndex": 7,
+                      "workerIndex": 6,
                       "parallelIndex": 3,
                       "status": "interrupted",
-                      "duration": 8474,
+                      "duration": 18425,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 1,
-                      "startTime": "2026-02-18T22:26:13.186Z",
+                      "startTime": "2026-02-18T23:12:50.917Z",
                       "annotations": [],
                       "attachments": [
                         {
                           "name": "video",
                           "contentType": "video/webm",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/video.webm"
+                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-69ef2-nsole-errors-on-plugin-load-smoke-retry1/video.webm"
                         },
                         {
                           "name": "trace",
                           "contentType": "application/zip",
-                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/trace.zip"
+                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-69ef2-nsole-errors-on-plugin-load-smoke-retry1/trace.zip"
                         }
                       ]
                     }
                   ],
                   "status": "unexpected"
-                }
-              ],
-              "id": "8585332b02c2e980378f-556660e89438dc7e2a51",
-              "file": "plugin-installation.spec.ts",
-              "line": 55,
-              "column": 7
-            },
-            {
-              "title": "no console errors on plugin load",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "smoke",
-                  "projectName": "smoke",
-                  "results": [],
-                  "status": "skipped"
                 }
               ],
               "id": "8585332b02c2e980378f-5c582a9137455e586966",
@@ -617,8 +572,22 @@
                   "expectedStatus": "passed",
                   "projectId": "smoke",
                   "projectName": "smoke",
-                  "results": [],
-                  "status": "skipped"
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 24935,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-02-18T23:12:17.570Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
                 }
               ],
               "id": "8585332b02c2e980378f-4f50bc637f9db4005207",
@@ -637,7 +606,27 @@
                   "expectedStatus": "passed",
                   "projectId": "smoke",
                   "projectName": "smoke",
-                  "results": [],
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "interrupted",
+                      "duration": 22664,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-02-18T23:12:42.658Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/jet/src/OpensearchDashboardCRUD/test-output/functional-tests/test-results/plugin-installation-Plugin-d7537-onds-to-browser-back-button-smoke/test-failed-1.png"
+                        }
+                      ]
+                    }
+                  ],
                   "status": "skipped"
                 }
               ],
@@ -9236,11 +9225,11 @@
     }
   ],
   "stats": {
-    "startTime": "2026-02-18T22:25:14.980Z",
-    "duration": 68066.255,
-    "expected": 0,
-    "skipped": 424,
-    "unexpected": 4,
+    "startTime": "2026-02-18T23:11:49.375Z",
+    "duration": 80802.716,
+    "expected": 3,
+    "skipped": 422,
+    "unexpected": 3,
     "flaky": 0
   }
 }

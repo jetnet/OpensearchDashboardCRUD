@@ -70,9 +70,7 @@ export async function waitForPluginToLoad(page: Page, timeout: number = 30000): 
   }
 
   // Verify page title or main content is visible
-  await expect(page.locator(Selectors.plugin.pageTitle).or(
-    page.locator(Selectors.indexSelector.container)
-  )).toBeVisible();
+  await expect(page.locator(Selectors.plugin.pageTitle)).toBeVisible();
 }
 
 /**

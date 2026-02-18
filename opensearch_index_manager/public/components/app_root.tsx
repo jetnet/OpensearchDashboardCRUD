@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { CoreStart } from "opensearch-dashboards/public";
 import {
-  EuiPageTemplate,
+  EuiPage,
+  EuiPageBody,
+  EuiPageContent,
+  EuiPageHeader,
+  EuiTitle,
   EuiFlexGroup,
   EuiFlexItem,
   EuiButton,
@@ -81,7 +85,7 @@ export const AppRoot: React.FC<AppRootProps> = ({
       });
       setDocuments(result.hits);
       setTotalDocuments(
-        typeof result.total === "number" ? result.total : result.total.value
+        typeof result.total === "number" ? result.total : result.total.value,
       );
     } catch (error) {
       showToast("Error loading documents", "danger");
@@ -123,7 +127,7 @@ export const AppRoot: React.FC<AppRootProps> = ({
 
     if (
       window.confirm(
-        `Are you sure you want to delete document ${document._id}?`
+        `Are you sure you want to delete document ${document._id}?`,
       )
     ) {
       try {
@@ -147,7 +151,7 @@ export const AppRoot: React.FC<AppRootProps> = ({
         await documentService.updateDocument(
           selectedIndex,
           editingDocument._id,
-          documentData
+          documentData,
         );
         showToast("Document updated successfully", "success");
       }
@@ -167,89 +171,93 @@ export const AppRoot: React.FC<AppRootProps> = ({
   };
 
   return (
-    <EuiPageTemplate restrictWidth={false} data-test-subj="opensearch_index_manager-app">
-      <EuiPageTemplate.Header data-test-subj="opensearch_index_manager-header">
-        <EuiFlexGroup alignItems="center">
-          <EuiFlexItem>
-            <h1>Index Manager</h1>
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <IndexSelector
-              indices={indices}
-              selectedIndex={selectedIndex}
-              onChange={handleIndexChange}
-            />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      </EuiPageTemplate.Header>
+    <EuiPage data-test-subj="opensearchIndexManager-app">
+      <EuiPageBody component="main">
+        <EuiPageHeader data-test-subj="opensearchIndexManager-header">
+          <EuiFlexGroup alignItems="center" justifyContent="spaceBetween">
+            <EuiFlexItem grow={false}>
+              <EuiTitle size="l">
+                <h1 data-test-subj="pageTitle">Index Manager</h1>
+              </EuiTitle>
+            </EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <IndexSelector
+                indices={indices}
+                selectedIndex={selectedIndex}
+                onChange={handleIndexChange}
+              />
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiPageHeader>
 
-      <EuiPageTemplate.Section data-test-subj="mainContent">
-        <EuiFlexGroup justifyContent="flexEnd">
-          <EuiFlexItem grow={false}>
-            <EuiButton
-              iconType="indexMapping"
-              onClick={() => setShowMapping(!showMapping)}
-              isDisabled={!selectedIndex}
-            >
-              {showMapping ? "Hide Mapping" : "Show Mapping"}
-            </EuiButton>
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiButton
-              fill
-              iconType="plus"
-              onClick={handleCreateDocument}
-              isDisabled={!selectedIndex}
-            >
-              Create Document
-            </EuiButton>
-          </EuiFlexItem>
-        </EuiFlexGroup>
+        <EuiPageContent data-test-subj="mainContent" paddingSize="l">
+          <EuiFlexGroup justifyContent="flexEnd">
+            <EuiFlexItem grow={false}>
+              <EuiButton
+                iconType="indexMapping"
+                onClick={() => setShowMapping(!showMapping)}
+                isDisabled={!selectedIndex}
+              >
+                {showMapping ? "Hide Mapping" : "Show Mapping"}
+              </EuiButton>
+            </EuiFlexItem>
+            <EuiFlexItem grow={false}>
+              <EuiButton
+                fill
+                iconType="plus"
+                onClick={handleCreateDocument}
+                isDisabled={!selectedIndex}
+              >
+                Create Document
+              </EuiButton>
+            </EuiFlexItem>
+          </EuiFlexGroup>
 
-        <EuiSpacer size="m" />
+          <EuiSpacer size="m" />
 
-        {showMapping && mapping && (
-          <>
-            <MappingViewer mapping={mapping} />
-            <EuiSpacer size="m" />
-          </>
+          {showMapping && mapping && (
+            <>
+              <MappingViewer mapping={mapping} />
+              <EuiSpacer size="m" />
+            </>
+          )}
+
+          <DocumentList
+            documents={documents}
+            total={totalDocuments}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            isLoading={isLoading}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+            onEdit={handleEditDocument}
+            onDelete={handleDeleteDocument}
+          />
+        </EuiPageContent>
+
+        {isEditorOpen && (
+          <DocumentEditor
+            document={editingDocument}
+            isCreating={isCreating}
+            onSave={handleSaveDocument}
+            onClose={() => setIsEditorOpen(false)}
+          />
         )}
 
-        <DocumentList
-          documents={documents}
-          total={totalDocuments}
-          currentPage={currentPage}
-          pageSize={pageSize}
-          isLoading={isLoading}
-          onPageChange={setCurrentPage}
-          onPageSizeChange={setPageSize}
-          onEdit={handleEditDocument}
-          onDelete={handleDeleteDocument}
-        />
-      </EuiPageTemplate.Section>
-
-      {isEditorOpen && (
-        <DocumentEditor
-          document={editingDocument}
-          isCreating={isCreating}
-          onSave={handleSaveDocument}
-          onClose={() => setIsEditorOpen(false)}
-        />
-      )}
-
-      {/* Toasts */}
-      <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999 }}>
-        {toasts.map((toast) => (
-          <EuiToast
-            key={toast.id}
-            title={toast.title}
-            color={toast.color}
-            onClose={() =>
-              setToasts((prev) => prev.filter((t) => t.id !== toast.id))
-            }
-          />
-        ))}
-      </div>
-    </EuiPageTemplate>
+        {/* Toasts */}
+        <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999 }}>
+          {toasts.map((toast) => (
+            <EuiToast
+              key={toast.id}
+              title={toast.title}
+              color={toast.color}
+              onClose={() =>
+                setToasts((prev) => prev.filter((t) => t.id !== toast.id))
+              }
+            />
+          ))}
+        </div>
+      </EuiPageBody>
+    </EuiPage>
   );
 };

@@ -14,24 +14,24 @@
               - img "Menu" [ref=e16]
             - link "Go to home page" [ref=e20] [cursor=pointer]:
               - /url: /app/home
-              - generic "Loading content" [ref=e25]
-          - navigation "breadcrumb" [ref=e26]:
-            - generic "Home" [ref=e29]
-          - button "Help menu" [ref=e35] [cursor=pointer]:
-            - img [ref=e39]
+              - img "OpenSearch Dashboards home" [ref=e25]
+          - navigation "breadcrumb" [ref=e28]:
+            - generic "Home" [ref=e31]
+          - button "Help menu" [ref=e37] [cursor=pointer]:
+            - img [ref=e41]
   - generic:
     - generic:
       - region "Notification message list"
-  - generic [ref=e44]:
-    - banner [ref=e45]:
-      - heading "Welcome to OpenSearch Dashboards" [level=1] [ref=e49]
-    - generic [ref=e54]:
-      - generic [ref=e57]:
+  - generic [ref=e46]:
+    - banner [ref=e47]:
+      - heading "Welcome to OpenSearch Dashboards" [level=1] [ref=e51]
+    - generic [ref=e56]:
+      - generic [ref=e59]:
         - text: Start by adding your data
-        - paragraph [ref=e59]: Add data to your cluster from any source, then analyze and visualize it in real time. Use our solutions to add search anywhere, observe your ecosystem, and protect against security threats.
-      - contentinfo [ref=e61]:
-        - button "Add data" [ref=e62] [cursor=pointer]:
-          - generic [ref=e64]: Add data
-        - button "Explore on my own" [ref=e65] [cursor=pointer]:
-          - generic [ref=e67]: Explore on my own
+        - paragraph [ref=e61]: Add data to your cluster from any source, then analyze and visualize it in real time. Use our solutions to add search anywhere, observe your ecosystem, and protect against security threats.
+      - contentinfo [ref=e63]:
+        - button "Add data" [ref=e64] [cursor=pointer]:
+          - generic [ref=e66]: Add data
+        - button "Explore on my own" [ref=e67] [cursor=pointer]:
+          - generic [ref=e69]: Explore on my own
 ```
