@@ -22,6 +22,9 @@
   },
   "devDependencies": {
     "@osd/plugin-helpers": "link:../../packages/osd-plugin-helpers",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
     "typescript": "^4.5.0"
   },
   "dependencies": {}
