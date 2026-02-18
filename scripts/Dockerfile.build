@@ -1,0 +1,117 @@
+# Dockerfile for building OpenSearch Index Manager plugin
+# This container builds the plugin for a specific OSD version
+#
+# Usage:
+#   podman build --build-arg OSD_VERSION=2.19.0 -t osim-builder -f scripts/Dockerfile.build .
+#   podman run --rm -v $(pwd)/dist:/output osim-builder
+
+FROM docker.io/node:18.19.0-slim
+
+# Install required tools
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    unzip \
+    python3 \
+    make \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install yarn
+RUN npm install -g yarn@1.22.21
+
+# Build arguments
+ARG OSD_VERSION=2.19.0
+ARG PLUGIN_NAME=opensearch_index_manager
+ARG PLUGIN_VERSION=1.0.0
+
+ENV OSD_VERSION=${OSD_VERSION}
+ENV PLUGIN_NAME=${PLUGIN_NAME}
+ENV PLUGIN_VERSION=${PLUGIN_VERSION}
+
+# Set working directory
+WORKDIR /build
+
+# Clone OSD source for the specific version
+RUN echo "Cloning OpenSearch Dashboards ${OSD_VERSION}..." && \
+    git clone --depth 1 --branch ${OSD_VERSION} \
+    https://github.com/opensearch-project/OpenSearch-Dashboards.git \
+    osd-source
+
+# Set up OSD
+WORKDIR /build/osd-source
+
+# Configure yarn
+RUN yarn config set network-timeout 600000
+
+# Bootstrap OSD (this installs all dependencies)
+RUN echo "Bootstrapping OSD (this may take a while)..." && \
+    yarn osd bootstrap --single-version=loose
+
+# Create plugin directory
+RUN mkdir -p plugins/${PLUGIN_NAME}
+
+# Copy plugin files will be done at build time
+# The plugin source should be mounted or copied before running the build
+
+# Create build script
+RUN cat > /build/build-plugin.sh << 'EOF'
+#!/bin/bash
+set -e
+
+PLUGIN_NAME=${PLUGIN_NAME:-opensearch_index_manager}
+OSD_VERSION=${OSD_VERSION:-2.19.0}
+PLUGIN_VERSION=${PLUGIN_VERSION:-1.0.0}
+
+echo "=============================================="
+echo "Building ${PLUGIN_NAME} v${PLUGIN_VERSION}"
+echo "For OSD ${OSD_VERSION}"
+echo "=============================================="
+
+# Check if plugin source exists
+if [ ! -d "/plugin-source" ]; then
+    echo "ERROR: Plugin source not found at /plugin-source"
+    echo "Please mount plugin source to /plugin-source"
+    exit 1
+fi
+
+# Copy plugin source to OSD plugins directory
+echo "Copying plugin source..."
+cp -r /plugin-source/* /build/osd-source/plugins/${PLUGIN_NAME}/
+
+# Navigate to plugin directory
+cd /build/osd-source/plugins/${PLUGIN_NAME}
+
+# Install plugin dependencies (skip frozen-lockfile for container builds)
+if [ -f "yarn.lock" ]; then
+    echo "Installing plugin dependencies..."
+    rm -f yarn.lock
+    yarn install || true
+fi
+
+# Build the plugin
+echo "Building plugin..."
+cd /build/osd-source/plugins/${PLUGIN_NAME}
+node ../../scripts/plugin_helpers build
+
+# Rename the output
+cd /build/osd-source/plugins/${PLUGIN_NAME}/build
+BUILT_ZIP=$(ls *.zip | head -1)
+OUTPUT_NAME="${PLUGIN_NAME}-${PLUGIN_VERSION}-osd-${OSD_VERSION}.zip"
+mv "$BUILT_ZIP" "$OUTPUT_NAME"
+
+# Copy to output directory
+echo "Copying built plugin to /output..."
+cp "$OUTPUT_NAME" /output/
+
+echo "=============================================="
+echo "Build complete!"
+echo "Output: /output/${OUTPUT_NAME}"
+echo "=============================================="
+EOF
+
+RUN chmod +x /build/build-plugin.sh
+
+# Set the build script as entrypoint
+ENTRYPOINT ["/build/build-plugin.sh"]
