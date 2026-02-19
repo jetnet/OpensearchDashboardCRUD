@@ -131,7 +131,7 @@ export const TagManager: React.FC<TagManagerProps> = ({
             </EuiBadge>
           </EuiFlexItem>
         ))}
-        
+
         {/* Add new tag input */}
         {isAdding && !readOnly ? (
           <EuiFlexItem grow={false}>

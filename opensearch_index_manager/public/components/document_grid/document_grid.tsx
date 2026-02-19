@@ -79,7 +79,7 @@ const formatCellValue = (value: JsonValue): string => {
   return String(value);
 };
 
-  // Truncate text with ellipsis
+// Truncate text with ellipsis
 const truncateText = (text: string, maxLength = 100): string => {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength) + "...";
