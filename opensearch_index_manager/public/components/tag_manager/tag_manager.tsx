@@ -6,7 +6,6 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiText,
-  EuiSpacer,
 } from "@elastic/eui";
 import { JsonValue } from "../../../common/types";
 

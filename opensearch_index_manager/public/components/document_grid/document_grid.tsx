@@ -2,7 +2,6 @@ import React, { useState, useMemo, useCallback } from "react";
 import {
   EuiDataGrid,
   EuiDataGridColumn,
-  EuiDataGridColumnCellActionProps,
   EuiButtonIcon,
   EuiText,
   EuiEmptyPrompt,
@@ -80,15 +79,15 @@ const formatCellValue = (value: JsonValue): string => {
   return String(value);
 };
 
-// Truncate text with ellipsis
-const truncateText = (text: string, maxLength: number = 100): string => {
+  // Truncate text with ellipsis
+const truncateText = (text: string, maxLength = 100): string => {
   if (text.length <= maxLength) return text;
   return text.slice(0, maxLength) + "...";
 };
 
 export const DocumentGrid: React.FC<DocumentGridProps> = ({
   documents,
-  total,
+  total: _total,
   currentPage,
   pageSize,
   isLoading,
@@ -170,20 +169,7 @@ export const DocumentGrid: React.FC<DocumentGridProps> = ({
     [rowData, onEdit, onDelete]
   );
 
-  // Define column cell actions
-  const getColumnCellActions = useCallback(
-    (
-      column: EuiDataGridColumn
-    ): Array<(props: EuiDataGridColumnCellActionProps) => React.ReactNode> => {
-      if (column.id === "_actions") {
-        return [];
-      }
-      return [];
-    },
-    []
-
   // Pagination configuration
-  );
 
   const pagination = {
     pageIndex: currentPage,
@@ -202,7 +188,9 @@ export const DocumentGrid: React.FC<DocumentGridProps> = ({
   // Sorting configuration
   const sorting = {
     columns: [{ id: "_id", direction: "asc" as const }],
-    onSort: () => {},
+    onSort: () => {
+      // Sorting is handled by EuiDataGrid internally with inMemory sorting
+    },
   };
 
   if (documents.length === 0 && !isLoading) {
