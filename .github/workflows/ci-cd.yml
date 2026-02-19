@@ -452,6 +452,9 @@ jobs:
           START_CONTAINERS: false
           STOP_CONTAINERS: false
           CLEANUP_DATA: true
+          CI: true
+          PLAYWRIGHT_WORKERS: 1
+          PLAYWRIGHT_RETRIES: 2
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4

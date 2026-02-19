@@ -1,82 +1,36 @@
-<testsuites id="" name="" tests="638" failures="4" skipped="634" errors="0" time="13.666126">
-<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="smoke" tests="8" failures="4" skipped="4" time="11.795" errors="0">
-<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="4.317">
-<failure message="plugin-installation.spec.ts:16:7 plugin appears in OSD navigation" type="FAILURE">
-<![CDATA[  [smoke] › plugin-installation.spec.ts:16:7 › Plugin Installation › plugin appears in OSD navigation 
-
-    Error: browserContext.newPage: Target page, context or browser has been closed
-    Browser logs:
-
-    <launching> /home/jet/.cache/ms-playwright/chromium_headless_shell-1208/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-web-security --disable-features=IsolateOrigins,site-per-process --user-data-dir=/tmp/playwright_chromiumdev_profile-Urpn6l --remote-debugging-pipe --no-startup-window
-    <launched> pid=3956016
-    [pid=3956016][err] [0219/173348.334373:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.341018:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.348712:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.353829:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.358931:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.362603:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.368375:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.379521:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.382074:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.398034:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.401728:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.404145:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.406538:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.409451:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.415020:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.418493:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.424192:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] [0219/173348.433518:ERROR:content/browser/network_service_instance_impl.cc:610] Network service crashed or was terminated, restarting service.
-    [pid=3956016][err] MESA-INTEL: warning: Haswell Vulkan support is incomplete
-    [pid=3956016][err] failed to open /usr/lib64/dri/hybrid_drv_video.so
-
-    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
-
-    Test was interrupted.
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/trace.zip
-    Usage:
-
-        npx playwright show-trace ../../test-output/functional-tests/test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|test-results/plugin-installation-Plugin-73d59-n-appears-in-OSD-navigation-smoke-retry1/trace.zip]]
-]]>
-</system-out>
+<testsuites id="" name="" tests="638" failures="2" skipped="636" errors="0" time="110.01093300000001">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="smoke" tests="8" failures="2" skipped="6" time="240.515" errors="0">
+<testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="70.86">
+<skipped>
+</skipped>
 </testcase>
-<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="3.246">
+<testcase name="Plugin Installation › plugin navigation works" classname="plugin-installation.spec.ts" time="54.31">
 <failure message="plugin-installation.spec.ts:28:7 plugin navigation works" type="FAILURE">
 <![CDATA[  [smoke] › plugin-installation.spec.ts:28:7 › Plugin Installation › plugin navigation works ───────
 
-    Error: browserContext.newPage: Target page, context or browser has been closed
-    Browser logs:
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for locator('[data-test-subj="navItem opensearchIndexManager"], a[href*="opensearchIndexManager"]')
 
-    <launching> /home/jet/.cache/ms-playwright/chromium_headless_shell-1208/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-web-security --disable-features=IsolateOrigins,site-per-process --user-data-dir=/tmp/playwright_chromiumdev_profile-t6BfKz --remote-debugging-pipe --no-startup-window
-    <launched> pid=3956021
-    [pid=3956021][err] [0219/173348.167328:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:53] Failed to write fake index file: /tmp/playwright_chromiumdev_profile-t6BfKz/Default/Shared Dictionary/cache/index
-    [pid=3956021][err] [0219/173348.167405:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
-    [pid=3956021][err] [0219/173348.167471:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:53] Failed to write fake index file: /tmp/playwright_chromiumdev_profile-t6BfKz/Default/Shared Dictionary/cache/index
-    [pid=3956021][err] [0219/173348.167489:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
-    [pid=3956021][err] [0219/173348.167499:ERROR:net/disk_cache/simple/simple_backend_impl.cc:744] Simple Cache Backend: wrong file structure on disk: 8 path: /tmp/playwright_chromiumdev_profile-t6BfKz/Default/Shared Dictionary/cache
-    [pid=3956021][err] [0219/173348.169128:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:53] Failed to write fake index file: /tmp/playwright_chromiumdev_profile-t6BfKz/Default/Shared Dictionary/cache/index
-    [pid=3956021][err] [0219/173348.169170:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
-    [pid=3956021][err] [0219/173348.169238:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:53] Failed to write fake index file: /tmp/playwright_chromiumdev_profile-t6BfKz/Default/Shared Dictionary/cache/index
-    [pid=3956021][err] [0219/173348.169264:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
-    [pid=3956021][err] [0219/173348.169271:ERROR:net/disk_cache/simple/simple_backend_impl.cc:744] Simple Cache Backend: wrong file structure on disk: 8 path: /tmp/playwright_chromiumdev_profile-t6BfKz/Default/Shared Dictionary/cache
-    [pid=3956021][err] [0219/173348.169307:ERROR:net/disk_cache/disk_cache.cc:272] Unable to create cache
-    [pid=3956021][err] MESA-INTEL: warning: Haswell Vulkan support is incomplete
-    [pid=3956021][err] failed to open /usr/lib64/dri/hybrid_drv_video.so
+
+      29 |     // Click on the plugin navigation link
+      30 |     const navLink = page.locator(Selectors.plugin.navLink);
+    > 31 |     await navLink.click();
+         |                   ^
+      32 |
+      33 |     // Wait for navigation to complete
+      34 |     await page.waitForLoadState('networkidle');
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:31:19
 
     Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
 
     Test was interrupted.
 
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
     ../../test-output/functional-tests/test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/trace.zip
     Usage:
 
@@ -87,76 +41,55 @@
 </failure>
 <system-out>
 <![CDATA[
+[[ATTACHMENT|test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/video.webm]]
+
 [[ATTACHMENT|test-results/plugin-installation-Plugin-0c70a-ion-plugin-navigation-works-smoke-retry1/trace.zip]]
 ]]>
 </system-out>
 </testcase>
-<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="1.011">
-<failure message="plugin-installation.spec.ts:40:7 plugin loads without errors" type="FAILURE">
-<![CDATA[  [smoke] › plugin-installation.spec.ts:40:7 › Plugin Installation › plugin loads without errors ───
-
-    Error: browserType.launch: Target page, context or browser has been closed
-    Browser logs:
-
-    <launching> /home/jet/.cache/ms-playwright/chromium_headless_shell-1208/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-web-security --disable-features=IsolateOrigins,site-per-process --user-data-dir=/tmp/playwright_chromiumdev_profile-rydbsG --remote-debugging-pipe --no-startup-window
-    <launched> pid=3956081
-    Call log:
-      - <launching> /home/jet/.cache/ms-playwright/chromium_headless_shell-1208/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-web-security --disable-features=IsolateOrigins,site-per-process --user-data-dir=/tmp/playwright_chromiumdev_profile-rydbsG --remote-debugging-pipe --no-startup-window
-      - <launched> pid=3956081
-      - [pid=3956081] <gracefully close start>
-      - [pid=3956081] <kill>
-      - [pid=3956081] <will force kill>
-      - [pid=3956081] <process did exit: exitCode=null, signal=SIGTRAP>
-      - [pid=3956081] starting temporary directories cleanup
-      - [pid=3956081] finished temporary directories cleanup
-      - [pid=3956081] <gracefully close end>
-
-
-    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
-
-    Test was interrupted.
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/trace.zip
-    Usage:
-
-        npx playwright show-trace ../../test-output/functional-tests/test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|test-results/plugin-installation-Plugin-bfa14-plugin-loads-without-errors-smoke-retry1/trace.zip]]
-]]>
-</system-out>
+<testcase name="Plugin Installation › plugin loads without errors" classname="plugin-installation.spec.ts" time="70.753">
+<skipped>
+</skipped>
 </testcase>
-<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="3.221">
+<testcase name="Plugin Installation › plugin page has correct title" classname="plugin-installation.spec.ts" time="44.592">
 <failure message="plugin-installation.spec.ts:55:7 plugin page has correct title" type="FAILURE">
 <![CDATA[  [smoke] › plugin-installation.spec.ts:55:7 › Plugin Installation › plugin page has correct title ─
 
-    Error: browserContext.newPage: Target page, context or browser has been closed
+    TimeoutError: page.goto: Timeout 30000ms exceeded.
+    Call log:
+      - navigating to "http://localhost:5601/", waiting until "load"
+
+
+      10 | test.describe('Plugin Installation', () => {
+      11 |   test.beforeEach(async ({ page }) => {
+    > 12 |     await page.goto('/');
+         |                ^
+      13 |     await loginToOSD(page);
+      14 |   });
+      15 |
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:12:16
 
     Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
 
-    Error: browserType.launch: Target page, context or browser has been closed
-    Browser logs:
-
-    <launching> /home/jet/.cache/ms-playwright/chromium_headless_shell-1208/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-web-security --disable-features=IsolateOrigins,site-per-process --user-data-dir=/tmp/playwright_chromiumdev_profile-Z66Dnw --remote-debugging-pipe --no-startup-window
-    <launched> pid=3956596
+    Error: page.goto: net::ERR_INSUFFICIENT_RESOURCES at http://localhost:5601/
     Call log:
-      - <launching> /home/jet/.cache/ms-playwright/chromium_headless_shell-1208/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --disable-web-security --disable-features=IsolateOrigins,site-per-process --user-data-dir=/tmp/playwright_chromiumdev_profile-Z66Dnw --remote-debugging-pipe --no-startup-window
-      - <launched> pid=3956596
-      - [pid=3956596] <gracefully close start>
-      - [pid=3956596] <kill>
-      - [pid=3956596] <will force kill>
-      - [pid=3956596] <process did exit: exitCode=null, signal=SIGTRAP>
-      - [pid=3956596] starting temporary directories cleanup
-      - [pid=3956596] finished temporary directories cleanup
-      - [pid=3956596] <gracefully close end>
+      - navigating to "http://localhost:5601/", waiting until "load"
 
 
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+      10 | test.describe('Plugin Installation', () => {
+      11 |   test.beforeEach(async ({ page }) => {
+    > 12 |     await page.goto('/');
+         |                ^
+      13 |     await loginToOSD(page);
+      14 |   });
+      15 |
+        at /home/jet/src/OpensearchDashboardCRUD/functional-tests/tests/plugin-installation.spec.ts:12:16
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
     ../../test-output/functional-tests/test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/trace.zip
     Usage:
 
@@ -167,6 +100,8 @@
 </failure>
 <system-out>
 <![CDATA[
+[[ATTACHMENT|test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/video.webm]]
+
 [[ATTACHMENT|test-results/plugin-installation-Plugin-339df-ugin-page-has-correct-title-smoke-retry1/trace.zip]]
 ]]>
 </system-out>
@@ -188,7 +123,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="9" failures="0" skipped="9" time="0" errors="0">
 <testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -226,7 +161,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Document Grid › document grid displays correctly" classname="document-grid.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -284,7 +219,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-list.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testsuite name="document-list.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="12" failures="0" skipped="12" time="0" errors="0">
 <testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -334,7 +269,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -376,7 +311,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -434,7 +369,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="17" failures="0" skipped="17" time="0" errors="0">
 <testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -504,7 +439,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
 <testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -538,7 +473,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="search.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="search.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Document Search › search input is visible and functional" classname="search.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -580,7 +515,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="chromium" tests="11" failures="0" skipped="11" time="0" errors="0">
+<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="chromium" tests="11" failures="0" skipped="11" time="0" errors="0">
 <testcase name="Tag Management › tag manager component is present in document editor" classname="tag-management.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -626,7 +561,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="9" failures="0" skipped="9" time="0" errors="0">
 <testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -664,7 +599,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Document Grid › document grid displays correctly" classname="document-grid.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -722,7 +657,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-list.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testsuite name="document-list.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="12" failures="0" skipped="12" time="0" errors="0">
 <testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -772,7 +707,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -814,7 +749,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -872,7 +807,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="17" failures="0" skipped="17" time="0" errors="0">
 <testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -942,7 +877,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="8" failures="0" skipped="8" time="0" errors="0">
 <testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -976,7 +911,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="search.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="search.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Document Search › search input is visible and functional" classname="search.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1018,7 +953,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="firefox" tests="11" failures="0" skipped="11" time="0" errors="0">
+<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="firefox" tests="11" failures="0" skipped="11" time="0" errors="0">
 <testcase name="Tag Management › tag manager component is present in document editor" classname="tag-management.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1064,7 +999,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="9" failures="0" skipped="9" time="0" errors="0">
 <testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1102,7 +1037,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Document Grid › document grid displays correctly" classname="document-grid.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1160,7 +1095,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-list.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testsuite name="document-list.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="12" failures="0" skipped="12" time="0" errors="0">
 <testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1210,7 +1145,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1252,7 +1187,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1310,7 +1245,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="17" failures="0" skipped="17" time="0" errors="0">
 <testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1380,7 +1315,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="8" failures="0" skipped="8" time="0" errors="0">
 <testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1414,7 +1349,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="search.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="search.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Document Search › search input is visible and functional" classname="search.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1456,7 +1391,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="webkit" tests="11" failures="0" skipped="11" time="0" errors="0">
+<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="webkit" tests="11" failures="0" skipped="11" time="0" errors="0">
 <testcase name="Tag Management › tag manager component is present in document editor" classname="tag-management.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1502,7 +1437,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="9" failures="0" skipped="9" time="0" errors="0">
 <testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1540,7 +1475,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Document Grid › document grid displays correctly" classname="document-grid.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1598,7 +1533,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-list.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testsuite name="document-list.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
 <testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1648,7 +1583,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1690,7 +1625,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1748,7 +1683,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="17" failures="0" skipped="17" time="0" errors="0">
 <testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1818,7 +1753,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="8" failures="0" skipped="8" time="0" errors="0">
 <testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1852,7 +1787,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="search.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="search.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Document Search › search input is visible and functional" classname="search.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1894,7 +1829,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Mobile Chrome" tests="11" failures="0" skipped="11" time="0" errors="0">
+<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Mobile Chrome" tests="11" failures="0" skipped="11" time="0" errors="0">
 <testcase name="Tag Management › tag manager component is present in document editor" classname="tag-management.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1940,7 +1875,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="9" failures="0" skipped="9" time="0" errors="0">
 <testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -1978,7 +1913,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Document Grid › document grid displays correctly" classname="document-grid.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2036,7 +1971,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-list.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testsuite name="document-list.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="12" failures="0" skipped="12" time="0" errors="0">
 <testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2086,7 +2021,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2128,7 +2063,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2186,7 +2121,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="17" failures="0" skipped="17" time="0" errors="0">
 <testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2256,7 +2191,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="8" failures="0" skipped="8" time="0" errors="0">
 <testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2290,7 +2225,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="search.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="search.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Document Search › search input is visible and functional" classname="search.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2332,7 +2267,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Microsoft Edge" tests="11" failures="0" skipped="11" time="0" errors="0">
+<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Microsoft Edge" tests="11" failures="0" skipped="11" time="0" errors="0">
 <testcase name="Tag Management › tag manager component is present in document editor" classname="tag-management.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2378,7 +2313,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="9" failures="0" skipped="9" time="0" errors="0">
+<testsuite name="document-crud.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="9" failures="0" skipped="9" time="0" errors="0">
 <testcase name="Document CRUD › Create Document › create document with simple fields" classname="document-crud.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2416,7 +2351,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="document-grid.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Document Grid › document grid displays correctly" classname="document-grid.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2474,7 +2409,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="document-list.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testsuite name="document-list.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
 <testcase name="Document List › document list displays correctly" classname="document-list.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2524,7 +2459,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="index-selection.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Index Selection › index dropdown loads with available indices" classname="index-selection.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2566,7 +2501,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
+<testsuite name="mapping-viewer.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="14" failures="0" skipped="14" time="0" errors="0">
 <testcase name="Mapping Viewer › mapping loads for selected index" classname="mapping-viewer.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2624,7 +2559,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="17" failures="0" skipped="17" time="0" errors="0">
+<testsuite name="nested-fields.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="17" failures="0" skipped="17" time="0" errors="0">
 <testcase name="Nested Fields › Nested Object Editing › display nested object fields" classname="nested-fields.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2694,7 +2629,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testsuite name="plugin-installation.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="8" failures="0" skipped="8" time="0" errors="0">
 <testcase name="Plugin Installation › plugin appears in OSD navigation" classname="plugin-installation.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2728,7 +2663,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="search.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
+<testsuite name="search.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="10" failures="0" skipped="10" time="0" errors="0">
 <testcase name="Document Search › search input is visible and functional" classname="search.spec.ts" time="0">
 <skipped>
 </skipped>
@@ -2770,7 +2705,7 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T16:33:45.033Z" hostname="Google Chrome" tests="11" failures="0" skipped="11" time="0" errors="0">
+<testsuite name="tag-management.spec.ts" timestamp="2026-02-19T18:37:54.133Z" hostname="Google Chrome" tests="11" failures="0" skipped="11" time="0" errors="0">
 <testcase name="Tag Management › tag manager component is present in document editor" classname="tag-management.spec.ts" time="0">
 <skipped>
 </skipped>
