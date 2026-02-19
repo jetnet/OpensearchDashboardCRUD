@@ -43,21 +43,17 @@ const formatValue = (value: JsonValue): string => {
 };
 
 // Render a single value with appropriate formatting
-const RenderValue: React.FC<{ value: JsonValue; depth: number; maxDepth: number }> = ({
-  value,
-  depth,
-  maxDepth,
-}) => {
+const RenderValue: React.FC<{
+  value: JsonValue;
+  depth: number;
+  maxDepth: number;
+}> = ({ value, depth, maxDepth }) => {
   const type = getValueType(value);
 
   // For arrays, render as badges or nested content
   if (Array.isArray(value)) {
     return (
-      <ArrayValueRenderer
-        value={value}
-        depth={depth}
-        maxDepth={maxDepth}
-      />
+      <ArrayValueRenderer value={value} depth={depth} maxDepth={maxDepth} />
     );
   }
 
@@ -74,18 +70,12 @@ const RenderValue: React.FC<{ value: JsonValue; depth: number; maxDepth: number 
 
   // For primitive values, render with type-specific styling
   if (type === "null") {
-    return (
-      <EuiBadge color="default">
-        null
-      </EuiBadge>
-    );
+    return <EuiBadge color="default">null</EuiBadge>;
   }
 
   if (type === "boolean") {
     return (
-      <EuiBadge color={value ? "success" : "warning"}>
-        {String(value)}
-      </EuiBadge>
+      <EuiBadge color={value ? "success" : "warning"}>{String(value)}</EuiBadge>
     );
   }
 
@@ -149,7 +139,11 @@ const ArrayValueRenderer: React.FC<{
     return (
       <div style={{ marginTop: "8px" }}>
         {value.map((item, index) => {
-          if (typeof item === "object" && item !== null && !Array.isArray(item)) {
+          if (
+            typeof item === "object" &&
+            item !== null &&
+            !Array.isArray(item)
+          ) {
             return (
               <div key={index} style={{ marginBottom: "8px" }}>
                 <EuiTitle size="xxs">
@@ -212,7 +206,11 @@ export const NestedTable: React.FC<NestedTableProps> = ({
           {entries.map(([key, value]) => (
             <EuiTableRow key={key}>
               <EuiTableCell
-                style={{ width: "30%", fontWeight: "bold", verticalAlign: "top" }}
+                style={{
+                  width: "30%",
+                  fontWeight: "bold",
+                  verticalAlign: "top",
+                }}
               >
                 <EuiText size="s">{key}</EuiText>
               </EuiTableCell>
