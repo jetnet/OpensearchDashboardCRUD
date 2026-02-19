@@ -3,15 +3,15 @@ import { PLUGIN_NAME, PLUGIN_ID } from "../common/constants";
 
 export class OpenSearchIndexManagerPlugin implements Plugin<void, void> {
   public setup(core: CoreSetup) {
-    // Register the application
+    // Register the application under OpenSearch Plugins category
     core.application.register({
       id: PLUGIN_ID,
       title: PLUGIN_NAME,
       order: 4000,
-      euiIconType: "managementApp",
+      euiIconType: "logoOpenSearch",
       category: {
-        id: "management",
-        label: "Management",
+        id: "opensearch",
+        label: "OpenSearch Plugins",
         order: 1000,
       },
       async mount(params: any) {

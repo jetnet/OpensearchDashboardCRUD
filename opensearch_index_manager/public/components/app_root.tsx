@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { CoreStart } from "opensearch-dashboards/public";
 import {
   EuiPage,
@@ -11,11 +11,13 @@ import {
   EuiButton,
   EuiSpacer,
   EuiToast,
+  EuiFieldSearch,
+  EuiLoadingSpinner,
 } from "@elastic/eui";
 import { AppPluginStartDependencies } from "../types";
 import { HttpService, IndexService, DocumentService } from "../services";
 import { IndexSelector } from "./index_selector";
-import { DocumentList } from "./document_list";
+import { DocumentGrid } from "./document_grid";
 import { DocumentEditor } from "./document_editor";
 import { MappingViewer } from "./mapping_viewer";
 import { Document, IndexInfo } from "../../common/types";
@@ -50,6 +52,11 @@ export const AppRoot: React.FC<AppRootProps> = ({
   >([]);
   const [mapping, setMapping] = useState<any>(null);
   const [showMapping, setShowMapping] = useState<boolean>(false);
+  
+  // Search state
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load indices on mount
   useEffect(() => {
@@ -103,6 +110,74 @@ export const AppRoot: React.FC<AppRootProps> = ({
     } catch (error) {
       console.error("Error loading mapping:", error);
     }
+  };
+
+  // Debounced search function
+  const debouncedSearch = useCallback(
+    (query: string) => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+
+      searchTimeoutRef.current = setTimeout(() => {
+        performSearch(query);
+      }, 400);
+    },
+    [selectedIndex]
+  );
+
+  // Perform the actual search
+  const performSearch = async (query: string) => {
+    if (!selectedIndex) return;
+
+    if (!query.trim()) {
+      // If query is empty, load normal documents
+      loadDocuments();
+      return;
+    }
+
+    setIsSearching(true);
+    setIsLoading(true);
+    try {
+      const result = await documentService.search(selectedIndex, {
+        query: {
+          multi_match: {
+            query: query,
+            fields: ["*"],
+            type: "best_fields",
+          },
+        },
+        from: currentPage * pageSize,
+        size: pageSize,
+      });
+      setDocuments(result.hits.hits);
+      setTotalDocuments(
+        typeof result.hits.total === "number"
+          ? result.hits.total
+          : result.hits.total.value
+      );
+    } catch (error) {
+      showToast("Error searching documents", "danger");
+    } finally {
+      setIsSearching(false);
+      setIsLoading(false);
+    }
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedSearch(query);
+  };
+
+  // Clear search
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    loadDocuments();
   };
 
   const handleIndexChange = (index: string) => {
@@ -222,7 +297,31 @@ export const AppRoot: React.FC<AppRootProps> = ({
             </>
           )}
 
-          <DocumentList
+          {/* Search Bar */}
+          <EuiFlexGroup alignItems="center" gutterSize="s">
+            <EuiFlexItem>
+              <EuiFieldSearch
+                placeholder="Search documents..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                isClearable={true}
+                onClear={handleClearSearch}
+                fullWidth={true}
+                disabled={!selectedIndex}
+                data-test-subj="document-search-input"
+                aria-label="Search documents"
+              />
+            </EuiFlexItem>
+            {isSearching && (
+              <EuiFlexItem grow={false}>
+                <EuiLoadingSpinner size="m" />
+              </EuiFlexItem>
+            )}
+          </EuiFlexGroup>
+
+          <EuiSpacer size="m" />
+
+          <DocumentGrid
             documents={documents}
             total={totalDocuments}
             currentPage={currentPage}
