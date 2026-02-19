@@ -1,0 +1,732 @@
+name: CI/CD Pipeline (Test-Gated Release)
+
+# =============================================================================
+# TRIGGER CONFIGURATION
+# Triggers on push to main/release branches, NOT on tags
+# Tags are CREATED by this workflow after tests pass
+# =============================================================================
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/**'
+    # NOTE: No 'tags' trigger - tags are created AFTER tests pass
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.gitignore'
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+    inputs:
+      force_release:
+        description: 'Force release even if tag exists'
+        required: false
+        default: false
+        type: boolean
+      skip_tests:
+        description: 'Skip integration tests'
+        required: false
+        default: false
+        type: boolean
+      skip_functional_tests:
+        description: 'Skip functional tests'
+        required: false
+        default: false
+        type: boolean
+      release_draft:
+        description: 'Create as draft release'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  PLUGIN_NAME: opensearch_index_manager
+  NODE_VERSION: 18.19.0
+  OPENSEARCH_VERSION: 2.19.0
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ============================================================================
+  # Job 1: Lint and Type Check
+  # Purpose: Fast feedback on code quality issues
+  # Failure: Pipeline aborts immediately
+  # ============================================================================
+  lint-and-type-check:
+    name: Lint and Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+          cache-dependency-path: ${{ env.PLUGIN_NAME }}/yarn.lock
+
+      - name: Install Dependencies
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: yarn install --frozen-lockfile
+
+      - name: Run ESLint
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: yarn lint
+
+      - name: Run Prettier Check
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: yarn prettier --check "**/*.{ts,tsx,js,json,md}"
+
+  # ============================================================================
+  # Job 2: Build Matrix (All OSD Versions)
+  # Purpose: Build plugin artifacts for all supported OSD versions in parallel
+  # Failure: fail-fast: true - cancels all builds if any version fails
+  # ============================================================================
+  build:
+    name: Build OSD ${{ matrix.osd_version }}
+    runs-on: ubuntu-latest
+    needs: lint-and-type-check
+    timeout-minutes: 45
+
+    strategy:
+      fail-fast: true  # Stop all builds if any version fails
+      matrix:
+        osd_version: ["2.19.0", "2.19.1", "2.19.2", "2.19.3", "2.19.4"]
+
+    outputs:
+      plugin_version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Checkout OSD Source
+        uses: actions/checkout@v4
+        with:
+          repository: opensearch-project/OpenSearch-Dashboards
+          ref: ${{ matrix.osd_version }}
+          path: osd-source
+
+      - name: Checkout Plugin Code
+        uses: actions/checkout@v4
+        with:
+          path: plugin-source
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Configure Yarn
+        run: |
+          npm install -g yarn@1.22.21
+          yarn config set network-timeout 600000
+
+      - name: Bootstrap OSD
+        working-directory: ./osd-source
+        run: yarn osd bootstrap --single-version=loose
+        timeout-minutes: 20
+
+      - name: Copy Plugin to OSD
+        run: |
+          mkdir -p osd-source/plugins/${{ env.PLUGIN_NAME }}
+          cp -r plugin-source/${{ env.PLUGIN_NAME }}/* osd-source/plugins/${{ env.PLUGIN_NAME }}/
+
+      - name: Build Plugin
+        id: build
+        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
+        run: |
+          yarn plugin-helpers build
+        timeout-minutes: 15
+
+      - name: Get Plugin Version
+        id: version
+        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
+
+      - name: Rename Build Artifact
+        working-directory: ./osd-source/plugins/${{ env.PLUGIN_NAME }}/build
+        run: |
+          # Find the built zip file and rename it
+          BUILT_ZIP=$(ls *.zip | head -1)
+          mv "$BUILT_ZIP" "${{ env.PLUGIN_NAME }}-${{ steps.version.outputs.version }}-osd-${{ matrix.osd_version }}.zip"
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_NAME }}-${{ steps.version.outputs.version }}-osd-${{ matrix.osd_version }}
+          path: osd-source/plugins/${{ env.PLUGIN_NAME }}/build/${{ env.PLUGIN_NAME }}-${{ steps.version.outputs.version }}-osd-${{ matrix.osd_version }}.zip
+          retention-days: 1  # Short retention - will be in release artifacts
+          if-no-files-found: error
+
+      - name: Upload Build Logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: build-logs-osd-${{ matrix.osd_version }}
+          path: osd-source/plugins/${{ env.PLUGIN_NAME }}/build/*.log
+          retention-days: 7
+          if-no-files-found: ignore
+
+  # ============================================================================
+  # Job 3: Integration Tests
+  # Purpose: Containerized tests with Podman + OpenSearch
+  # Failure: Pipeline aborts - no functional tests or release
+  # ============================================================================
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ !inputs.skip_tests && success() }}
+    timeout-minutes: 30
+
+    env:
+      OSD_VERSION: "2.19.0"
+
+    steps:
+      - name: Checkout Plugin Code
+        uses: actions/checkout@v4
+
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman podman-compose
+          podman --version
+          podman-compose --version
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_NAME }}-${{ needs.build.outputs.plugin_version }}-osd-${{ env.OSD_VERSION }}
+          path: ./build
+
+      - name: Start OpenSearch & OSD with Podman
+        run: |
+          export OPENSEARCH_VERSION=${{ env.OPENSEARCH_VERSION }}
+          export OSD_VERSION=${{ env.OSD_VERSION }}
+          export PLUGIN_PATH=$(pwd)/build/${{ env.PLUGIN_NAME }}-*.zip
+          podman-compose -f podman-compose.yml up -d
+          
+          # Wait for services to be ready
+          echo "Waiting for OpenSearch..."
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          echo "Waiting for OpenSearch Dashboards..."
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          
+          echo "Services are ready!"
+
+      - name: Install Plugin
+        run: |
+          # Stop containers to remove conflicting plugin mount
+          echo "Stopping containers to remove conflicting plugin mount..."
+          podman-compose -f podman-compose.yml down
+          
+          # Create Podman network for container communication
+          echo "Creating Podman network..."
+          podman network create osim-net
+          
+          # Start only OpenSearch (without OSD plugin mount)
+          echo "Starting OpenSearch..."
+          podman run -d --network osim-net --name osim-opensearch \
+            -p 9200:9200 \
+            -e cluster.name=osim-cluster \
+            -e node.name=osim-node \
+            -e discovery.type=single-node \
+            -e bootstrap.memory_lock=true \
+            -e OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m" \
+            -e DISABLE_SECURITY_PLUGIN=true \
+            opensearchproject/opensearch:${{ env.OPENSEARCH_VERSION }}
+          
+          # Wait for OpenSearch
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          # Start OSD without plugin mount
+          echo "Starting OSD without plugin mount..."
+          podman run -d --network osim-net \
+            --name osim-dashboards \
+            -p 5601:5601 \
+            -e "OPENSEARCH_HOSTS=[\"http://osim-opensearch:9200\"]" \
+            -e DISABLE_SECURITY_DASHBOARDS_PLUGIN=true \
+            opensearchproject/opensearch-dashboards:${{ env.OSD_VERSION }}
+          
+          # Wait for OSD to be ready
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          
+          # Install plugin from zip
+          PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
+          echo "Installing plugin from: $PLUGIN_ZIP"
+          podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
+          podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
+          
+          # Restart OSD to load plugin
+          echo "Restarting OSD to load plugin..."
+          podman restart osim-dashboards
+          
+          # Wait for OSD to be ready (max 3 attempts, fail fast)
+          echo "Waiting for OSD to be ready..."
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt..."
+            if curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; then
+              echo "OSD is ready!"
+              exit 0
+            fi
+            podman logs --tail 10 osim-dashboards 2>&1 || true
+            sleep 10
+          done
+          echo "OSD failed to start after 3 attempts"
+          exit 1
+
+      - name: Run API Tests
+        run: |
+          # Test plugin health endpoint
+          curl -sf http://localhost:5601/api/${{ env.PLUGIN_NAME }}/health || exit 1
+          
+          # Test indices API
+          curl -sf http://localhost:5601/api/${{ env.PLUGIN_NAME }}/indices || exit 1
+          
+          echo "All API tests passed!"
+
+      - name: Run Test Data Setup
+        run: |
+          chmod +x scripts/setup-test-data.sh
+          ./scripts/setup-test-data.sh
+        continue-on-error: true
+
+      - name: Capture Test Results
+        if: always()
+        run: |
+          mkdir -p test-results
+          echo "Test execution completed" > test-results/integration-test-summary.txt
+          date >> test-results/integration-test-summary.txt
+          podman logs opensearch > test-results/opensearch.log 2>&1 || true
+          podman logs osim-dashboards > test-results/osim-dashboards.log 2>&1 || true
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-results
+          path: test-results/
+          retention-days: 14
+
+      - name: Stop Podman Containers
+        if: always()
+        run: |
+          podman-compose -f podman-compose.yml down -v || true
+          podman rm -f osim-dashboards osim-opensearch || true
+          podman network rm osim-net || true
+          podman system prune -f || true
+
+  # ============================================================================
+  # Job 4: Functional Tests (Playwright)
+  # Purpose: End-to-end tests with plugin registration verification
+  # Failure: Pipeline aborts - no release created
+  # ============================================================================
+  functional-tests:
+    name: Functional Tests (Playwright)
+    runs-on: ubuntu-latest
+    needs: [build, integration-tests]
+    if: ${{ !inputs.skip_functional_tests && success() }}
+    timeout-minutes: 45
+
+    env:
+      OSD_VERSION: "2.19.0"
+      CI: true
+
+    steps:
+      - name: Checkout Plugin Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman podman-compose
+          podman --version
+          podman-compose --version
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_NAME }}-${{ needs.build.outputs.plugin_version }}-osd-${{ env.OSD_VERSION }}
+          path: ./build
+
+      - name: Start OpenSearch & OSD with Podman
+        run: |
+          export OPENSEARCH_VERSION=${{ env.OPENSEARCH_VERSION }}
+          export OSD_VERSION=${{ env.OSD_VERSION }}
+          export PLUGIN_PATH=$(pwd)/build/${{ env.PLUGIN_NAME }}-*.zip
+          podman-compose -f podman-compose.yml up -d
+          
+          # Wait for services to be ready
+          echo "Waiting for OpenSearch..."
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          echo "Waiting for OpenSearch Dashboards..."
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          
+          echo "Services are ready!"
+
+      - name: Install Plugin
+        run: |
+          # Stop containers to remove conflicting plugin mount
+          echo "Stopping containers to remove conflicting plugin mount..."
+          podman-compose -f podman-compose.yml down
+          
+          # Create Podman network for container communication
+          echo "Creating Podman network..."
+          podman network create osim-net
+          
+          # Start only OpenSearch (without OSD plugin mount)
+          echo "Starting OpenSearch..."
+          podman run -d --network osim-net --name osim-opensearch \
+            -p 9200:9200 \
+            -e cluster.name=osim-cluster \
+            -e node.name=osim-node \
+            -e discovery.type=single-node \
+            -e bootstrap.memory_lock=true \
+            -e OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m" \
+            -e DISABLE_SECURITY_PLUGIN=true \
+            opensearchproject/opensearch:${{ env.OPENSEARCH_VERSION }}
+          
+          # Wait for OpenSearch
+          timeout 180 bash -c 'until curl -s http://localhost:9200 >/dev/null 2>&1; do sleep 5; done'
+          
+          # Start OSD without plugin mount
+          echo "Starting OSD without plugin mount..."
+          podman run -d --network osim-net \
+            --name osim-dashboards \
+            -p 5601:5601 \
+            -e "OPENSEARCH_HOSTS=[\"http://osim-opensearch:9200\"]" \
+            -e DISABLE_SECURITY_DASHBOARDS_PLUGIN=true \
+            opensearchproject/opensearch-dashboards:${{ env.OSD_VERSION }}
+          
+          # Wait for OSD to be ready
+          timeout 180 bash -c 'until curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; do sleep 5; done'
+          
+          # Install plugin from zip
+          PLUGIN_ZIP=$(ls build/${{ env.PLUGIN_NAME }}-*.zip | head -1)
+          echo "Installing plugin from: $PLUGIN_ZIP"
+          podman cp "$PLUGIN_ZIP" osim-dashboards:/tmp/
+          podman exec osim-dashboards ./bin/opensearch-dashboards-plugin install file:///tmp/$(basename "$PLUGIN_ZIP")
+          
+          # Restart OSD to load plugin
+          echo "Restarting OSD to load plugin..."
+          podman restart osim-dashboards
+          
+          # Wait for OSD to be ready (max 3 attempts, fail fast)
+          echo "Waiting for OSD to be ready..."
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt..."
+            if curl -s http://localhost:5601/api/status | grep -q "green\|yellow"; then
+              echo "OSD is ready!"
+              exit 0
+            fi
+            podman logs --tail 10 osim-dashboards 2>&1 || true
+            sleep 10
+          done
+          echo "OSD failed to start after 3 attempts"
+          exit 1
+
+      - name: Install Functional Test Dependencies
+        working-directory: ./functional-tests
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run Playwright Tests
+        working-directory: ./functional-tests
+        run: |
+          npm test
+        env:
+          OSD_BASE_URL: http://localhost:5601
+          OS_HOST: localhost
+          OS_PORT: 9200
+          START_CONTAINERS: false
+          STOP_CONTAINERS: false
+          CLEANUP_DATA: true
+
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: |
+            test-output/functional-tests/html-report/
+            test-output/functional-tests/results.json
+          retention-days: 30
+
+      - name: Upload Test Artifacts (Screenshots/Videos)
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-test-artifacts
+          path: test-output/functional-tests/test-results/
+          retention-days: 14
+
+      - name: Publish Test Results to GitHub
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Functional Test Results
+          path: test-output/functional-tests/junit-results.xml
+          reporter: jest-junit
+          fail-on-error: false
+
+      - name: Stop Podman Containers
+        if: always()
+        run: |
+          podman-compose -f podman-compose.yml down -v || true
+          podman rm -f osim-dashboards osim-opensearch || true
+          podman network rm osim-net || true
+          podman system prune -f || true
+
+  # ============================================================================
+  # Job 5: Determine Version
+  # Purpose: Extract version from package.json for tag creation
+  # Only runs when all test jobs pass successfully
+  # ============================================================================
+  determine-version:
+    name: Determine Version
+    runs-on: ubuntu-latest
+    needs: [lint-and-type-check, build, integration-tests, functional-tests]
+    # Only run on main branch when all dependencies succeed
+    if: |
+      github.ref == 'refs/heads/main' &&
+      needs.lint-and-type-check.result == 'success' &&
+      needs.build.result == 'success' &&
+      needs.integration-tests.result == 'success' &&
+      needs.functional-tests.result == 'success'
+    timeout-minutes: 5
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag_name: ${{ steps.version.outputs.tag_name }}
+      tag_exists: ${{ steps.check_tag.outputs.exists }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract Version from package.json
+        id: version
+        working-directory: ./${{ env.PLUGIN_NAME }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag_name=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
+          echo "Tag name: v$VERSION"
+
+      - name: Check if Tag Exists
+        id: check_tag
+        run: |
+          if git ls-remote --tags origin "refs/tags/${{ steps.version.outputs.tag_name }}" | grep -q "${{ steps.version.outputs.tag_name }}"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.version.outputs.tag_name }} already exists"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.version.outputs.tag_name }} does not exist"
+          fi
+
+  # ============================================================================
+  # Job 6: Create and Push Tag (Conditional)
+  # Purpose: Create git tag ONLY after all tests pass
+  # Only runs if:
+  #   1. We're on the main branch
+  #   2. All test jobs passed (via job dependency)
+  #   3. The tag doesn't already exist (or force_release is true)
+  # ============================================================================
+  create-tag:
+    name: Create Git Tag
+    runs-on: ubuntu-latest
+    needs: determine-version
+    if: |
+      github.ref == 'refs/heads/main' &&
+      (needs.determine-version.outputs.tag_exists == 'false' || inputs.force_release == true)
+    timeout-minutes: 5
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Create Tag
+        run: |
+          git tag -a "${{ needs.determine-version.outputs.tag_name }}" -m "Release ${{ needs.determine-version.outputs.tag_name }}"
+          echo "Created tag: ${{ needs.determine-version.outputs.tag_name }}"
+
+      - name: Push Tag
+        run: |
+          git push origin "${{ needs.determine-version.outputs.tag_name }}"
+          echo "Pushed tag: ${{ needs.determine-version.outputs.tag_name }}"
+
+      - name: Output Tag Info
+        run: |
+          echo "## ✅ Tag Created" >> $GITHUB_STEP_SUMMARY
+          echo "Version: ${{ needs.determine-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "Tag: ${{ needs.determine-version.outputs.tag_name }}" >> $GITHUB_STEP_SUMMARY
+
+  # ============================================================================
+  # Job 7: Create GitHub Release
+  # Purpose: Create release with all artifacts
+  # Runs after tag is created or if tag already exists
+  # ============================================================================
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [determine-version, create-tag]
+    if: |
+      always() &&
+      github.ref == 'refs/heads/main' &&
+      (needs.create-tag.result == 'success' || needs.determine-version.outputs.tag_exists == 'true')
+    timeout-minutes: 20
+
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download All Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+          pattern: ${{ env.PLUGIN_NAME }}-*-osd-*
+
+      - name: Generate Release Notes
+        run: |
+          cat > RELEASE_NOTES.md << 'EOF'
+          # OpenSearch Index Manager ${{ needs.determine-version.outputs.version }}
+
+          ## Supported OpenSearch Dashboards Versions
+          - 2.19.0
+          - 2.19.1
+          - 2.19.2
+          - 2.19.3
+          - 2.19.4
+
+          ## Installation
+
+          Download the appropriate plugin zip file for your OpenSearch Dashboards version:
+
+          \`\`\`bash
+          ./bin/opensearch-dashboards-plugin install \\
+            https://github.com/${{ github.repository }}/releases/download/${{ needs.determine-version.outputs.tag_name }}/${{ env.PLUGIN_NAME }}-${{ needs.determine-version.outputs.version }}-osd-<VERSION>.zip
+          \`\`\`
+
+          Replace \`<VERSION>\` with your OSD version (e.g., \`2.19.0\`).
+
+          ## Changes
+
+          $(git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD~1)..HEAD 2>/dev/null || echo "See CHANGELOG.md for details")
+          EOF
+
+      - name: Generate Checksums
+        run: |
+          cd artifacts
+          find . -name "*.zip" -exec sha256sum {} \; > ../CHECKSUMS.txt
+          cd ..
+          cat CHECKSUMS.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.determine-version.outputs.tag_name }}
+          name: Release ${{ needs.determine-version.outputs.tag_name }}
+          body_path: RELEASE_NOTES.md
+          draft: ${{ inputs.release_draft || false }}
+          prerelease: ${{ contains(needs.determine-version.outputs.version, '-') }}
+          files: |
+            artifacts/**/*.zip
+            CHECKSUMS.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Assets Summary
+        run: |
+          echo "## ✅ Release Created" >> $GITHUB_STEP_SUMMARY
+          echo "Version: ${{ needs.determine-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "Tag: ${{ needs.determine-version.outputs.tag_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Artifacts" >> $GITHUB_STEP_SUMMARY
+          for file in artifacts/**/*.zip; do
+            filename=$(basename "$file")
+            osd_version=$(echo "$filename" | grep -oE 'osd-[0-9]+\.[0-9]+\.[0-9]+' | sed 's/osd-//')
+            echo "| $filename | $osd_version |" >> $GITHUB_STEP_SUMMARY
+          done
+
+  # ============================================================================
+  # Job 8: Handle Failure
+  # Purpose: Clear notification and cleanup when tests fail
+  # Runs when ANY job fails on main branch
+  # ============================================================================
+  handle-failure:
+    name: Handle Pipeline Failure
+    runs-on: ubuntu-latest
+    needs: [lint-and-type-check, build, integration-tests, functional-tests]
+    # Only run if we're on main branch and any job failed
+    if: |
+      failure() &&
+      github.ref == 'refs/heads/main'
+    timeout-minutes: 5
+
+    steps:
+      - name: Identify Failed Jobs
+        run: |
+          echo "## ❌ Pipeline Failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The following jobs failed:" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.lint-and-type-check.result }}" != "success" ]; then
+            echo "- ❌ Lint and Type Check (${{ needs.lint-and-type-check.result }})" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ "${{ needs.build.result }}" != "success" ]; then
+            echo "- ❌ Build Matrix (${{ needs.build.result }})" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ "${{ needs.integration-tests.result }}" != "success" ]; then
+            echo "- ❌ Integration Tests (${{ needs.integration-tests.result }})" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ "${{ needs.functional-tests.result }}" != "success" ]; then
+            echo "- ❌ Functional Tests (${{ needs.functional-tests.result }})" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**⚠️ No tag or release was created.**" >> $GITHUB_STEP_SUMMARY
+          echo "Fix the issues and push to main to retry." >> $GITHUB_STEP_SUMMARY
+
+      - name: Cleanup Summary
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Cleanup" >> $GITHUB_STEP_SUMMARY
+          echo "Build artifacts will be cleaned up automatically (1-day retention)" >> $GITHUB_STEP_SUMMARY
