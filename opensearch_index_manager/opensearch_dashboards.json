@@ -1,11 +1,10 @@
 {
-  "id": "opensearchIndexManager",
+  "id": "opensearch_index_manager",
   "version": "1.0.0",
   "opensearchDashboardsVersion": "2.19.0",
   "server": true,
   "ui": true,
-  "requiredPlugins": [],
+  "requiredPlugins": ["navigation", "data"],
   "optionalPlugins": ["securityDashboards", "dataSource"],
-  "requiredBundles": [],
-  "configPath": ["opensearchIndexManager"]
+  "configPath": ["opensearch_index_manager"]
 }
