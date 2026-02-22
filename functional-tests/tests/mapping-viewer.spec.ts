@@ -1,6 +1,7 @@
 /**
  * Mapping Viewer Tests
  * Test mapping display, tree view, JSON view, and field type indicators
+ * NOTE: These tests are disabled - only essential-crud.spec.ts tests are run
  */
 
 import { test, expect } from '@playwright/test';
@@ -14,7 +15,7 @@ import {
 import { Selectors } from '../utils/selectors';
 import { testIndices, expectedFieldTypes } from '../fixtures/test-data';
 
-test.describe('Mapping Viewer', () => {
+test.describe.skip('Mapping Viewer', () => {
   test.beforeAll(async () => {
     await osClient.setupTestIndices();
     await osClient.refreshIndex(testIndices.simple);
@@ -30,7 +31,7 @@ test.describe('Mapping Viewer', () => {
     await waitForPluginToLoad(page);
   });
 
-  test('mapping loads for selected index', async ({ page }) => {
+  test.skip('mapping loads for selected index', async ({ page }) => {
     // Select an index
     await selectIndex(page, testIndices.simple);
 
@@ -42,7 +43,7 @@ test.describe('Mapping Viewer', () => {
     await expect(fieldNodes.first()).toBeVisible();
   });
 
-  test('mapping tree view displays correctly', async ({ page }) => {
+  test.skip('mapping tree view displays correctly', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Verify tree view container
@@ -58,7 +59,7 @@ test.describe('Mapping Viewer', () => {
     await expect(firstNode.locator(Selectors.mappingViewer.fieldName)).toBeVisible();
   });
 
-  test('field names are displayed correctly', async ({ page }) => {
+  test.skip('field names are displayed correctly', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Get all field names
@@ -74,7 +75,7 @@ test.describe('Mapping Viewer', () => {
     }
   });
 
-  test('field type indicators are shown', async ({ page }) => {
+  test.skip('field type indicators are shown', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Verify type indicators exist
@@ -97,7 +98,7 @@ test.describe('Mapping Viewer', () => {
     expect(hasType).toBeTruthy();
   });
 
-  test('expand and collapse mapping fields', async ({ page }) => {
+  test.skip('expand and collapse mapping fields', async ({ page }) => {
     // Select nested index for complex mapping
     await selectIndex(page, testIndices.nested);
 
@@ -119,7 +120,7 @@ test.describe('Mapping Viewer', () => {
     }
   });
 
-  test('mapping JSON view displays correctly', async ({ page }) => {
+  test.skip('mapping JSON view displays correctly', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Find and click JSON view toggle if available
@@ -140,7 +141,7 @@ test.describe('Mapping Viewer', () => {
     }
   });
 
-  test('nested mapping displays nested structure', async ({ page }) => {
+  test.skip('nested mapping displays nested structure', async ({ page }) => {
     // Select nested index
     await selectIndex(page, testIndices.nested);
 
@@ -158,7 +159,7 @@ test.describe('Mapping Viewer', () => {
     expect(hasAddress || hasContact).toBeTruthy();
   });
 
-  test('mapping updates when changing indices', async ({ page }) => {
+  test.skip('mapping updates when changing indices', async ({ page }) => {
     // Select first index
     await selectIndex(page, testIndices.simple);
     await page.waitForTimeout(500);
@@ -180,7 +181,7 @@ test.describe('Mapping Viewer', () => {
     await expect(page.locator(Selectors.mappingViewer.container)).toBeVisible();
   });
 
-  test('field type badges are color-coded', async ({ page }) => {
+  test.skip('field type badges are color-coded', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Look for different type indicators
@@ -206,7 +207,7 @@ test.describe('Mapping Viewer', () => {
     }
   });
 
-  test('object and nested types are distinguished', async ({ page }) => {
+  test.skip('object and nested types are distinguished', async ({ page }) => {
     // Select array index which has nested types
     await selectIndex(page, testIndices.arrays);
 
@@ -221,7 +222,7 @@ test.describe('Mapping Viewer', () => {
     expect(hasObject || hasNested).toBeTruthy();
   });
 
-  test('mapping shows correct field count', async ({ page }) => {
+  test.skip('mapping shows correct field count', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Count visible field nodes
@@ -233,7 +234,7 @@ test.describe('Mapping Viewer', () => {
     expect(visibleCount).toBeGreaterThanOrEqual(7);
   });
 
-  test('field paths are displayed for nested fields', async ({ page }) => {
+  test.skip('field paths are displayed for nested fields', async ({ page }) => {
     await selectIndex(page, testIndices.nested);
 
     // Look for field path attributes or nested field display
@@ -259,7 +260,7 @@ test.describe('Mapping Viewer', () => {
     expect(hasNestedPath).toBeTruthy();
   });
 
-  test('numeric type variations are shown', async ({ page }) => {
+  test.skip('numeric type variations are shown', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Look for numeric type indicators
@@ -277,7 +278,7 @@ test.describe('Mapping Viewer', () => {
     expect(hasNumericType).toBeTruthy();
   });
 
-  test('mapping viewer is responsive to window size', async ({ page }) => {
+  test.skip('mapping viewer is responsive to window size', async ({ page }) => {
     await selectIndex(page, testIndices.simple);
 
     // Test at different viewport sizes

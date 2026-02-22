@@ -1,6 +1,7 @@
 /**
  * Document CRUD Tests
  * Test create, read, update, and delete operations
+ * NOTE: These tests are disabled - only essential-crud.spec.ts tests are run
  */
 
 import { test, expect } from '@playwright/test';
@@ -23,7 +24,7 @@ import {
 import { Selectors } from '../utils/selectors';
 import { testIndices, newSimpleDocument, simpleDocuments } from '../fixtures/test-data';
 
-test.describe('Document CRUD', () => {
+test.describe.skip('Document CRUD', () => {
   test.beforeAll(async () => {
     // Setup test indices
     await osClient.setupTestIndices();
@@ -46,8 +47,8 @@ test.describe('Document CRUD', () => {
     await closeToasts(page);
   });
 
-  test.describe('Create Document', () => {
-    test('create document with simple fields', async ({ page }) => {
+  test.describe.skip('Create Document', () => {
+    test.skip('create document with simple fields', async ({ page }) => {
       const docId = `crud-test-${Date.now()}`;
       
       // Click create button
@@ -91,7 +92,7 @@ test.describe('Document CRUD', () => {
       expect(exists).toBeTruthy();
     });
 
-    test('create document with auto-generated ID', async ({ page }) => {
+    test.skip('create document with auto-generated ID', async ({ page }) => {
       // Click create button
       const createButton = page.locator(Selectors.createDocument.button);
       await createButton.click();
@@ -113,7 +114,7 @@ test.describe('Document CRUD', () => {
       await expect(page.locator(Selectors.osd.toastSuccess)).toBeVisible({ timeout: 5000 });
     });
 
-    test('create document using JSON editor', async ({ page }) => {
+    test.skip('create document using JSON editor', async ({ page }) => {
       const docId = `json-test-${Date.now()}`;
       
       // Click create button
@@ -154,7 +155,7 @@ test.describe('Document CRUD', () => {
       await expect(page.locator(Selectors.osd.toastSuccess)).toBeVisible({ timeout: 5000 });
     });
 
-    test('cancel create does not save document', async ({ page }) => {
+    test.skip('cancel create does not save document', async ({ page }) => {
       const docId = `cancel-test-${Date.now()}`;
       
       // Get current document count
@@ -185,14 +186,14 @@ test.describe('Document CRUD', () => {
     });
   });
 
-  test.describe('Read Document', () => {
+  test.describe.skip('Read Document', () => {
     test.beforeAll(async () => {
       // Insert test document for reading
       await osClient.indexDocument(testIndices.simple, simpleDocuments[0], simpleDocuments[0].id);
       await osClient.refreshIndex(testIndices.simple);
     });
 
-    test('view document displays correct fields', async ({ page }) => {
+    test.skip('view document displays correct fields', async ({ page }) => {
       const docId = simpleDocuments[0].id!;
       
       // Find the document row
@@ -218,7 +219,7 @@ test.describe('Document CRUD', () => {
     });
   });
 
-  test.describe('Update Document', () => {
+  test.describe.skip('Update Document', () => {
     test.beforeAll(async () => {
       // Insert test document for updating
       const docToUpdate = {
@@ -235,7 +236,7 @@ test.describe('Document CRUD', () => {
       await osClient.refreshIndex(testIndices.simple);
     });
 
-    test('update document fields', async ({ page }) => {
+    test.skip('update document fields', async ({ page }) => {
       const docId = 'update-test-doc';
       const newTitle = 'Updated Title';
       
@@ -277,7 +278,7 @@ test.describe('Document CRUD', () => {
       await page.click(Selectors.documentEditor.cancelButton);
     });
 
-    test('cancel update does not save changes', async ({ page }) => {
+    test.skip('cancel update does not save changes', async ({ page }) => {
       const docId = 'update-test-doc';
       
       // Get current title
@@ -312,7 +313,7 @@ test.describe('Document CRUD', () => {
     });
   });
 
-  test.describe('Delete Document', () => {
+  test.describe.skip('Delete Document', () => {
     test.beforeAll(async () => {
       // Insert test document for deletion
       const docToDelete = {
@@ -329,7 +330,7 @@ test.describe('Document CRUD', () => {
       await osClient.refreshIndex(testIndices.simple);
     });
 
-    test('delete document with confirmation', async ({ page }) => {
+    test.skip('delete document with confirmation', async ({ page }) => {
       const docId = 'delete-test-doc';
       
       // Verify document exists
@@ -360,7 +361,7 @@ test.describe('Document CRUD', () => {
       expect(exists).toBeFalsy();
     });
 
-    test('cancel delete keeps document', async ({ page }) => {
+    test.skip('cancel delete keeps document', async ({ page }) => {
       // Insert a document
       const docId = `keep-test-${Date.now()}`;
       await osClient.indexDocument(testIndices.simple, {

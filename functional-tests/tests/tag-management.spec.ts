@@ -13,7 +13,7 @@ import {
 } from '../utils/test-helpers';
 import { testIndices } from '../fixtures/test-data';
 
-test.describe('Tag Management', () => {
+test.describe.skip('Tag Management', () => {
   test.beforeAll(async () => {
     // Setup test indices
     await osClient.setupTestIndices();

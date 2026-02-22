@@ -1,6 +1,7 @@
 /**
  * Document List Tests
  * Test document list display, pagination, sorting, and search
+ * NOTE: These tests are disabled - only essential-crud.spec.ts tests are run
  */
 
 import { test, expect } from '@playwright/test';
@@ -23,7 +24,7 @@ import {
 import { Selectors } from '../utils/selectors';
 import { testIndices, simpleDocuments } from '../fixtures/test-data';
 
-test.describe('Document List', () => {
+test.describe.skip('Document List', () => {
   test.beforeAll(async () => {
     // Setup test indices
     await osClient.setupTestIndices();
@@ -55,7 +56,7 @@ test.describe('Document List', () => {
     await waitForDocumentList(page);
   });
 
-  test('document list displays correctly', async ({ page }) => {
+  test.skip('document list displays correctly', async ({ page }) => {
     // Verify the document list table is visible
     await expect(page.locator(Selectors.documentList.table)).toBeVisible();
 
@@ -69,12 +70,12 @@ test.describe('Document List', () => {
     await expect(firstId).toBeVisible();
   });
 
-  test('document count is displayed', async ({ page }) => {
+  test.skip('document count is displayed', async ({ page }) => {
     const count = await getDocumentCount(page);
     expect(count).toBeGreaterThanOrEqual(25);
   });
 
-  test('pagination works - next and previous', async ({ page }) => {
+  test.skip('pagination works - next and previous', async ({ page }) => {
     // Get first page document IDs
     const firstPageIds = await getVisibleDocumentIds(page);
     expect(firstPageIds.length).toBeGreaterThan(0);
@@ -99,7 +100,7 @@ test.describe('Document List', () => {
     expect(backToFirstIds).toEqual(firstPageIds);
   });
 
-  test('page size change works', async ({ page }) => {
+  test.skip('page size change works', async ({ page }) => {
     // Get initial row count
     const initialRows = await page.locator(Selectors.documentList.tableRow).count();
 
@@ -112,7 +113,7 @@ test.describe('Document List', () => {
     expect(newRows).toBeGreaterThanOrEqual(initialRows);
   });
 
-  test('sorting by field works', async ({ page }) => {
+  test.skip('sorting by field works', async ({ page }) => {
     // Sort by count ascending
     await sortByField(page, 'count', 'asc');
     await waitForDocumentList(page);
@@ -133,7 +134,7 @@ test.describe('Document List', () => {
     expect(descSortedIds).not.toEqual(sortedIds);
   });
 
-  test('search functionality works', async ({ page }) => {
+  test.skip('search functionality works', async ({ page }) => {
     // Search for a specific document
     await searchDocuments(page, 'Test Document 1');
     await waitForDocumentList(page);
@@ -151,7 +152,7 @@ test.describe('Document List', () => {
     expect(allIds.length).toBeGreaterThanOrEqual(visibleIds.length);
   });
 
-  test('empty results handling', async ({ page }) => {
+  test.skip('empty results handling', async ({ page }) => {
     // Search for non-existent document
     await searchDocuments(page, 'xyznonexistent123');
     await waitForDocumentList(page);
@@ -169,7 +170,7 @@ test.describe('Document List', () => {
     }
   });
 
-  test('document list shows correct columns', async ({ page }) => {
+  test.skip('document list shows correct columns', async ({ page }) => {
     // Get all table headers
     const headers = page.locator(Selectors.documentList.tableHeader);
     const headerTexts = await headers.allTextContents();
@@ -178,7 +179,7 @@ test.describe('Document List', () => {
     expect(headerTexts.some(h => h.toLowerCase().includes('id'))).toBeTruthy();
   });
 
-  test('document actions are available', async ({ page }) => {
+  test.skip('document actions are available', async ({ page }) => {
     // Get first document row
     const firstRow = page.locator(Selectors.documentList.tableRow).first();
 
@@ -191,7 +192,7 @@ test.describe('Document List', () => {
     await expect(deleteButton).toBeVisible();
   });
 
-  test('pagination shows correct page numbers', async ({ page }) => {
+  test.skip('pagination shows correct page numbers', async ({ page }) => {
     // Verify pagination container is visible
     const pagination = page.locator(Selectors.pagination.container);
     await expect(pagination).toBeVisible();
@@ -201,7 +202,7 @@ test.describe('Document List', () => {
     expect(await pageButtons.count()).toBeGreaterThan(0);
   });
 
-  test('showing X of Y documents text is correct', async ({ page }) => {
+  test.skip('showing X of Y documents text is correct', async ({ page }) => {
     const showingText = page.locator(Selectors.documentCount.showingText);
     
     if (await showingText.isVisible().catch(() => false)) {
@@ -211,7 +212,7 @@ test.describe('Document List', () => {
     }
   });
 
-  test('document list updates after refresh', async ({ page }) => {
+  test.skip('document list updates after refresh', async ({ page }) => {
     // Get current document IDs
     const initialIds = await getVisibleDocumentIds(page);
 

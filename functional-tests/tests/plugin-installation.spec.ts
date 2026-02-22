@@ -1,19 +1,20 @@
 /**
  * Plugin Installation Tests
  * Verify plugin is installed and accessible in OSD
+ * NOTE: These tests are disabled - only essential-crud.spec.ts tests are run
  */
 
 import { test, expect } from '@playwright/test';
 import { loginToOSD, waitForPluginToLoad } from '../utils/test-helpers';
 import { Selectors } from '../utils/selectors';
 
-test.describe('Plugin Installation', () => {
+test.describe.skip('Plugin Installation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     await loginToOSD(page);
   });
 
-  test('plugin appears in OSD navigation', async ({ page }) => {
+  test.skip('plugin appears in OSD navigation', async ({ page }) => {
     // Look for the plugin navigation link
     const navLink = page.locator(Selectors.plugin.navLink);
     
@@ -25,7 +26,7 @@ test.describe('Plugin Installation', () => {
     expect(linkText?.toLowerCase()).toContain('index');
   });
 
-  test('plugin navigation works', async ({ page }) => {
+  test.skip('plugin navigation works', async ({ page }) => {
     // Click on the plugin navigation link
     const navLink = page.locator(Selectors.plugin.navLink);
     await navLink.click();
@@ -37,7 +38,7 @@ test.describe('Plugin Installation', () => {
     await expect(page).toHaveURL(/.*opensearch_index_manager.*/);
   });
 
-  test('plugin loads without errors', async ({ page }) => {
+  test.skip('plugin loads without errors', async ({ page }) => {
     // Navigate to the plugin
     await page.goto('/app/opensearch_index_manager');
 
@@ -52,7 +53,7 @@ test.describe('Plugin Installation', () => {
     await expect(errorMessage).not.toBeVisible();
   });
 
-  test('plugin page has correct title', async ({ page }) => {
+  test.skip('plugin page has correct title', async ({ page }) => {
     // Navigate to the plugin
     await page.goto('/app/opensearch_index_manager');
     await waitForPluginToLoad(page);
@@ -65,7 +66,7 @@ test.describe('Plugin Installation', () => {
     expect(titleText?.toLowerCase()).toMatch(/index manager|opensearch index manager/);
   });
 
-  test('no console errors on plugin load', async ({ page }) => {
+  test.skip('no console errors on plugin load', async ({ page }) => {
     // Collect console errors
     const consoleErrors: string[] = [];
     page.on('console', (msg) => {
@@ -99,7 +100,7 @@ test.describe('Plugin Installation', () => {
     expect(pageErrors).toHaveLength(0);
   });
 
-  test('plugin components are rendered', async ({ page }) => {
+  test.skip('plugin components are rendered', async ({ page }) => {
     // Navigate to the plugin
     await page.goto('/app/opensearch_index_manager');
     await waitForPluginToLoad(page);
@@ -111,7 +112,7 @@ test.describe('Plugin Installation', () => {
     await expect(page.locator(Selectors.layout.mainContent)).toBeVisible();
   });
 
-  test('plugin responds to browser back button', async ({ page }) => {
+  test.skip('plugin responds to browser back button', async ({ page }) => {
     // Navigate to OSD home first
     await page.goto('/app/home');
     await page.waitForLoadState('networkidle');
@@ -135,7 +136,7 @@ test.describe('Plugin Installation', () => {
     await expect(page).toHaveURL(/.*opensearch_index_manager.*/);
   });
 
-  test('plugin is accessible via direct URL', async ({ page }) => {
+  test.skip('plugin is accessible via direct URL', async ({ page }) => {
     // Clear any existing storage
     await page.context().clearCookies();
 

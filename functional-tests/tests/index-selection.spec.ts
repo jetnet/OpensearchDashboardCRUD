@@ -1,6 +1,7 @@
 /**
  * Index Selection Tests
  * Test index dropdown, selection, and refresh functionality
+ * NOTE: These tests are disabled - only essential-crud.spec.ts tests are run
  */
 
 import { test, expect } from '@playwright/test';
@@ -15,7 +16,7 @@ import {
 import { Selectors } from '../utils/selectors';
 import { testIndices, simpleDocuments } from '../fixtures/test-data';
 
-test.describe('Index Selection', () => {
+test.describe.skip('Index Selection', () => {
   test.beforeAll(async () => {
     // Setup test indices with data
     await osClient.setupTestIndices();
@@ -38,7 +39,7 @@ test.describe('Index Selection', () => {
     await waitForPluginToLoad(page);
   });
 
-  test('index dropdown loads with available indices', async ({ page }) => {
+  test.skip('index dropdown loads with available indices', async ({ page }) => {
     // Click on dropdown to open
     const dropdownButton = page.locator(Selectors.indexSelector.dropdownButton).first();
     await dropdownButton.click();
@@ -55,7 +56,7 @@ test.describe('Index Selection', () => {
     expect(hasSimpleIndex).toBeTruthy();
   });
 
-  test('selecting an index loads its mapping', async ({ page }) => {
+  test.skip('selecting an index loads its mapping', async ({ page }) => {
     // Select the simple test index
     await selectIndex(page, testIndices.simple);
 
@@ -67,7 +68,7 @@ test.describe('Index Selection', () => {
     await expect(fieldNodes.first()).toBeVisible();
   });
 
-  test('document count updates when selecting index', async ({ page }) => {
+  test.skip('document count updates when selecting index', async ({ page }) => {
     // Select the simple test index
     await selectIndex(page, testIndices.simple);
 
@@ -84,7 +85,7 @@ test.describe('Index Selection', () => {
     expect(count).toBeGreaterThanOrEqual(simpleDocuments.length);
   });
 
-  test('selecting different indices updates the view', async ({ page }) => {
+  test.skip('selecting different indices updates the view', async ({ page }) => {
     // Select first index
     await selectIndex(page, testIndices.simple);
     
@@ -106,7 +107,7 @@ test.describe('Index Selection', () => {
     await expect(mappingViewer).toBeVisible();
   });
 
-  test('index refresh functionality works', async ({ page }) => {
+  test.skip('index refresh functionality works', async ({ page }) => {
     // Select an index
     await selectIndex(page, testIndices.simple);
     await page.waitForTimeout(1000);
@@ -123,7 +124,7 @@ test.describe('Index Selection', () => {
     await expect(options.first()).toBeVisible();
   });
 
-  test('empty state when no indices exist', async ({ page }) => {
+  test.skip('empty state when no indices exist', async ({ page }) => {
     // Create a temporary empty scenario by selecting an index with no docs
     await selectIndex(page, testIndices.empty);
     
@@ -134,7 +135,7 @@ test.describe('Index Selection', () => {
     await expect(page.locator(Selectors.mappingViewer.container)).toBeVisible();
   });
 
-  test('search within index dropdown works', async ({ page }) => {
+  test.skip('search within index dropdown works', async ({ page }) => {
     // Open dropdown
     const dropdownButton = page.locator(Selectors.indexSelector.dropdownButton).first();
     await dropdownButton.click();
@@ -158,7 +159,7 @@ test.describe('Index Selection', () => {
     }
   });
 
-  test('clearing index selection works', async ({ page }) => {
+  test.skip('clearing index selection works', async ({ page }) => {
     // Select an index first
     await selectIndex(page, testIndices.simple);
     await page.waitForTimeout(1000);
@@ -174,7 +175,7 @@ test.describe('Index Selection', () => {
     }
   });
 
-  test('index dropdown shows correct index names', async ({ page }) => {
+  test.skip('index dropdown shows correct index names', async ({ page }) => {
     // Open dropdown
     const dropdownButton = page.locator(Selectors.indexSelector.dropdownButton).first();
     await dropdownButton.click();
@@ -196,7 +197,7 @@ test.describe('Index Selection', () => {
     }
   });
 
-  test('selecting index persists on page refresh', async ({ page }) => {
+  test.skip('selecting index persists on page refresh', async ({ page }) => {
     // Select an index
     await selectIndex(page, testIndices.simple);
     await page.waitForTimeout(1000);

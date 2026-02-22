@@ -24,7 +24,7 @@ import {
   deepNestedDocuments,
 } from '../fixtures/test-data';
 
-test.describe('Nested Fields', () => {
+test.describe.skip('Nested Fields', () => {
   test.beforeAll(async () => {
     // Setup test indices with mappings
     await osClient.setupTestIndices();

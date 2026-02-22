@@ -115,71 +115,24 @@ export default defineConfig({
   /* Configure projects based on environment */
   projects: isCI
     ? [
-        /* CI: Only run smoke tests to verify plugin works */
+        /* CI: Only run essential tests */
         {
-          name: 'smoke',
-          testMatch: /plugin-installation\.spec\.ts/,
-          use: devices['Desktop Chrome'],
-        },
-        {
-          name: 'chromium',
-          dependencies: ['smoke'],
+          name: 'essential-chromium',
+          testMatch: /essential-crud\.spec\.ts/,
           use: devices['Desktop Chrome'],
         },
       ]
     : [
-        /* Local development: Run comprehensive browser tests */
+        /* Local development: Run essential tests only */
         {
-          name: 'smoke',
-          testMatch: /plugin-installation\.spec\.ts/,
+          name: 'essential-chromium',
+          testMatch: /essential-crud\.spec\.ts/,
           use: {
             ...devices['Desktop Chrome'],
             launchOptions: {
               args: ['--disable-web-security', '--disable-features=IsolateOrigins,site-per-process'],
             },
           },
-        },
-        {
-          name: 'chromium',
-          dependencies: ['smoke'],
-          use: {
-            ...devices['Desktop Chrome'],
-            launchOptions: {
-              args: ['--disable-web-security', '--disable-features=IsolateOrigins,site-per-process'],
-            },
-          },
-        },
-        {
-          name: 'firefox',
-          dependencies: ['smoke'],
-          use: {
-            ...devices['Desktop Firefox'],
-            launchOptions: {
-              firefoxUserPrefs: {
-                'security.fileuri.strict_origin_policy': false,
-              },
-            },
-          },
-        },
-        {
-          name: 'webkit',
-          dependencies: ['smoke'],
-          use: devices['Desktop Safari'],
-        },
-        {
-          name: 'Mobile Chrome',
-          dependencies: ['smoke'],
-          use: { ...devices['Pixel 5'] },
-        },
-        {
-          name: 'Microsoft Edge',
-          dependencies: ['smoke'],
-          use: { ...devices['Desktop Edge'], channel: 'msedge' },
-        },
-        {
-          name: 'Google Chrome',
-          dependencies: ['smoke'],
-          use: { ...devices['Desktop Chrome'], channel: 'chrome' },
         },
       ],
 

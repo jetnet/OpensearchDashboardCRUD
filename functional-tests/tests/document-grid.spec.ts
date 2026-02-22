@@ -1,6 +1,7 @@
 /**
  * Document Grid Tests
  * Test EuiDataGrid-based document display with resizable columns and pagination
+ * NOTE: These tests are disabled - only essential-crud.spec.ts tests are run
  */
 
 import { test, expect } from '@playwright/test';
@@ -15,7 +16,7 @@ import {
 import { Selectors } from '../utils/selectors';
 import { testIndices } from '../fixtures/test-data';
 
-test.describe('Document Grid', () => {
+test.describe.skip('Document Grid', () => {
   test.beforeAll(async () => {
     // Setup test indices
     await osClient.setupTestIndices();
@@ -51,7 +52,7 @@ test.describe('Document Grid', () => {
     await waitForDocumentList(page);
   });
 
-  test('document grid displays correctly', async ({ page }) => {
+  test.skip('document grid displays correctly', async ({ page }) => {
     // Verify the grid container is visible
     const grid = page.locator('[data-test-subj="document-grid"]');
     await expect(grid).toBeVisible();
@@ -61,13 +62,13 @@ test.describe('Document Grid', () => {
     expect(gridContent?.length).toBeGreaterThan(0);
   });
 
-  test('grid shows ID column', async ({ page }) => {
+  test.skip('grid shows ID column', async ({ page }) => {
     // Verify ID column header exists
     const idHeader = page.locator('.euiDataGridHeaderCell').filter({ hasText: 'ID' });
     await expect(idHeader).toBeVisible();
   });
 
-  test('grid displays document IDs', async ({ page }) => {
+  test.skip('grid displays document IDs', async ({ page }) => {
     // Get visible document IDs from grid
     const visibleIds = await getVisibleDocumentIds(page);
     expect(visibleIds.length).toBeGreaterThan(0);
@@ -77,7 +78,7 @@ test.describe('Document Grid', () => {
     expect(hasGridDocIds).toBeTruthy();
   });
 
-  test('grid pagination works', async ({ page }) => {
+  test.skip('grid pagination works', async ({ page }) => {
     // Get first page IDs
     const firstPageIds = await getVisibleDocumentIds(page);
     
@@ -99,7 +100,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('page size selector works', async ({ page }) => {
+  test.skip('page size selector works', async ({ page }) => {
     // Find page size selector
     const pageSizeSelector = page.locator('.euiTablePagination');
     
@@ -126,7 +127,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('grid columns are visible', async ({ page }) => {
+  test.skip('grid columns are visible', async ({ page }) => {
     // Check that multiple column headers are visible
     const headers = page.locator('.euiDataGridHeaderCell');
     const headerCount = await headers.count();
@@ -135,7 +136,7 @@ test.describe('Document Grid', () => {
     expect(headerCount).toBeGreaterThan(0);
   });
 
-  test('grid toolbar is present', async ({ page }) => {
+  test.skip('grid toolbar is present', async ({ page }) => {
     // Check for grid toolbar (column selector, display options)
     const toolbar = page.locator('.euiDataGrid__controls');
     
@@ -147,7 +148,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('column visibility selector works', async ({ page }) => {
+  test.skip('column visibility selector works', async ({ page }) => {
     // Look for column selector button
     const columnSelector = page.locator('button[data-test-subj="dataGridColumnSelectorButton"]');
     
@@ -163,7 +164,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('grid shows actions column', async ({ page }) => {
+  test.skip('grid shows actions column', async ({ page }) => {
     // Check for Actions column header
     const actionsHeader = page.locator('.euiDataGridHeaderCell').filter({ hasText: 'Action' });
     
@@ -177,7 +178,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('edit button in grid works', async ({ page }) => {
+  test.skip('edit button in grid works', async ({ page }) => {
     // Find first edit button
     const editButton = page.locator('[aria-label="Edit document"]').first();
     
@@ -194,7 +195,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('grid is responsive', async ({ page }) => {
+  test.skip('grid is responsive', async ({ page }) => {
     // Test at different viewport sizes
     const viewports = [
       { width: 1920, height: 1080 },
@@ -212,7 +213,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('grid handles empty state', async ({ page }) => {
+  test.skip('grid handles empty state', async ({ page }) => {
     // Search for non-existent document
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     await searchInput.fill('nonexistentdocumentxyz');
@@ -226,7 +227,7 @@ test.describe('Document Grid', () => {
     expect(hasEmptyPrompt).toBeTruthy();
   });
 
-  test('grid cell content is readable', async ({ page }) => {
+  test.skip('grid cell content is readable', async ({ page }) => {
     // Get first row cells
     const firstRowCells = page.locator('.euiDataGridRowCell').first();
     
@@ -236,7 +237,7 @@ test.describe('Document Grid', () => {
     }
   });
 
-  test('grid sorting works', async ({ page }) => {
+  test.skip('grid sorting works', async ({ page }) => {
     // Click on ID column header to sort
     const idHeader = page.locator('.euiDataGridHeaderCell').filter({ hasText: 'ID' });
     

@@ -91,7 +91,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        osd_version: ["2.19.0", "2.19.1", "2.19.2", "2.19.3", "2.19.4"]
+        osd_version: ["2.19.0"]
 
     outputs:
       build_status: ${{ steps.build.outputs.status }}

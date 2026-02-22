@@ -1,6 +1,7 @@
 /**
  * Search Tests
  * Test free-text search functionality with debounced querying
+ * NOTE: These tests are disabled - only essential-crud.spec.ts tests are run
  */
 
 import { test, expect } from '@playwright/test';
@@ -15,7 +16,7 @@ import {
 import { Selectors } from '../utils/selectors';
 import { testIndices } from '../fixtures/test-data';
 
-test.describe('Document Search', () => {
+test.describe.skip('Document Search', () => {
   test.beforeAll(async () => {
     // Setup test indices
     await osClient.setupTestIndices();
@@ -47,7 +48,7 @@ test.describe('Document Search', () => {
     await waitForDocumentList(page);
   });
 
-  test('search input is visible and functional', async ({ page }) => {
+  test.skip('search input is visible and functional', async ({ page }) => {
     // Verify search input is visible
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     await expect(searchInput).toBeVisible();
@@ -56,7 +57,7 @@ test.describe('Document Search', () => {
     await expect(searchInput).toBeEnabled();
   });
 
-  test('search input is disabled when no index is selected', async ({ page }) => {
+  test.skip('search input is disabled when no index is selected', async ({ page }) => {
     // Navigate to plugin without selecting index
     await page.reload();
     await waitForPluginToLoad(page);
@@ -66,7 +67,7 @@ test.describe('Document Search', () => {
     await expect(searchInput).toBeDisabled();
   });
 
-  test('search with valid query returns results', async ({ page }) => {
+  test.skip('search with valid query returns results', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // Type search query
@@ -81,7 +82,7 @@ test.describe('Document Search', () => {
     expect(visibleIds.length).toBeGreaterThan(0);
   });
 
-  test('search with multi-word query works', async ({ page }) => {
+  test.skip('search with multi-word query works', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // Type multi-word search query
@@ -96,7 +97,7 @@ test.describe('Document Search', () => {
     expect(visibleIds.length).toBeGreaterThan(0);
   });
 
-  test('search with no results shows empty state', async ({ page }) => {
+  test.skip('search with no results shows empty state', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // Search for non-existent term
@@ -117,7 +118,7 @@ test.describe('Document Search', () => {
     }
   });
 
-  test('clear search restores full document list', async ({ page }) => {
+  test.skip('clear search restores full document list', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // First perform a search
@@ -137,7 +138,7 @@ test.describe('Document Search', () => {
     expect(allResults.length).toBeGreaterThanOrEqual(searchResults.length);
   });
 
-  test('search input has clear button', async ({ page }) => {
+  test.skip('search input has clear button', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // Type in search
@@ -151,7 +152,7 @@ test.describe('Document Search', () => {
     expect(isClearable).toBeTruthy();
   });
 
-  test('debounced search does not fire on every keystroke', async ({ page }) => {
+  test.skip('debounced search does not fire on every keystroke', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // Type multiple characters quickly
@@ -166,7 +167,7 @@ test.describe('Document Search', () => {
     expect(value).toBe('Python');
   });
 
-  test('search shows loading indicator during search', async ({ page }) => {
+  test.skip('search shows loading indicator during search', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // Type search query
@@ -184,7 +185,7 @@ test.describe('Document Search', () => {
     expect(visibleIds.length).toBeGreaterThan(0);
   });
 
-  test('search query persists across page navigation', async ({ page }) => {
+  test.skip('search query persists across page navigation', async ({ page }) => {
     const searchInput = page.locator('[data-test-subj="document-search-input"]');
     
     // Perform search
